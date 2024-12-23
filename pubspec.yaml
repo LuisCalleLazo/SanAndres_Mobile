@@ -43,6 +43,7 @@ dependencies:
   jwt_decode: ^0.3.1
   jwt_decoder: ^2.0.1
   image_picker: ^1.1.2
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:
