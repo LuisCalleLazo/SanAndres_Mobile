@@ -11,7 +11,7 @@ class BtnFloatDev extends StatelessWidget {
     required this.icon,
     required this.text,
     required this.onPressed,
-    this.color = Colors.lightBlue,
+    this.color = Colors.white,
     this.bg,
   });
 
