@@ -11,56 +11,30 @@ class Navigation extends StatelessWidget {
     return BottomNavigationBar(
       type: BottomNavigationBarType.shifting,
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-      unselectedItemColor: Colors.amber,
-      selectedItemColor: Colors.amber[800],
-      items: <BottomNavigationBarItem>[
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Buscar',
-          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.history_edu),
-          label: 'Historial',
+      unselectedItemColor: Colors.red,
+      selectedItemColor: Colors.red[800],
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.storage),
+          label: 'Autopartes',
           backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         ),
         BottomNavigationBarItem(
-          icon: Stack(
-            children: [
-              const Icon(Icons.notifications),
-              Positioned(
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(1),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  constraints: const BoxConstraints(
-                    minHeight: 15,
-                    minWidth: 15,
-                  ),
-                  child: const Text(
-                    "7",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 8,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          label: 'Notifications',
-          backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+          icon: Icon(Icons.work_history_sharp),
+          label: 'Ventas',
+          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         ),
-        const BottomNavigationBarItem(
+        BottomNavigationBarItem(
+          icon: Icon(Icons.document_scanner),
+          label: 'Reportes',
+          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.edit_document),
+          label: 'Catalogos',
+          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.menu),
           label: 'Menu',
           backgroundColor: Color.fromRGBO(255, 255, 255, 1),

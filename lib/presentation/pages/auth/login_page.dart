@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             text: "Login",
             width: (MediaQuery.of(context).size.width) - 150,
             onPressed: () async {
+              context.push('/home');
               // final authContext = Provider.of<AuthProvider>(
               //   context,
               //   listen: false,
