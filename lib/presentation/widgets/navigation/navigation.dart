@@ -35,8 +35,8 @@ class Navigation extends StatelessWidget {
           backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.menu),
-          label: 'Menu',
+          icon: Icon(Icons.person_2_rounded),
+          label: 'Clientes',
           backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         ),
       ],
