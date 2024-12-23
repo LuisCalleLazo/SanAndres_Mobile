@@ -14,7 +14,7 @@ class BtnTextDefault extends StatelessWidget {
     this.width = 300.0,
     this.heigth = 60,
     this.fontSize = 18,
-    this.color = Colors.amber,
+    this.color = Colors.red,
   });
 
   @override

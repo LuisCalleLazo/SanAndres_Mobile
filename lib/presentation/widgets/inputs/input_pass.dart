@@ -27,10 +27,10 @@ class _InputPassState extends State<InputPass> {
       child: TextField(
         controller: widget.controller,
         style: const TextStyle(
-          color: Colors.amber,
+          color: Colors.red,
           fontSize: 20,
         ),
-        cursorColor: const Color.fromRGBO(255, 179, 0, 1),
+        cursorColor: const Color.fromARGB(255, 123, 17, 3),
         obscureText: _obscureText,
         decoration: InputDecoration(
           icon: const Icon(Icons.password),
@@ -38,7 +38,7 @@ class _InputPassState extends State<InputPass> {
           suffixIcon: IconButton(
             onPressed: _togglePasswordVisibility,
             icon: const Icon(Icons.remove_red_eye_sharp),
-            color: Colors.amber,
+            color: Colors.red,
           ),
         ),
       ),

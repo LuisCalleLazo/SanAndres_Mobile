@@ -15,7 +15,7 @@ class InputDefault extends StatelessWidget {
     required this.icon,
     this.value,
     this.type = TextInputType.text,
-    this.color = Colors.amber,
+    this.color = Colors.red,
   });
 
   @override
@@ -31,7 +31,7 @@ class InputDefault extends StatelessWidget {
           fontSize: 17,
         ),
         keyboardType: type,
-        cursorColor: const Color.fromRGBO(255, 179, 0, 1),
+        cursorColor: const Color.fromARGB(255, 135, 22, 5),
         decoration: InputDecoration(
           icon: Icon(icon),
           label: Text(
