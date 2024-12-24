@@ -76,20 +76,6 @@ class MenuForItemClient extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
-            title: const Text('Generar recibo PDF', style: TextStyle(color: Colors.red)),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.table_rows_rounded, color: Colors.red),
-            title: const Text('Generar recibo XLSX', style: TextStyle(color: Colors.red)),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.delete, color: Colors.red),
             title: const Text('Eliminar', style: TextStyle(color: Colors.red)),
             onTap: () {

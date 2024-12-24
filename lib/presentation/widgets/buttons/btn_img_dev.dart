@@ -8,6 +8,7 @@ class BtnImgDev extends StatelessWidget {
   final IconData icon;
   final String img;
   final String? text;
+  final double circular;
   final double? minWidth;
   final double? maxWidth;
   final double? minHeight;
@@ -25,12 +26,12 @@ class BtnImgDev extends StatelessWidget {
     this.minHeight = 30.0,
     this.maxHeight = 100.0,
     this.text = "",
+    this.circular = 12,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromRGBO(0, 0, 0, 0),
+    return SizedBox(
       width: width,
       height: heigth,
       child: ConstrainedBox(
@@ -45,7 +46,7 @@ class BtnImgDev extends StatelessWidget {
             backgroundColor: WidgetStatePropertyAll(color),
             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(circular),
               ),
             ),
           ),

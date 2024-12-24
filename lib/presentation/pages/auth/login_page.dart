@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_pass.dart';
@@ -23,9 +24,18 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: ListView(
         children: [
-          const SizedBox(height: 100),
-          // const HeaderAuth(),
-          const SizedBox(height: 200),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 100),
+            child: Text(
+              "A.S.A",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.sairaStencilOne(
+                fontSize: 100,
+                fontWeight: FontWeight.bold,
+                color: Colors.red[900]
+              ),
+            ),
+          ),
 
           // todo: INPUTS de LOGIN
           InputDefault(
@@ -38,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
           InputPass(
             controller: passwordController,
           ),
-          const SizedBox(height: 150),
+          const SizedBox(height: 90),
           // todo: Boton de Login y de register
           BtnTextDefault(
             text: "Login",
