@@ -80,7 +80,7 @@ class _SalesScreenState extends State<SalesScreen> {
                       ? BtnFloatDev(
                           text: "",
                           onPressed: _toggleExpand,
-                          bg: Colors.red[500],
+                          bg: Colors.red[900],
                           icon: _isExpanded ? Icons.close : Icons.keyboard_arrow_up_rounded,
                         )
                       : const Spacer(),
