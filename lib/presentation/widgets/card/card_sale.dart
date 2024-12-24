@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:san_andres_mobile/presentation/widgets/text/text_decoration_dev.dart';
 
-class CardSale extends StatelessWidget {
+class CardSale extends StatefulWidget {
   const CardSale({super.key});
 
   @override
+  State<CardSale> createState() => _CardSaleState();
+}
+
+class _CardSaleState extends State<CardSale> {
+  
+  void _showOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return const MenuForItemSale(saleId: 1,);
+      },
+    );
+  }
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => _showOptions(context),
       child: Card(
         clipBehavior: Clip.hardEdge,
         elevation: 10,
@@ -80,6 +96,57 @@ class CardSale extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+
+// Menu de 3 opciones por cada tarjeta de autoparte
+class MenuForItemSale extends StatelessWidget {
+  final int saleId;
+  const MenuForItemSale({
+    super.key,
+    required this.saleId,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.edit, color: Colors.red),
+            title: const Text('Editar Información',
+                style: TextStyle(color: Colors.red)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
+            title: const Text('Generar recibo PDF', style: TextStyle(color: Colors.red)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.table_rows_rounded, color: Colors.red),
+            title: const Text('Generar recibo XLSX', style: TextStyle(color: Colors.red)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.delete, color: Colors.red),
+            title: const Text('Eliminar', style: TextStyle(color: Colors.red)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
     );
   }
