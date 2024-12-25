@@ -112,12 +112,44 @@ class MenuForItemAutopart extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.delete, color: Colors.red),
             title: const Text('Eliminar', style: TextStyle(color: Colors.red)),
-            onTap: () {
-              Navigator.pop(context);
+            onTap: () async {
+              final result = await _showDeleteDialog(context);
+              if (result == true) {
+                // onDelete();
+              }
             },
           ),
         ],
       ),
+    );
+  }
+
+  Future<bool?> _showDeleteDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirmar eliminación'),
+          content:
+              const Text('¿Estás seguro de que quieres eliminar esta imagen?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.blue[700]),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(
+                'Eliminar',
+                style: TextStyle(color: Colors.blue[500]),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

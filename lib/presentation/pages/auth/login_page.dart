@@ -52,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
           // todo: Boton de Login y de register
           BtnTextDefault(
             text: "Login",
+            color: const Color.fromARGB(255, 181, 28, 28),
             width: (MediaQuery.of(context).size.width) - 150,
             onPressed: () async {
               context.push('/home');
@@ -69,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           BtnTextDefault(
             text: "Registrarme",
+            color: const Color.fromARGB(255, 181, 28, 28),
             width: (MediaQuery.of(context).size.width) - 150,
             onPressed: () {
               context.push('/auth/register');

@@ -207,4 +207,34 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+
+  Future<bool?> _showFilterDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirmar eliminación'),
+          content:
+              const Text('¿Estás seguro de que quieres eliminar esta imagen?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.blue[700]),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(
+                'Eliminar',
+                style: TextStyle(color: Colors.blue[500]),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
