@@ -28,7 +28,7 @@ class InputDefault extends StatelessWidget {
         controller: controller,
         style: TextStyle(
           color: color,
-          fontSize: 17,
+          fontSize: 15,
         ),
         keyboardType: type,
         cursorColor: const Color.fromARGB(255, 135, 22, 5),
@@ -36,7 +36,7 @@ class InputDefault extends StatelessWidget {
           icon: Icon(icon),
           label: Text(
             label,
-            style: const TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 13),
           ),
           alignLabelWithHint: true,
         ),
