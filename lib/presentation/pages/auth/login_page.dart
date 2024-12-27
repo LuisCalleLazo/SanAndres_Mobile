@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_pass.dart';
@@ -29,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Text(
               "A.S.A",
               textAlign: TextAlign.center,
-              style: GoogleFonts.sairaStencilOne(
+              style: TextStyle(
                 fontSize: 100,
                 fontWeight: FontWeight.bold,
                 color: Colors.red[900]

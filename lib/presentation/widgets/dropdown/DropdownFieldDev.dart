@@ -8,6 +8,8 @@ class DropdownFieldDev extends StatefulWidget {
   final double heigth;
   final String label;
   final IconData icon;
+  final double pV;
+  final double pH;
   final ValueNotifier<String?> value;
   const DropdownFieldDev({
     super.key,
@@ -16,6 +18,8 @@ class DropdownFieldDev extends StatefulWidget {
     this.width = double.infinity,
     this.heigth = 50,
     this.label = "Seleccion",
+    this.pV = 12,
+    this.pH = 20,
     this.icon = Icons.abc_rounded,
     required this.value,
   });
@@ -28,7 +32,7 @@ class _DropdownFieldDevState extends State<DropdownFieldDev> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: widget.pV, horizontal: widget.pH),
       child: Column(
         children: [
           Padding(
