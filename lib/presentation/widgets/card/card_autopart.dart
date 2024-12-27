@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CardAutopart extends StatelessWidget {
   final int productId;
@@ -98,7 +99,7 @@ class MenuForItemAutopart extends StatelessWidget {
             title: const Text('Editar Información',
                 style: TextStyle(color: Colors.red)),
             onTap: () {
-              Navigator.pop(context);
+              context.push('/autoparts/edit');
             },
           ),
           ListTile(
