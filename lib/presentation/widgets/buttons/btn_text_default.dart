@@ -6,7 +6,7 @@ class BtnTextDefault extends StatelessWidget {
   final double? width;
   final double? heigth;
   final double? fontSize;
-  final Color color;
+  final Color? color;
   final double? minWidth;
   final double? maxWidth;
   final double? minHeight;

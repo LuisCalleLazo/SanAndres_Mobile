@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -94,15 +95,15 @@ class _HomePageState extends State<HomePage> {
             selectedIndex: _selectedIndex,
           ),
         ),
-          if (_isMenuVisible)
-            GestureDetector(
-              onTap: _toggleMenu,
-              child: Container(
-                color: Colors.black.withOpacity(0.5),
-                width: double.infinity,
-                height: double.infinity,
-              ),
+        if (_isMenuVisible)
+          GestureDetector(
+            onTap: _toggleMenu,
+            child: Container(
+              color: Colors.black.withOpacity(0.5),
+              width: double.infinity,
+              height: double.infinity,
             ),
+          ),
         if (_isMenuVisible)
           Positioned(
             top: 0,
@@ -148,9 +149,9 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading:
-                  const Icon(Icons.thirteen_mp_rounded, color: Colors.white),
+                  const Icon(CupertinoIcons.moon_fill, color: Colors.white),
               title: const Text(
-                "Tema",
+                "Modo Oscuto",
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
@@ -173,6 +174,17 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.help, color: Colors.white),
               title: const Text(
                 "Ayuda",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                // Acción al presionar
+                _toggleMenu();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.refresh, color: Colors.white),
+              title: const Text(
+                "Forzar actualización de datos",
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
@@ -207,7 +219,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   Future<bool?> _showFilterDialog(BuildContext context) {
     return showDialog<bool>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
@@ -63,26 +64,6 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
                 productCode: "wedwed-234n",
                 productPrice: 232.4,
               ),
-              CardAutopart(
-                productId: 1,
-                productCode: "wedwed-234n",
-                productPrice: 232.4,
-              ),
-              CardAutopart(
-                productId: 1,
-                productCode: "wedwed-234n",
-                productPrice: 232.4,
-              ),
-              CardAutopart(
-                productId: 1,
-                productCode: "wedwed-234n",
-                productPrice: 232.4,
-              ),
-              CardAutopart(
-                productId: 1,
-                productCode: "wedwed-234n",
-                productPrice: 232.4,
-              )
             ],
           ),
           if (_isExpanded)
@@ -105,7 +86,9 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
                     BtnFloatDev(
                       icon: Icons.add,
                       text: "Agregar",
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push('/autoparts/add');
+                      },
                     ),
                     const SizedBox(height: 20),
                     BtnFloatDev(
