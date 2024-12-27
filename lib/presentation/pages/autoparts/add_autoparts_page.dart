@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
+import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
 import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
-import 'package:san_andres_mobile/presentation/widgets/dropdown/DropdownFieldDev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 
 class AddAutopartsPage extends StatefulWidget {
@@ -67,7 +67,7 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
           BtnTextDefault(
             width: MediaQuery.of(context).size.width * 0.8,
             maxWidth: MediaQuery.of(context).size.width,
-            text: "Elija el autoparte",
+            text: "Elija el producto",
             onPressed: () {
               _showFilterDialog(context);
             },
@@ -88,82 +88,37 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
   }
 
   _showFilterDialog(BuildContext context) {
-    double heigthFil = 20;
-    List<String> categoriesAutopart = [
-      "TODOS",
-      "AMORTIGUADORES",
-      "JUNTAS",
-      "GRASAS",
-      "RODAMIENTOS",
-      "MUÑONES",
-      "FILTROS",
-      "FRENOS",
-      "DISCOS DE PRENSA",
-    ];
-    List<String> brandAutopart = [
-      "TODOS",
-      "YOITOKI",
-      "ICHIBAN",
-      "NISSAN",
-    ];
-    List<String> categoriesCar = [
-      "TODOS",
-      "LIGEROS",
-      "MOTOCICLETAS",
-      "CARGA LIGERA",
-      "CARGA PESADA",
-      "AGRICOLA Y DE CONSTRUCCION",
-      "TRANSPORTE MASIVO",
-      "RECREATIVO",
-    ];
-    List<String> brandCar = [
-      "TODOS",
-      "YOITOKI",
-      "ICHIBAN",
-      "NISSAN",
-    ];
     return showDialog(
       context: context,
       builder: (context) {
         return FilterDialog(
+          width: MediaQuery.of(context).size.width * 0.9,
+          height: 680,
           title: "Editar filtro de busqueda",
+          btnText: "Seleccionar",
           filters: [
+            Divider(color: Colors.red[900], thickness: 2),
+            const SizedBox(
+              height: 380, // Ajusta la altura según tu diseño.
+              child: SingleChildScrollView(
+                child: Column(  
+                  children: [
+                    CardAutopartMin(),
+                    CardAutopartMin(),
+                    CardAutopartMin(),
+                    CardAutopartMin(),
+                    CardAutopartMin(),
+                    CardAutopartMin(),
+                  ],
+                ),
+              ),
+            ),
+            Divider(color: Colors.red[900], thickness: 2),
+            const SizedBox(height: 20),
             InputDefault(
               label: "Codigo de autoparte",
               controller: _inputManager.getController("code"),
               icon: Icons.keyboard_alt,
-            ),
-            DropdownFieldDev(
-              items: categoriesAutopart,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Categoria de repuesto",
-              icon: Icons.category,
-              value: valueManagerString.getNotifier('category_autopart'),
-            ),
-            DropdownFieldDev(
-              items: brandAutopart,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Marca de repuesto",
-              icon: Icons.category,
-              value: valueManagerString.getNotifier('brand_autopart'),
-            ),
-            DropdownFieldDev(
-              items: categoriesCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Categoria de mobilidad",
-              icon: Icons.category,
-              value: valueManagerString.getNotifier('category_car'),
-            ),
-            DropdownFieldDev(
-              items: brandCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Marca de mobilidad",
-              icon: Icons.category,
-              value: valueManagerString.getNotifier('brand_car'),
             ),
           ],
         );

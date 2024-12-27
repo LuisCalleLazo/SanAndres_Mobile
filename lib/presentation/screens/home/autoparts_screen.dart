@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
@@ -121,7 +122,6 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
   }
 
   _showFilterDialog(BuildContext context) {
-    double heigthFil = 20;
     List<String> categoriesAutopart = [
       "TODOS",
       "AMORTIGUADORES",
@@ -159,12 +159,33 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
       context: context,
       builder: (context) {
         return FilterDialog(
+          width: MediaQuery.of(context).size.width * 0.9,
+          height: MediaQuery.of(context).size.height * 0.5,
           title: "Editar filtro de busqueda",
           filters: [
-            InputDefault(
-              label: "Codigo de autoparte",
-              controller: _inputManager.getController("code"),
-              icon: Icons.keyboard_alt,
+            DropdownFieldDev(
+              items: categoriesCar,
+              text: "Selecciona una opción",
+              width: MediaQuery.of(context).size.width * 0.67,
+              label: "Categoria de mobilidad",
+              icon: Icons.category_outlined,
+              value: valueManagerString.getNotifier('category_car'),
+            ),
+            DropdownFieldDev(
+              items: brandCar,
+              text: "Selecciona una opción",
+              width: MediaQuery.of(context).size.width * 0.67,
+              label: "Marca de mobilidad",
+              icon: Icons.branding_watermark_rounded,
+              value: valueManagerString.getNotifier('brand_car'),
+            ),
+            DropdownFieldDev(
+              items: brandCar,
+              text: "Selecciona una opción",
+              width: MediaQuery.of(context).size.width * 0.67,
+              label: "Vehiculo",
+              icon: CupertinoIcons.car,
+              value: valueManagerString.getNotifier('car'),
             ),
             DropdownFieldDev(
               items: categoriesAutopart,
@@ -179,44 +200,14 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
               text: "Selecciona una opción",
               width: MediaQuery.of(context).size.width * 0.67,
               label: "Marca de repuesto",
-              icon: Icons.category,
+              icon: Icons.branding_watermark,
               value: valueManagerString.getNotifier('brand_autopart'),
             ),
-            DropdownFieldDev(
-              items: categoriesCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Categoria de mobilidad",
-              icon: Icons.category,
-              value: valueManagerString.getNotifier('category_car'),
-            ),
-            DropdownFieldDev(
-              items: brandCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Marca de mobilidad",
-              icon: Icons.category,
-              value: valueManagerString.getNotifier('brand_car'),
-            ),
-            SizedBox(height: heigthFil - 10),
+            const SizedBox(height: 20),
             InputDefault(
-              label: "Precio Minimo",
-              controller: _inputManager.getController("price_min"),
-              icon: Icons.monetization_on_rounded,
-              type: TextInputType.number,
-            ),
-            SizedBox(height: heigthFil),
-            InputDefault(
-              label: "Precio Maximo",
-              controller: _inputManager.getController("price_max"),
-              icon: Icons.monetization_on_rounded,
-              type: TextInputType.number,
-            ),
-            SizedBox(height: heigthFil),
-            InputDefault(
-              label: "Medidas",
-              controller: _inputManager.getController("medidas"),
-              icon: Icons.category,
+              label: "Codigo de autoparte",
+              controller: _inputManager.getController("code"),
+              icon: Icons.keyboard_alt,
             ),
           ],
         );

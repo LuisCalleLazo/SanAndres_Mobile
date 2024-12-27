@@ -94,14 +94,6 @@ class MenuForItemAutopart extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: const Icon(Icons.photo_camera, color: Colors.red),
-            title:
-                const Text('Editar Fotos', style: TextStyle(color: Colors.red)),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.edit, color: Colors.red),
             title: const Text('Editar Información',
                 style: TextStyle(color: Colors.red)),

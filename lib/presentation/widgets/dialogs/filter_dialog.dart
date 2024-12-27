@@ -3,9 +3,19 @@ import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.
 
 class FilterDialog extends StatelessWidget {
   final String title;
+  final String btnText;
+  final double height;
+  final double width;
   final List<Widget> filters;
 
-  const FilterDialog({super.key, required this.title, required this.filters});
+  const FilterDialog({
+    super.key,
+    required this.title,
+    required this.filters,
+    required this.height,
+    required this.width,
+    this.btnText = "Aplicar",
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +24,8 @@ class FilterDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.height * 0.5,
+        width: width,
+        height: height,
         child: ListView(
           children: [
             Padding(
@@ -35,7 +45,7 @@ class FilterDialog extends StatelessWidget {
               child: BtnTextDefault(
                 heigth: 50,
                 width: MediaQuery.of(context).size.width * 0.7,
-                text: "Aplicar",
+                text: btnText,
                 onPressed: () {},
               ),
             ),
