@@ -3,22 +3,23 @@ import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_icon_dev.dart';
 
 class CardAutopartMin extends StatefulWidget {
-  const CardAutopartMin({super.key});
+  final bool isChecked;
+  final VoidCallback onTap;
+  const CardAutopartMin({
+    super.key,
+    required this.isChecked,
+    required this.onTap,
+  });
 
   @override
   State<CardAutopartMin> createState() => _CardAutopartMinState();
 }
 
 class _CardAutopartMinState extends State<CardAutopartMin> {
-  bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        setState(() {
-          _isChecked = !_isChecked; // Cambiar el estado al hacer clic
-        });
-      },
+      onTap: widget.onTap,
       child: Card(
         clipBehavior: Clip.hardEdge,
         elevation: 10,
@@ -71,7 +72,7 @@ class _CardAutopartMinState extends State<CardAutopartMin> {
                 ],
               ),
             ),
-            if (_isChecked)
+            if (widget.isChecked)
               const Positioned(
                 right: 10,
                 top: 10,

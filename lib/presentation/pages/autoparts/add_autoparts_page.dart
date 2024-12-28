@@ -64,6 +64,17 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
             icon: Icons.list,
           ),
           const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            color: Colors.red,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("Ninguno elegido", style: TextStyle(color: Colors.white),),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
           BtnTextDefault(
             width: MediaQuery.of(context).size.width * 0.8,
             maxWidth: MediaQuery.of(context).size.width,
@@ -88,40 +99,46 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
   }
 
   _showFilterDialog(BuildContext context) {
+    int? selectedCardIndex;
     return showDialog(
       context: context,
       builder: (context) {
-        return FilterDialog(
-          width: MediaQuery.of(context).size.width * 0.9,
-          height: 680,
-          title: "Editar filtro de busqueda",
-          btnText: "Seleccionar",
-          filters: [
-            Divider(color: Colors.red[900], thickness: 2),
-            const SizedBox(
-              height: 380, // Ajusta la altura según tu diseño.
-              child: SingleChildScrollView(
-                child: Column(  
-                  children: [
-                    CardAutopartMin(),
-                    CardAutopartMin(),
-                    CardAutopartMin(),
-                    CardAutopartMin(),
-                    CardAutopartMin(),
-                    CardAutopartMin(),
-                  ],
+        return StatefulBuilder(builder: (context, setState) {
+          return FilterDialog(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: 680,
+            title: "Editar filtro de busqueda",
+            btnText: "Seleccionar",
+            filters: [
+              Divider(color: Colors.red[900], thickness: 2),
+              SizedBox(
+                height: 380, // Ajusta la altura según tu diseño.
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(6, (index) {
+                      return CardAutopartMin(
+                        isChecked: selectedCardIndex == index,
+                        onTap: () {
+                          setState(() {
+                            selectedCardIndex =
+                                selectedCardIndex == index ? null : index;
+                          });
+                        },
+                      );
+                    }),
+                  ),
                 ),
               ),
-            ),
-            Divider(color: Colors.red[900], thickness: 2),
-            const SizedBox(height: 20),
-            InputDefault(
-              label: "Codigo de autoparte",
-              controller: _inputManager.getController("code"),
-              icon: Icons.keyboard_alt,
-            ),
-          ],
-        );
+              Divider(color: Colors.red[900], thickness: 2),
+              const SizedBox(height: 20),
+              InputDefault(
+                label: "Codigo de autoparte",
+                controller: _inputManager.getController("code"),
+                icon: Icons.keyboard_alt,
+              ),
+            ],
+          );
+        });
       },
     );
   }
