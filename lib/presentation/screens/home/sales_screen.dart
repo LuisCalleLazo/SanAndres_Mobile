@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_sale.dart';
 
@@ -54,40 +55,45 @@ class _SalesScreenState extends State<SalesScreen> {
               width: double.infinity,
               height: double.infinity,
             ),
-          ),Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20, bottom: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (_isExpanded) ...[
-                    BtnFloatDev(
-                      icon: Icons.add,
-                      text: "Agregar",
-                      onPressed: () {},
-                    ),
-                    const SizedBox(height: 20),
-                    BtnFloatDev(
-                      icon: Icons.search_off_sharp,
-                      text: "Filtro",
-                      onPressed: () {},
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                  // FAB principal para expandir o contraer
-                  stateOptions
-                      ? BtnFloatDev(
-                          text: "",
-                          onPressed: _toggleExpand,
-                          bg: Colors.red[900],
-                          icon: _isExpanded ? Icons.close : Icons.keyboard_arrow_up_rounded,
-                        )
-                      : const Spacer(),
+          ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20, bottom: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (_isExpanded) ...[
+                  BtnFloatDev(
+                    icon: Icons.add,
+                    text: "Agregar",
+                    onPressed: () {
+                      context.push('/sales/add');
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  BtnFloatDev(
+                    icon: Icons.search_off_sharp,
+                    text: "Filtro",
+                    onPressed: () {},
+                  ),
+                  const SizedBox(height: 20),
                 ],
-              ),
+                // FAB principal para expandir o contraer
+                stateOptions
+                    ? BtnFloatDev(
+                        text: "",
+                        onPressed: _toggleExpand,
+                        bg: Colors.red[900],
+                        icon: _isExpanded
+                            ? Icons.close
+                            : Icons.keyboard_arrow_up_rounded,
+                      )
+                    : const Spacer(),
+              ],
             ),
           ),
+        ),
       ],
     );
   }

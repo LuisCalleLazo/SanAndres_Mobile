@@ -6,6 +6,7 @@ class BtnIconDev extends StatelessWidget {
   final double? heigth;
   final double padd;
   final Color color;
+  final Color colorIcon;
   final IconData icon;
   final double? minWidth;
   final double? maxWidth;
@@ -18,6 +19,7 @@ class BtnIconDev extends StatelessWidget {
     this.heigth = 60,
     this.padd = 10,
     this.color = Colors.red,
+    this.colorIcon = Colors.black,
     this.icon = Icons.add,
     this.minWidth = 50.0,
     this.maxWidth = 150.0,
@@ -52,7 +54,7 @@ class BtnIconDev extends StatelessWidget {
             alignment: Alignment.center,
             child: Icon(
               icon,
-              color: Colors.black,
+              color: colorIcon,
             ),
           ),
         ),

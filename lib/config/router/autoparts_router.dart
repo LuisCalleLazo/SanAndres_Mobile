@@ -19,7 +19,7 @@ final autopartsRoutes = [
     builder: (context, state) => const EditAudtopartsPage(),
   ),
   GoRoute(
-    path: '$pathBase/edit/imgs',
+    path: '$pathBase/imgs',
     name: ImgsAutopartsPage.name,
     builder: (context, state) => const ImgsAutopartsPage(),
   ),

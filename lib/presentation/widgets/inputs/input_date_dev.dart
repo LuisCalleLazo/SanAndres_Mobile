@@ -52,7 +52,7 @@ class _InputDateDevState extends State<InputDateDev> {
                   widget.label,
                   style: const TextStyle(
                     fontSize: 16,
-                    color: Colors.amber,
+                    color: Color.fromARGB(255, 123, 13, 13),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
