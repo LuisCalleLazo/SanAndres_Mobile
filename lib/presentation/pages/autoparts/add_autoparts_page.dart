@@ -102,11 +102,10 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
     int? selectedCardIndex;
     return showDialog(
       context: context,
-      builder: (context) {
-        return StatefulBuilder(builder: (context, setState) {
+      builder: (context) {       return StatefulBuilder(builder: (context, setState) {
           return FilterDialog(
+            height:MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width * 0.9,
-            height: 680,
             title: "Editar filtro de busqueda",
             btnText: "Seleccionar",
             filters: [

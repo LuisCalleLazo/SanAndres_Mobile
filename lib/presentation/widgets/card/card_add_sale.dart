@@ -1,4 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
+import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
+import 'package:san_andres_mobile/presentation/widgets/dialogs/dialog_empty.dart';
+import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 
 class CardAddSale extends StatefulWidget {
   const CardAddSale({super.key});
@@ -103,7 +109,6 @@ class _CardAddSaleState extends State<CardAddSale> {
   }
 }
 
-// Menu de 3 opciones por cada tarjeta de autoparte
 class MenuForItemSale extends StatelessWidget {
   final int saleId;
   const MenuForItemSale({
@@ -111,8 +116,60 @@ class MenuForItemSale extends StatelessWidget {
     required this.saleId,
   });
 
+  _showEditDialog(BuildContext context, InputControllerManager controller) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return DialogEmpty(
+          width: MediaQuery.of(context).size.width * 0.95,
+          height: 350,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    "Detalle de producto de venta",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Color.fromARGB(255, 93, 7, 7),
+                    ),
+                  ),
+                ),
+              ),
+              InputDefault(
+                label: "Cantidad",
+                type: TextInputType.number,
+                controller: controller.getController("amount_sale"),
+                icon: CupertinoIcons.archivebox,
+              ),
+              const SizedBox(height: 20),
+              InputDefault(
+                label: "Precio por unidad",
+                type: TextInputType.number,
+                controller: controller.getController("price_sale"),
+                icon: CupertinoIcons.money_dollar,
+              ),
+              const SizedBox(height: 30),
+              BtnTextDefault(
+                heigth: 50,
+                minHeight: 30,
+                text: "Guardar",
+                onPressed: () {
+                  context.pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final InputControllerManager inputManager = InputControllerManager();
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -123,14 +180,14 @@ class MenuForItemSale extends StatelessWidget {
             title: const Text('Editar Información',
                 style: TextStyle(color: Colors.red)),
             onTap: () {
-              Navigator.pop(context);
+              _showEditDialog(context, inputManager);
             },
           ),
           ListTile(
             leading: const Icon(Icons.delete, color: Colors.red),
             title: const Text('Eliminar', style: TextStyle(color: Colors.red)),
             onTap: () {
-              Navigator.pop(context);
+              _showEditDialog(context, inputManager);
             },
           ),
         ],

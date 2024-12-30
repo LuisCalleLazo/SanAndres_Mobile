@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
@@ -6,6 +7,7 @@ import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.
 import 'package:san_andres_mobile/presentation/widgets/card/card_add_sale.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
 import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/DropdownFieldDev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_date_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 
@@ -39,9 +41,26 @@ class _AddSalePageState extends State<AddSalePage> {
             dropdownMonth: valueManagerString.getNotifier('date_month_last'),
             dropdownYear: valueManagerInt.getNotifier('date_year_last'),
           ),
+          const SizedBox(height: 20),
+          InputDefault(
+            label: "Cliente no registrado",
+            controller: _inputManager.getController(""),
+            icon: CupertinoIcons.person_alt_circle_fill,
+          ),
+          const SizedBox(height: 20),
+          DropdownFieldDev(
+            width: MediaQuery.of(context).size.width * 0.83,
+            items: const ["Cliente 1", "Cliente 2", "Cliente 3"],
+            label: "Seleccione un cliente registrado",
+            text: "Clientes registrados",
+            value: valueManagerString.getNotifier('client_register'),
+            icon: CupertinoIcons.person_2_fill,
+            pV: 20,
+          ),
+          const SizedBox(height: 20),
           Divider(color: Colors.red[900], thickness: 2),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.57,
+            height: MediaQuery.of(context).size.height * 0.60,
             child: SingleChildScrollView(
               child: Column(
                 children: List.generate(6, (index) {
@@ -105,21 +124,18 @@ class _AddSalePageState extends State<AddSalePage> {
             filters: [
               Divider(color: Colors.red[900], thickness: 2),
               SizedBox(
-                height: 380, // Ajusta la altura según tu diseño.
+                height: 380,
                 child: SingleChildScrollView(
                   child: Column(
                     children: List.generate(6, (index) {
                       return CardAutopartMin(
-                        isChecked: selectedCardIndices.contains(
-                            index), // Verificar si el índice está en la lista
+                        isChecked: selectedCardIndices.contains(index),
                         onTap: () {
                           setState(() {
                             if (selectedCardIndices.contains(index)) {
-                              selectedCardIndices.remove(
-                                  index); // Desmarcar si ya estaba seleccionado
+                              selectedCardIndices.remove(index);
                             } else {
-                              selectedCardIndices.add(
-                                  index); // Marcar si no estaba seleccionado
+                              selectedCardIndices.add(index);
                             }
                           });
                         },
