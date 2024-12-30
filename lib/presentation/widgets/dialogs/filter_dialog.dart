@@ -35,7 +35,7 @@ class FilterDialog extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.red[900],
-                  fontSize: 18,
+                  fontSize: 20,
                 ),
               ),
             ),

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/custom_dropdown.dart';
 import 'package:san_andres_mobile/shared/constants/items_drop_down.dart';
 
 class InputDateDev extends StatefulWidget {
@@ -20,7 +20,6 @@ class InputDateDev extends StatefulWidget {
 }
 
 class _InputDateDevState extends State<InputDateDev> {
-  // Maximos valores de tamaño de field
   final double maxHeigth = 400;
   final double itemHeigth = 50;
 
@@ -59,69 +58,51 @@ class _InputDateDevState extends State<InputDateDev> {
               ),
             ],
           ),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // Día
-              DropdownButton<int>(
-                menuMaxHeight: maxHeigth,
-                itemHeight: itemHeigth,
-                hint: const Text("Día"),
+              CustomDropdown<int>(
+                width: 100,
+                height: 40,
+                items: days,
                 value: selectedDay,
+                hint: "Día",
                 onChanged: (value) {
                   setState(() {
                     selectedDay = value;
                     widget.dropdownDay.value = value;
                   });
                 },
-                items: days.map((day) {
-                  return DropdownMenuItem<int>(
-                    value: day,
-                    child: Text(day.toString()),
-                  );
-                }).toList(),
               ),
               // Mes
-              DropdownButton<String>(
-                menuMaxHeight: maxHeigth,
-                itemHeight: itemHeigth,
-                hint: const Text("Mes"),
+              CustomDropdown<String>(
+                width: 170,
+                height: 40,
+                items: monthsDefault,
                 value: selectedMonth,
+                hint: "Mes",
                 onChanged: (value) {
                   setState(() {
                     selectedMonth = value;
                     widget.dropdownMonth.value = value;
                   });
                 },
-                items: monthsDefault.map(
-                  (month) {
-                    return DropdownMenuItem<String>(
-                      value: month,
-                      child: Text(month),
-                    );
-                  },
-                ).toList(),
               ),
               // Año
-              DropdownButton<int>(
-                menuMaxHeight: maxHeigth,
-                itemHeight: itemHeigth,
-                hint: const Text("Año"),
+              CustomDropdown<int>(
+                width: 120,
+                height: 40,
+                items: years,
                 value: selectedYear,
+                hint: "Año",
                 onChanged: (value) {
                   setState(() {
                     selectedYear = value;
                     widget.dropdownYear.value = value;
                   });
                 },
-                items: years.map(
-                  (year) {
-                    return DropdownMenuItem<int>(
-                      value: year,
-                      child: Text(year.toString()),
-                    );
-                  },
-                ).toList(),
               ),
             ],
           ),
