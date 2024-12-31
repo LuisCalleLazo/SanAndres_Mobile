@@ -4,6 +4,9 @@ import 'package:san_andres_mobile/shared/constants/items_drop_down.dart';
 
 class InputDateDev extends StatefulWidget {
   final String label;
+  final double widthDay;
+  final double widthMonth;
+  final double widthYear;
   final ValueNotifier<int?> dropdownDay;
   final ValueNotifier<String?> dropdownMonth;
   final ValueNotifier<int?> dropdownYear;
@@ -13,6 +16,9 @@ class InputDateDev extends StatefulWidget {
     required this.dropdownDay,
     required this.dropdownMonth,
     required this.dropdownYear,
+    this.widthDay = 100,
+    this.widthMonth = 170,
+    this.widthYear = 120,
   });
 
   @override
@@ -64,7 +70,7 @@ class _InputDateDevState extends State<InputDateDev> {
             children: [
               // Día
               CustomDropdown<int>(
-                width: 100,
+                width: widget.widthDay,
                 height: 40,
                 items: days,
                 value: selectedDay,
@@ -78,7 +84,7 @@ class _InputDateDevState extends State<InputDateDev> {
               ),
               // Mes
               CustomDropdown<String>(
-                width: 170,
+                width: widget.widthMonth,
                 height: 40,
                 items: monthsDefault,
                 value: selectedMonth,
@@ -92,7 +98,7 @@ class _InputDateDevState extends State<InputDateDev> {
               ),
               // Año
               CustomDropdown<int>(
-                width: 120,
+                width: widget.widthYear,
                 height: 40,
                 items: years,
                 value: selectedYear,
