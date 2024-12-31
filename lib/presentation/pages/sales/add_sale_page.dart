@@ -79,16 +79,19 @@ class _AddSalePageState extends State<AddSalePage> {
           Divider(color: Colors.red[900], thickness: 2),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Total:",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
                   "10 000 Bs",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.grey[700],
+                  ),
                 )
               ],
             ),

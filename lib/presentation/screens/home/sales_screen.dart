@@ -110,13 +110,9 @@ class _SalesScreenState extends State<SalesScreen> {
   _showFilterDialog(BuildContext context) {
     List<String> categoriesCar = [
       "TODOS",
-      "LIGEROS",
-      "MOTOCICLETAS",
-      "CARGA LIGERA",
-      "CARGA PESADA",
-      "AGRICOLA Y DE CONSTRUCCION",
-      "TRANSPORTE MASIVO",
-      "RECREATIVO",
+      "CLIENTE 1",
+      "CLIENTE 2",
+      "CLIENTE 3",
     ];
     return showDialog(
       context: context,
@@ -136,18 +132,18 @@ class _SalesScreenState extends State<SalesScreen> {
             ),
             InputDateDev(
               label: "Fecha inicial de busqueda",
-              widthDay: 100,
-              widthMonth: 160,
-              widthYear: 100,
+              widthDay: 95,
+              widthMonth: 155,
+              widthYear: 110,
               dropdownDay: valueManagerInt.getNotifier('init_date_day'),
               dropdownMonth: valueManagerString.getNotifier('init_date_month'),
               dropdownYear: valueManagerInt.getNotifier('init_date_year'),
             ),
             InputDateDev(
               label: "Fecha maxima de busqueda",
-              widthDay: 100,
-              widthMonth: 160,
-              widthYear: 100,
+              widthDay: 95,
+              widthMonth: 155,
+              widthYear: 110,
               dropdownDay: valueManagerInt.getNotifier('last_date_day'),
               dropdownMonth: valueManagerString.getNotifier('last_date_month'),
               dropdownYear: valueManagerInt.getNotifier('last_date_year'),

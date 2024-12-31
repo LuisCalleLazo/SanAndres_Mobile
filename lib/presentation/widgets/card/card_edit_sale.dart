@@ -79,35 +79,50 @@ class _CardAddSaleState extends State<CardEditSale> {
                       width: double.infinity,
                       bg: Colors.green[100],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Cantidad:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text("22 unidades")
+                        Text(
+                          "22 unidades",
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                          ),
+                        )
                       ],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Precio por unidad:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text("50 Bs")
+                        Text(
+                          "50 Bs",
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                          ),
+                        ),
                       ],
                     ),
                     Divider(color: Colors.red[900], thickness: 1),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Sub Total:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text("110 Bs")
+                        Text(
+                          "110 Bs",
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                          ),
+                        )
                       ],
                     ),
                   ],

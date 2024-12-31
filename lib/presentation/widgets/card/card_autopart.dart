@@ -124,20 +124,20 @@ class MenuForItemAutopart extends StatelessWidget {
         return AlertDialog(
           title: const Text('Confirmar eliminación'),
           content:
-              const Text('¿Estás seguro de que quieres eliminar esta imagen?'),
+              const Text('¿Estás seguro de que quieres eliminar este autoparte de su lista?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(
                 'Cancelar',
-                style: TextStyle(color: Colors.blue[700]),
+                style: TextStyle(color: Colors.red[700]),
               ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
               child: Text(
                 'Eliminar',
-                style: TextStyle(color: Colors.blue[500]),
+                style: TextStyle(color: Colors.red[500]),
               ),
             ),
           ],

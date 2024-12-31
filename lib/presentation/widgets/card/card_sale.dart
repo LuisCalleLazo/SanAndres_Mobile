@@ -63,24 +63,30 @@ class _CardSaleState extends State<CardSale> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Fecha",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text("2024 / 10 /12")
+                        Text(
+                          "2024 / 10 /12",
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Total",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text("200 Bs")
+                        Text(
+                          "200 Bs",
+                          style: TextStyle(color: Colors.grey[700]),
+                        )
                       ],
                     ),
                     TextDecorationDev(
@@ -111,6 +117,35 @@ class MenuForItemSale extends StatelessWidget {
     super.key,
     required this.saleId,
   });
+
+  Future<bool?> _showDeleteDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirmar eliminación'),
+          content:
+              const Text('¿Estás seguro de que quieres eliminar esta venta?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.red[700]),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(
+                'Eliminar',
+                style: TextStyle(color: Colors.red[500]),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,8 +181,11 @@ class MenuForItemSale extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.delete, color: Colors.red),
             title: const Text('Eliminar', style: TextStyle(color: Colors.red)),
-            onTap: () {
-              Navigator.pop(context);
+            onTap: () async {
+              final result = await _showDeleteDialog(context);
+              if (result == true) {
+                // onDelete();
+              }
             },
           ),
         ],
