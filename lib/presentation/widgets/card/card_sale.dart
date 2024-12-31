@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/widgets/text/text_decoration_dev.dart';
 
 class CardSale extends StatefulWidget {
@@ -9,7 +10,6 @@ class CardSale extends StatefulWidget {
 }
 
 class _CardSaleState extends State<CardSale> {
-  
   void _showOptions(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -17,10 +17,13 @@ class _CardSaleState extends State<CardSale> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return const MenuForItemSale(saleId: 1,);
+        return const MenuForItemSale(
+          saleId: 1,
+        );
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -101,7 +104,6 @@ class _CardSaleState extends State<CardSale> {
   }
 }
 
-
 // Menu de 3 opciones por cada tarjeta de autoparte
 class MenuForItemSale extends StatelessWidget {
   final int saleId;
@@ -122,19 +124,21 @@ class MenuForItemSale extends StatelessWidget {
             title: const Text('Editar Información',
                 style: TextStyle(color: Colors.red)),
             onTap: () {
-              Navigator.pop(context);
+              context.push('/sales/edit');
             },
           ),
           ListTile(
             leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
-            title: const Text('Generar recibo PDF', style: TextStyle(color: Colors.red)),
+            title: const Text('Generar recibo PDF',
+                style: TextStyle(color: Colors.red)),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.table_rows_rounded, color: Colors.red),
-            title: const Text('Generar recibo XLSX', style: TextStyle(color: Colors.red)),
+            title: const Text('Generar recibo XLSX',
+                style: TextStyle(color: Colors.red)),
             onTap: () {
               Navigator.pop(context);
             },

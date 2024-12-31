@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
+import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/dialogs/dialog_empty.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
+import 'package:san_andres_mobile/presentation/widgets/text/text_decoration_dev.dart';
 
-class CardAddSale extends StatefulWidget {
-  const CardAddSale({super.key});
+class CardEditSale extends StatefulWidget {
+  const CardEditSale({super.key});
 
   @override
-  State<CardAddSale> createState() => _CardAddSaleState();
+  State<CardEditSale> createState() => _CardAddSaleState();
 }
 
-class _CardAddSaleState extends State<CardAddSale> {
+class _CardAddSaleState extends State<CardEditSale> {
   void _showOptions(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -36,7 +38,7 @@ class _CardAddSaleState extends State<CardAddSale> {
         clipBehavior: Clip.hardEdge,
         elevation: 10,
         child: Container(
-          height: 150,
+          height: 180,
           color: Colors.white60,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
@@ -67,6 +69,16 @@ class _CardAddSaleState extends State<CardAddSale> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    TextDecorationDev(
+                      text: "Entregado",
+                      width: double.infinity,
+                      bg: Colors.amber[400],
+                    ),
+                    TextDecorationDev(
+                      text: "Cancelado",
+                      width: double.infinity,
+                      bg: Colors.green[100],
+                    ),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -116,13 +128,14 @@ class MenuForItemSale extends StatelessWidget {
     required this.saleId,
   });
 
-  _showEditDialog(BuildContext context, InputControllerManager controller) {
+  _showEditDialog(BuildContext context, InputControllerManager controller,
+      ValueNotifierManager<String?> notifier) {
     return showDialog(
       context: context,
       builder: (context) {
         return DialogEmpty(
           width: MediaQuery.of(context).size.width * 0.95,
-          height: 350,
+          height: 500,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -146,19 +159,35 @@ class MenuForItemSale extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               InputDefault(
+                label: "Cantidad entregada",
+                type: TextInputType.number,
+                controller: controller.getController("amount_sale_delivery"),
+                icon: CupertinoIcons.archivebox,
+              ),
+              const SizedBox(height: 20),
+              InputDefault(
                 label: "Precio por unidad",
                 type: TextInputType.number,
                 controller: controller.getController("price_sale"),
                 icon: CupertinoIcons.money_dollar,
               ),
-              const SizedBox(height: 30),
-              BtnTextDefault(
-                heigth: 50,
-                minHeight: 30,
-                text: "Guardar",
-                onPressed: () {
-                  context.pop();
-                },
+              const SizedBox(height: 20),
+              InputDefault(
+                label: "Cantidad pagada",
+                type: TextInputType.number,
+                controller: controller.getController("pay_sale_delivery"),
+                icon: Icons.payment,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: BtnTextDefault(
+                  heigth: 50,
+                  minHeight: 30,
+                  text: "Guardar",
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
               ),
             ],
           ),
@@ -170,6 +199,7 @@ class MenuForItemSale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final InputControllerManager inputManager = InputControllerManager();
+    final ValueNotifierManager<String?> valueManager = ValueNotifierManager();
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -180,7 +210,7 @@ class MenuForItemSale extends StatelessWidget {
             title: const Text('Editar Información',
                 style: TextStyle(color: Colors.red)),
             onTap: () {
-              _showEditDialog(context, inputManager);
+              _showEditDialog(context, inputManager, valueManager);
             },
           ),
           ListTile(

@@ -50,7 +50,7 @@ class _InputDateDevState extends State<InputDateDev> {
                 child: Text(
                   widget.label,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Color.fromARGB(255, 123, 13, 13),
                     fontWeight: FontWeight.bold,
                   ),

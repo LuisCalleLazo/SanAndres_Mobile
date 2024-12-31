@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
-import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_add_sale.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
@@ -58,6 +58,13 @@ class _AddSalePageState extends State<AddSalePage> {
             pV: 20,
           ),
           const SizedBox(height: 20),
+          BtnTextDefault(
+            text: "Agregar productos",
+            onPressed: () {
+              _showSelectDialog(context);
+            },
+          ),
+          const SizedBox(height: 20),
           Divider(color: Colors.red[900], thickness: 2),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.60,
@@ -88,23 +95,33 @@ class _AddSalePageState extends State<AddSalePage> {
           ),
           Divider(color: Colors.red[900], thickness: 2),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: BtnTextDefault(
-              onPressed: () {},
-              color: Colors.red[900],
-              text: "Guardar",
-              width: 150,
-              maxWidth: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                BtnTextDefault(
+                  color: Colors.red[900],
+                  width: 100,
+                  heigth: 50,
+                  minHeight: 30,
+                  text: "Guardar",
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+                BtnTextDefault(
+                  heigth: 50,
+                  width: 100,
+                  minHeight: 30,
+                  text: "Cancelar",
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+              ],
             ),
           ),
         ],
-      ),
-      floatingActionButton: BtnFloatDev(
-        onPressed: () {
-          _showSelectDialog(context);
-        },
-        icon: Icons.add,
-        text: "",
       ),
     );
   }

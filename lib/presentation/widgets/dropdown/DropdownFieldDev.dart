@@ -36,7 +36,7 @@ class _DropdownFieldDevState extends State<DropdownFieldDev> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 41),
+            padding: const EdgeInsets.only(left: 41, bottom: 10),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(

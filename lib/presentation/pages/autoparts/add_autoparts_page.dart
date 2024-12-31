@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
@@ -50,18 +49,6 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
             label: "Costo por mayor publico",
             controller: _inputManager.getController('cost_wholesale_public'),
             icon: Icons.public,
-          ),
-          const SizedBox(height: 20),
-          InputDefault(
-            label: "Cantidad disponible oficial",
-            controller: _inputManager.getController('amount_wholesale_public'),
-            icon: Icons.list_alt,
-          ),
-          const SizedBox(height: 20),
-          InputDefault(
-            label: "Cantidad disponible publico",
-            controller: _inputManager.getController('amount_wholesale_public'),
-            icon: Icons.list,
           ),
           const SizedBox(height: 20),
           Container(
