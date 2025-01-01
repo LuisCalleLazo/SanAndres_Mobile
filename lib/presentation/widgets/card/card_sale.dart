@@ -167,7 +167,7 @@ class MenuForItemSale extends StatelessWidget {
             title: const Text('Generar recibo PDF',
                 style: TextStyle(color: Colors.red)),
             onTap: () {
-              Navigator.pop(context);
+              context.push('/sales/receipt');
             },
           ),
           ListTile(
