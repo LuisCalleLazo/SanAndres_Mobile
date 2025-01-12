@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
+import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_sale.dart';
-import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
 import 'package:san_andres_mobile/presentation/widgets/dropdown/DropdownFieldDev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_date_dev.dart';
 
@@ -32,6 +32,16 @@ class _SalesScreenState extends State<SalesScreen> {
     setState(() {
       _isExpanded = !_isExpanded;
     });
+  }
+
+  void _showSnackbarFilter(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    final snackbar = SnackBar(
+      backgroundColor: Colors.white,
+      content: SnackbarSaleFilter(),
+      duration: const Duration(hours: 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   @override
@@ -83,7 +93,7 @@ class _SalesScreenState extends State<SalesScreen> {
                     icon: Icons.search_off_sharp,
                     text: "Filtro",
                     onPressed: () {
-                      _showFilterDialog(context);
+                      _showSnackbarFilter(context);
                     },
                   ),
                   const SizedBox(height: 20),
@@ -106,51 +116,55 @@ class _SalesScreenState extends State<SalesScreen> {
       ],
     );
   }
+}
 
-  _showFilterDialog(BuildContext context) {
-    List<String> categoriesCar = [
-      "TODOS",
-      "CLIENTE 1",
-      "CLIENTE 2",
-      "CLIENTE 3",
-    ];
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return FilterDialog(
-          width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.48,
-          title: "Editar filtro de busqueda",
-          filters: [
-            DropdownFieldDev(
-              items: categoriesCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Seleccionar por cliente",
-              icon: CupertinoIcons.person_2_alt,
-              value: valueManagerString.getNotifier('category_car'),
-            ),
-            InputDateDev(
-              label: "Fecha inicial de busqueda",
-              widthDay: 95,
-              widthMonth: 155,
-              widthYear: 110,
-              dropdownDay: valueManagerInt.getNotifier('init_date_day'),
-              dropdownMonth: valueManagerString.getNotifier('init_date_month'),
-              dropdownYear: valueManagerInt.getNotifier('init_date_year'),
-            ),
-            InputDateDev(
-              label: "Fecha maxima de busqueda",
-              widthDay: 95,
-              widthMonth: 155,
-              widthYear: 110,
-              dropdownDay: valueManagerInt.getNotifier('last_date_day'),
-              dropdownMonth: valueManagerString.getNotifier('last_date_month'),
-              dropdownYear: valueManagerInt.getNotifier('last_date_year'),
-            ),
-          ],
-        );
-      },
+class SnackbarSaleFilter extends StatelessWidget {
+  SnackbarSaleFilter({super.key});
+  final List<String> categoriesCar = [
+    "TODOS",
+    "CLIENTE 1",
+    "CLIENTE 2",
+    "CLIENTE 3",
+  ];
+  final valueManagerString = ValueNotifierManager<String?>();
+  final valueManagerInt = ValueNotifierManager<int?>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.45,
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+      child: ListView(
+        children: [
+          DropdownFieldDev(
+            items: categoriesCar,
+            text: "Selecciona una opción",
+            width: MediaQuery.of(context).size.width * 0.72,
+            label: "Seleccionar por cliente",
+            icon: CupertinoIcons.person_2_alt,
+            value: valueManagerString.getNotifier('category_car'),
+          ),
+          const SizedBox(height: 30),
+          InputDateDev(
+            label: "Fecha inicial de busqueda",
+            dropdownDay: valueManagerInt.getNotifier('init_date_day'),
+            dropdownMonth: valueManagerString.getNotifier('init_date_month'),
+            dropdownYear: valueManagerInt.getNotifier('init_date_year'),
+          ),
+          const SizedBox(height: 30),
+          InputDateDev(
+            label: "Fecha maxima de busqueda",
+            dropdownDay: valueManagerInt.getNotifier('last_date_day'),
+            dropdownMonth: valueManagerString.getNotifier('last_date_month'),
+            dropdownYear: valueManagerInt.getNotifier('last_date_year'),
+          ),
+          const SizedBox(height: 30),
+          BtnTextDefault(
+            text: "Aplicar filtro",
+            onPressed: () {},
+          ),
+        ],
+      ),
     );
   }
 }

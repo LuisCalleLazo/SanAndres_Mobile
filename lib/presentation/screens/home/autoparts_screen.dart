@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
+import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart.dart';
-import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
 import 'package:san_andres_mobile/presentation/widgets/dropdown/DropdownFieldDev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -18,8 +18,6 @@ class AutopartsScreen extends StatefulWidget {
 }
 
 class _AutopartsScreenState extends State<AutopartsScreen> {
-  final InputControllerManager _inputManager = InputControllerManager();
-  final valueManagerString = ValueNotifierManager<String?>();
   bool _isExpanded = false;
   late bool stateOptions;
   // bool _isDataLoaded = false;
@@ -35,6 +33,16 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
     setState(() {
       _isExpanded = !_isExpanded;
     });
+  }
+
+  void _showSnackbarFilter(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    final snackbar = SnackBar(
+      backgroundColor: Colors.white,
+      content: SnackbarFilter(),
+      duration: const Duration(hours: 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   @override
@@ -96,7 +104,7 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
                       icon: Icons.search_off_sharp,
                       text: "Filtro",
                       onPressed: () {
-                        _showFilterDialog(context);
+                        _showSnackbarFilter(context);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -120,98 +128,107 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
       ),
     );
   }
+}
 
-  _showFilterDialog(BuildContext context) {
-    List<String> categoriesAutopart = [
-      "TODOS",
-      "AMORTIGUADORES",
-      "JUNTAS",
-      "GRASAS",
-      "RODAMIENTOS",
-      "MUÑONES",
-      "FILTROS",
-      "FRENOS",
-      "DISCOS DE PRENSA",
-    ];
-    List<String> brandAutopart = [
-      "TODOS",
-      "YOITOKI",
-      "ICHIBAN",
-      "NISSAN",
-    ];
-    List<String> categoriesCar = [
-      "TODOS",
-      "LIGEROS",
-      "MOTOCICLETAS",
-      "CARGA LIGERA",
-      "CARGA PESADA",
-      "AGRICOLA Y DE CONSTRUCCION",
-      "TRANSPORTE MASIVO",
-      "RECREATIVO",
-    ];
-    List<String> brandCar = [
-      "TODOS",
-      "YOITOKI",
-      "ICHIBAN",
-      "NISSAN",
-    ];
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return FilterDialog(
-          width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.5,
-          title: "Editar filtro de busqueda",
-          filters: [
-            DropdownFieldDev(
-              items: categoriesCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Categoria de mobilidad",
-              icon: Icons.category_outlined,
-              value: valueManagerString.getNotifier('category_car'),
-            ),
-            DropdownFieldDev(
-              items: brandCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Marca de mobilidad",
-              icon: Icons.branding_watermark_rounded,
-              value: valueManagerString.getNotifier('brand_car'),
-            ),
-            DropdownFieldDev(
-              items: brandCar,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Vehiculo",
-              icon: CupertinoIcons.car,
-              value: valueManagerString.getNotifier('car'),
-            ),
-            DropdownFieldDev(
-              items: categoriesAutopart,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Categoria de repuesto",
-              icon: Icons.category,
-              value: valueManagerString.getNotifier('category_autopart'),
-            ),
-            DropdownFieldDev(
-              items: brandAutopart,
-              text: "Selecciona una opción",
-              width: MediaQuery.of(context).size.width * 0.67,
-              label: "Marca de repuesto",
-              icon: Icons.branding_watermark,
-              value: valueManagerString.getNotifier('brand_autopart'),
-            ),
-            const SizedBox(height: 20),
-            InputDefault(
-              label: "Codigo de autoparte",
-              controller: _inputManager.getController("code"),
-              icon: Icons.keyboard_alt,
-            ),
-          ],
-        );
-      },
+class SnackbarFilter extends StatelessWidget {
+  SnackbarFilter({super.key});
+  final List<String> categoriesAutopart = [
+    "TODOS",
+    "AMORTIGUADORES",
+    "JUNTAS",
+    "GRASAS",
+    "RODAMIENTOS",
+    "MUÑONES",
+    "FILTROS",
+    "FRENOS",
+    "DISCOS DE PRENSA",
+  ];
+  final List<String> brandAutopart = [
+    "TODOS",
+    "YOITOKI",
+    "ICHIBAN",
+    "NISSAN",
+  ];
+  final List<String> categoriesCar = [
+    "TODOS",
+    "LIGEROS",
+    "MOTOCICLETAS",
+    "CARGA LIGERA",
+    "CARGA PESADA",
+    "AGRICOLA Y DE CONSTRUCCION",
+    "TRANSPORTE MASIVO",
+    "RECREATIVO",
+  ];
+  final List<String> brandCar = [
+    "TODOS",
+    "YOITOKI",
+    "ICHIBAN",
+    "NISSAN",
+  ];
+
+  final InputControllerManager _inputManager = InputControllerManager();
+  final valueManagerString = ValueNotifierManager<String?>();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.65,
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: ListView(
+        children: [
+          DropdownFieldDev(
+            items: categoriesCar,
+            text: "Selecciona una opción",
+            width: MediaQuery.of(context).size.width * 0.72,
+            label: "Categoria de mobilidad",
+            icon: Icons.category_outlined,
+            value: valueManagerString.getNotifier('category_car'),
+          ),
+          DropdownFieldDev(
+            items: brandCar,
+            text: "Selecciona una opción",
+            width: MediaQuery.of(context).size.width * 0.72,
+            label: "Marca de mobilidad",
+            icon: Icons.branding_watermark_rounded,
+            value: valueManagerString.getNotifier('brand_car'),
+          ),
+          DropdownFieldDev(
+            items: brandCar,
+            text: "Selecciona una opción",
+            width: MediaQuery.of(context).size.width * 0.72,
+            label: "Vehiculo",
+            icon: CupertinoIcons.car,
+            value: valueManagerString.getNotifier('car'),
+          ),
+          DropdownFieldDev(
+            items: categoriesAutopart,
+            text: "Selecciona una opción",
+            width: MediaQuery.of(context).size.width * 0.72,
+            label: "Categoria de repuesto",
+            icon: Icons.category,
+            value: valueManagerString.getNotifier('category_autopart'),
+          ),
+          DropdownFieldDev(
+            items: brandAutopart,
+            text: "Selecciona una opción",
+            width: MediaQuery.of(context).size.width * 0.72,
+            label: "Marca de repuesto",
+            icon: Icons.branding_watermark,
+            value: valueManagerString.getNotifier('brand_autopart'),
+          ),
+          const SizedBox(height: 20),
+          InputDefault(
+            label: "Codigo de autoparte",
+            controller: _inputManager.getController("code"),
+            icon: Icons.keyboard_alt,
+          ),
+          const SizedBox(height: 30),
+          BtnTextDefault(
+            text: "Aplicar filtro",
+            onPressed: () {},
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
     );
   }
 }
