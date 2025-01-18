@@ -39,15 +39,18 @@ class _InputDefaultState extends State<InputDefault> {
             child: Row(
               children: [
                 Icon(widget.icon),
-                const SizedBox(width: 20,),
+                const SizedBox(
+                  width: 20,
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     widget.label,
                     style: const TextStyle(
-                        fontSize: 14,
-                        color: Color.fromARGB(255, 135, 22, 5),
-                        fontWeight: FontWeight.bold),
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 135, 22, 5),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],

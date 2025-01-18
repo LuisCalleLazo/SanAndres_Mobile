@@ -91,11 +91,11 @@ class _EditSalePageState extends State<EditSalePage> {
                 ),
                 Text(
                   "10 000 Bs",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.grey[700],
-                          ),
-                )
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.grey[700],
+                  ),
+                ),
               ],
             ),
           ),
