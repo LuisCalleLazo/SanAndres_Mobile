@@ -122,6 +122,7 @@ class SnackbarSaleFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthInput = MediaQuery.of(context).size.width * 0.95;
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
@@ -130,7 +131,7 @@ class SnackbarSaleFilter extends StatelessWidget {
           DropdownFieldDev(
             items: categoriesCar,
             text: "Selecciona una opción",
-            width: MediaQuery.of(context).size.width * 0.72,
+            width: widthInput,
             label: "Seleccionar por cliente",
             icon: CupertinoIcons.person_2_alt,
             value: valueManagerString.getNotifier('category_car'),

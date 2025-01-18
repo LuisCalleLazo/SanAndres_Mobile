@@ -16,10 +16,10 @@ class DropdownFieldDev extends StatefulWidget {
     required this.items,
     required this.text,
     this.width = 300,
-    this.heigth = 50,
+    this.heigth = 60,
     this.label = "Seleccion",
     this.pV = 12,
-    this.pH = 20,
+    this.pH = 10,
     this.icon = Icons.abc_rounded,
     required this.value,
   });
@@ -36,7 +36,7 @@ class _DropdownFieldDevState extends State<DropdownFieldDev> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 41, bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -54,7 +54,7 @@ class _DropdownFieldDevState extends State<DropdownFieldDev> {
             children: [
               Icon(widget.icon),
               SizedBox(
-                width: widget.width,
+                width: widget.width - 90,
                 height: widget.heigth,
                 child: DropdownDev(
                   items: widget.items,

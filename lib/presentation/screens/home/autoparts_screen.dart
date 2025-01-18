@@ -170,15 +170,16 @@ class SnackbarFilter extends StatelessWidget {
   final valueManagerString = ValueNotifierManager<String?>();
   @override
   Widget build(BuildContext context) {
+    double widthInput = MediaQuery.of(context).size.width * 0.95;
     return Container(
       height: MediaQuery.of(context).size.height * 0.65,
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
       child: ListView(
         children: [
           DropdownFieldDev(
             items: categoriesCar,
             text: "Selecciona una opción",
-            width: MediaQuery.of(context).size.width * 0.72,
+            width: widthInput,
             label: "Categoria de mobilidad",
             icon: Icons.category_outlined,
             value: valueManagerString.getNotifier('category_car'),
@@ -186,7 +187,7 @@ class SnackbarFilter extends StatelessWidget {
           DropdownFieldDev(
             items: brandCar,
             text: "Selecciona una opción",
-            width: MediaQuery.of(context).size.width * 0.72,
+            width: widthInput,
             label: "Marca de mobilidad",
             icon: Icons.branding_watermark_rounded,
             value: valueManagerString.getNotifier('brand_car'),
@@ -194,7 +195,7 @@ class SnackbarFilter extends StatelessWidget {
           DropdownFieldDev(
             items: brandCar,
             text: "Selecciona una opción",
-            width: MediaQuery.of(context).size.width * 0.72,
+            width: widthInput,
             label: "Vehiculo",
             icon: CupertinoIcons.car,
             value: valueManagerString.getNotifier('car'),
@@ -202,7 +203,7 @@ class SnackbarFilter extends StatelessWidget {
           DropdownFieldDev(
             items: categoriesAutopart,
             text: "Selecciona una opción",
-            width: MediaQuery.of(context).size.width * 0.72,
+            width: widthInput,
             label: "Categoria de repuesto",
             icon: Icons.category,
             value: valueManagerString.getNotifier('category_autopart'),
@@ -210,7 +211,7 @@ class SnackbarFilter extends StatelessWidget {
           DropdownFieldDev(
             items: brandAutopart,
             text: "Selecciona una opción",
-            width: MediaQuery.of(context).size.width * 0.72,
+            width: widthInput,
             label: "Marca de repuesto",
             icon: Icons.branding_watermark,
             value: valueManagerString.getNotifier('brand_autopart'),
