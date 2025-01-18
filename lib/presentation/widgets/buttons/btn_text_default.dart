@@ -17,7 +17,7 @@ class BtnTextDefault extends StatelessWidget {
     required this.onPressed,
     this.width = 300.0,
     this.heigth = 60,
-    this.fontSize = 18,
+    this.fontSize = 23,
     this.color = Colors.red,
     this.minWidth = 200.0,
     this.maxWidth = 350.0,

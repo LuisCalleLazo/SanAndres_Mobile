@@ -21,72 +21,83 @@ class _LoginPageState extends State<LoginPage> {
     DateTime now = DateTime.now();
     String dateNow = now.year.toString();
     return Scaffold(
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 100),
-            child: Text(
-              "A.S.A",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 100,
-                fontWeight: FontWeight.bold,
-                color: Colors.red[900]
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.30,
+                child: Center(
+                  child: Text(
+                    "A.S.A",
+                    style: TextStyle(
+                      fontSize: 100,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red[900],
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-
-          // todo: INPUTS de LOGIN
-          InputDefault(
-            label: "Ingresar su nombre o correo",
-            controller: emailController,
-            icon: Icons.mail,
-            value: emailController.text,
-          ),
-          const SizedBox(height: 60),
-          InputPass(
-            controller: passwordController,
-          ),
-          const SizedBox(height: 90),
-          // todo: Boton de Login y de register
-          BtnTextDefault(
-            text: "Login",
-            color: const Color.fromARGB(255, 181, 28, 28),
-            width: (MediaQuery.of(context).size.width) - 150,
-            onPressed: () async {
-              context.push('/home');
-              // final authContext = Provider.of<AuthProvider>(
-              //   context,
-              //   listen: false,
-              // );
-              // await authContext.login(
-              //   emailController.text,
-              //   passwordController.text,
-              //   context,
-              // );
-            },
-          ),
-          const SizedBox(height: 20),
-          BtnTextDefault(
-            text: "Registrarme",
-            color: const Color.fromARGB(255, 181, 28, 28),
-            width: (MediaQuery.of(context).size.width) - 150,
-            onPressed: () {
-              context.push('/auth/register');
-            },
-          ),
-          const SizedBox(height: 50),
-          // Datos de empresa
-          Center(
-            child: Text(
-              'SanAndres@$dateNow',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.30,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InputDefault(
+                      label: "Ingresar su nombre o correo",
+                      controller: emailController,
+                      icon: Icons.mail,
+                      value: emailController.text,
+                    ),
+                    InputPass(
+                      controller: passwordController,
+                    ),
+                  ],
+                ),
               ),
-            ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    BtnTextDefault(
+                      text: "Login",
+                      color: const Color.fromARGB(255, 181, 28, 28),
+                      width: (MediaQuery.of(context).size.width) - 80,
+                      maxWidth: (MediaQuery.of(context).size.width) - 30,
+                      onPressed: () async {
+                        context.push('/home');
+                      },
+                    ),
+                    BtnTextDefault(
+                      text: "Registrarme",
+                      color: const Color.fromARGB(255, 181, 28, 28),
+                      width: (MediaQuery.of(context).size.width) - 80,
+                      maxWidth: (MediaQuery.of(context).size.width) - 30,
+                      onPressed: () {
+                        context.push('/auth/register');
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: Center(
+                  child: Text(
+                    'SanAndres@$dateNow',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
