@@ -6,8 +6,9 @@ import 'package:san_andres_mobile/presentation/services/value_notifier_manager.d
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart.dart';
-import 'package:san_andres_mobile/presentation/widgets/dropdown/DropdownFieldDev.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_field_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
+import 'package:san_andres_mobile/shared/data/autoparts_data.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class AutopartsScreen extends StatefulWidget {
@@ -132,89 +133,56 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
 
 class SnackbarFilter extends StatelessWidget {
   SnackbarFilter({super.key});
-  final List<String> categoriesAutopart = [
-    "TODOS",
-    "AMORTIGUADORES",
-    "JUNTAS",
-    "GRASAS",
-    "RODAMIENTOS",
-    "MUÑONES",
-    "FILTROS",
-    "FRENOS",
-    "DISCOS DE PRENSA",
-  ];
-  final List<String> brandAutopart = [
-    "TODOS",
-    "YOITOKI",
-    "ICHIBAN",
-    "NISSAN",
-  ];
-  final List<String> categoriesCar = [
-    "TODOS",
-    "LIGEROS",
-    "MOTOCICLETAS",
-    "CARGA LIGERA",
-    "CARGA PESADA",
-    "AGRICOLA Y DE CONSTRUCCION",
-    "TRANSPORTE MASIVO",
-    "RECREATIVO",
-  ];
-  final List<String> brandCar = [
-    "TODOS",
-    "YOITOKI",
-    "ICHIBAN",
-    "NISSAN",
-  ];
 
   final InputControllerManager _inputManager = InputControllerManager();
-  final valueManagerString = ValueNotifierManager<String?>();
+  final valueManagerInt = ValueNotifierManager<int?>();
   @override
   Widget build(BuildContext context) {
-    double widthInput = MediaQuery.of(context).size.width * 0.95;
+    double widthInput = MediaQuery.of(context).size.width * 0.85;
     return Container(
       height: MediaQuery.of(context).size.height * 0.65,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
       child: ListView(
         children: [
           DropdownFieldDev(
-            items: categoriesCar,
+            items: AutopartsData.getCarCategories(),
             text: "Selecciona una opción",
             width: widthInput,
             label: "Categoria de mobilidad",
             icon: Icons.category_outlined,
-            value: valueManagerString.getNotifier('category_car'),
+            value: valueManagerInt.getNotifier('category_car'),
           ),
           DropdownFieldDev(
-            items: brandCar,
+            items: AutopartsData.getCarBrands(),
             text: "Selecciona una opción",
             width: widthInput,
             label: "Marca de mobilidad",
             icon: Icons.branding_watermark_rounded,
-            value: valueManagerString.getNotifier('brand_car'),
+            value: valueManagerInt.getNotifier('brand_car'),
           ),
           DropdownFieldDev(
-            items: brandCar,
+            items: AutopartsData.getCars(),
             text: "Selecciona una opción",
             width: widthInput,
             label: "Vehiculo",
             icon: CupertinoIcons.car,
-            value: valueManagerString.getNotifier('car'),
+            value: valueManagerInt.getNotifier('car'),
           ),
           DropdownFieldDev(
-            items: categoriesAutopart,
+            items: AutopartsData.getAutopartsCategories(),
             text: "Selecciona una opción",
             width: widthInput,
             label: "Categoria de repuesto",
             icon: Icons.category,
-            value: valueManagerString.getNotifier('category_autopart'),
+            value: valueManagerInt.getNotifier('category_autopart'),
           ),
           DropdownFieldDev(
-            items: brandAutopart,
+            items: AutopartsData.getAutopartBrands(),
             text: "Selecciona una opción",
             width: widthInput,
             label: "Marca de repuesto",
             icon: Icons.branding_watermark,
-            value: valueManagerString.getNotifier('brand_autopart'),
+            value: valueManagerInt.getNotifier('brand_autopart'),
           ),
           const SizedBox(height: 20),
           InputDefault(
@@ -226,6 +194,8 @@ class SnackbarFilter extends StatelessWidget {
           BtnTextDefault(
             text: "Aplicar filtro",
             onPressed: () {},
+            width: MediaQuery.of(context).size.width - 100,
+            maxWidth: MediaQuery.of(context).size.width - 100,
           ),
           const SizedBox(height: 30),
         ],

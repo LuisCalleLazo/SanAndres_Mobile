@@ -151,8 +151,7 @@ class MenuForItemSale extends StatelessWidget {
         return DialogEmpty(
           width: MediaQuery.of(context).size.width * 0.95,
           height: 500,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: ListView(
             children: [
               const Center(
                 child: Padding(

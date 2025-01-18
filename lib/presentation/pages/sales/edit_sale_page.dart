@@ -7,9 +7,10 @@ import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_edit_sale.dart';
 import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
-import 'package:san_andres_mobile/presentation/widgets/dropdown/DropdownFieldDev.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_field_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_date_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
+import 'package:san_andres_mobile/shared/utils/select_items.dart';
 
 class EditSalePage extends StatefulWidget {
   static String name = "edit_sale_page";
@@ -48,10 +49,14 @@ class _EditSalePageState extends State<EditSalePage> {
           ),
           DropdownFieldDev(
             width: MediaQuery.of(context).size.width * 0.83,
-            items: const ["Cliente 1", "Cliente 2", "Cliente 3"],
+            items: <SelectItems>[
+              SelectItems(id: 1, label: "Cliente 1"),
+              SelectItems(id: 2, label: "Cliente 2"),
+              SelectItems(id: 3, label: "Cliente 3"),
+            ],
             label: "Seleccione un cliente registrado",
             text: "Clientes registrados",
-            value: valueManagerString.getNotifier('client_register'),
+            value: valueManagerInt.getNotifier('client_register'),
             icon: CupertinoIcons.person_2_fill,
             pV: 20,
           ),

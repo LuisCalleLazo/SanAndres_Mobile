@@ -27,7 +27,7 @@ class InputDateDev extends StatefulWidget {
 
 class _InputDateDevState extends State<InputDateDev> {
   final double maxHeigth = 400;
-  final double itemHeigth = 50;
+  final double itemHeigth = 100;
 
   // Listas para los valores de días, meses y años
   final List<int> days = List.generate(31, (index) => index + 1);
@@ -44,25 +44,30 @@ class _InputDateDevState extends State<InputDateDev> {
     selectedDay ??= widget.dropdownDay.value;
     selectedMonth ??= widget.dropdownMonth.value;
     selectedYear ??= widget.dropdownYear.value;
+    const double heigthDropdown = 50;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
         children: [
-          Row(
-            children: [
-              const Icon(Icons.date_range),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, bottom: 10),
-                child: Text(
-                  widget.label,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 123, 13, 13),
-                    fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, left: 20),
+            child: Row(
+              children: [
+                const Icon(Icons.calendar_month),
+                const SizedBox(width: 20),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.label,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 123, 13, 13),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 10),
           Row(
@@ -71,7 +76,7 @@ class _InputDateDevState extends State<InputDateDev> {
               // Día
               CustomDropdown<int>(
                 width: widget.widthDay,
-                height: 40,
+                height: heigthDropdown,
                 items: days,
                 value: selectedDay,
                 hint: "Día",
@@ -85,7 +90,7 @@ class _InputDateDevState extends State<InputDateDev> {
               // Mes
               CustomDropdown<String>(
                 width: widget.widthMonth,
-                height: 40,
+                height: heigthDropdown,
                 items: monthsDefault,
                 value: selectedMonth,
                 hint: "Mes",
@@ -99,7 +104,7 @@ class _InputDateDevState extends State<InputDateDev> {
               // Año
               CustomDropdown<int>(
                 width: widget.widthYear,
-                height: 40,
+                height: heigthDropdown,
                 items: years,
                 value: selectedYear,
                 hint: "Año",

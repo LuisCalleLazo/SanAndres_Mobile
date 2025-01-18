@@ -5,8 +5,9 @@ import 'package:san_andres_mobile/presentation/services/value_notifier_manager.d
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_sale.dart';
-import 'package:san_andres_mobile/presentation/widgets/dropdown/DropdownFieldDev.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_field_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_date_dev.dart';
+import 'package:san_andres_mobile/shared/data/autoparts_data.dart';
 
 class SalesScreen extends StatefulWidget {
   const SalesScreen({super.key});
@@ -111,39 +112,39 @@ class _SalesScreenState extends State<SalesScreen> {
 
 class SnackbarSaleFilter extends StatelessWidget {
   SnackbarSaleFilter({super.key});
-  final List<String> categoriesCar = [
-    "TODOS",
-    "CLIENTE 1",
-    "CLIENTE 2",
-    "CLIENTE 3",
-  ];
   final valueManagerString = ValueNotifierManager<String?>();
   final valueManagerInt = ValueNotifierManager<int?>();
 
   @override
   Widget build(BuildContext context) {
-    double widthInput = MediaQuery.of(context).size.width * 0.95;
+    double widthInput = MediaQuery.of(context).size.width * 0.85;
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
       child: ListView(
         children: [
           DropdownFieldDev(
-            items: categoriesCar,
+            items: AutopartsData.getAutopartsCategories(),
+            text: "Selecciona una opción",
+            width: widthInput,
+            label: "Seleccionar por producto",
+            icon: Icons.production_quantity_limits_sharp,
+            value: valueManagerInt.getNotifier('category_car'),
+          ),
+          DropdownFieldDev(
+            items: AutopartsData.getAutopartsCategories(),
             text: "Selecciona una opción",
             width: widthInput,
             label: "Seleccionar por cliente",
-            icon: CupertinoIcons.person_2_alt,
-            value: valueManagerString.getNotifier('category_car'),
+            icon: Icons.person_sharp,
+            value: valueManagerInt.getNotifier('category_car'),
           ),
-          const SizedBox(height: 30),
           InputDateDev(
             label: "Fecha inicial de busqueda",
             dropdownDay: valueManagerInt.getNotifier('init_date_day'),
             dropdownMonth: valueManagerString.getNotifier('init_date_month'),
             dropdownYear: valueManagerInt.getNotifier('init_date_year'),
           ),
-          const SizedBox(height: 30),
           InputDateDev(
             label: "Fecha maxima de busqueda",
             dropdownDay: valueManagerInt.getNotifier('last_date_day'),

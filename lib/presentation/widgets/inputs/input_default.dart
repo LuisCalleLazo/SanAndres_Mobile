@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
 class InputDefault extends StatefulWidget {
   final String label;
   final IconData icon;
@@ -35,15 +36,21 @@ class _InputDefaultState extends State<InputDefault> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                widget.label,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color.fromARGB(255, 135, 22, 5),
+            child: Row(
+              children: [
+                Icon(widget.icon),
+                const SizedBox(width: 20,),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.label,
+                    style: const TextStyle(
+                        fontSize: 14,
+                        color: Color.fromARGB(255, 135, 22, 5),
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           Padding(
@@ -57,7 +64,6 @@ class _InputDefaultState extends State<InputDefault> {
               keyboardType: widget.type,
               cursorColor: const Color.fromARGB(255, 135, 22, 5),
               decoration: InputDecoration(
-                icon: Icon(widget.icon),
                 border: InputBorder.none,
                 alignLabelWithHint: false,
                 enabledBorder: UnderlineInputBorder(

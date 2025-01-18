@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:san_andres_mobile/shared/utils/select_items.dart';
 
 class DropdownDev extends StatefulWidget {
-  final List<String> items;
+  final List<SelectItems> items;
   final String text;
   final double width;
   final double heigth;
-  final ValueNotifier<String?> value;
+  final ValueNotifier<int?> value;
   const DropdownDev({
     super.key,
     required this.items,
@@ -20,19 +21,25 @@ class DropdownDev extends StatefulWidget {
 }
 
 class _DropdownDevState extends State<DropdownDev> {
-  String? selectedValue;
   @override
   Widget build(BuildContext context) {
-    selectedValue ??= widget.value.value;
+    
+    List<SelectItems> sortedItems = List.from(widget.items);
+    sortedItems.sort((a, b) => a.label.compareTo(b.label));
+    
+    final selectedItem = sortedItems.firstWhere(
+      (item) => item.id == widget.value.value,
+      orElse: () => widget.items.first,
+    );
     return SizedBox(
       width: widget.width,
       height: widget.heigth,
-      child: DropdownButtonFormField<String>(
+      child: DropdownButtonFormField<SelectItems>(
           alignment: Alignment.centerLeft,
           iconSize: 30,
           borderRadius: BorderRadius.circular(10),
           focusColor: Colors.red,
-          value: selectedValue,
+          value: selectedItem,
           hint: Padding(
             padding: const EdgeInsets.only(left: 30),
             child: Text(
@@ -40,22 +47,21 @@ class _DropdownDevState extends State<DropdownDev> {
               textAlign: TextAlign.left,
             ),
           ),
-          items: widget.items.map<DropdownMenuItem<String>>(
-            (String value) {
-              return DropdownMenuItem<String>(
+          items: sortedItems.map<DropdownMenuItem<SelectItems>>(
+            (SelectItems value) {
+              return DropdownMenuItem<SelectItems>(
                 value: value,
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(value),
+                  child: Text(value.label),
                 ),
               );
             },
           ).toList(),
-          onChanged: (String? newValue) {
+          onChanged: (SelectItems? newValue) {
             setState(
               () {
-                selectedValue = newValue;
-                widget.value.value = newValue;
+                widget.value.value = newValue?.id;
               },
             );
           }),

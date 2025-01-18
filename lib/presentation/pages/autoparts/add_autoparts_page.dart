@@ -31,24 +31,28 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
             label: "Costo unitario oficial",
             controller: _inputManager.getController('cost_unit'),
             icon: Icons.money,
+            type: TextInputType.number,
           ),
           const SizedBox(height: 20),
           InputDefault(
             label: "Costo unitario publico",
             controller: _inputManager.getController('cost_unit_public'),
             icon: Icons.public,
+            type: TextInputType.number,
           ),
           const SizedBox(height: 20),
           InputDefault(
             label: "Costo por mayor oficial",
             controller: _inputManager.getController('cost_wholesale'),
             icon: Icons.money,
+            type: TextInputType.number,
           ),
           const SizedBox(height: 20),
           InputDefault(
             label: "Costo por mayor publico",
             controller: _inputManager.getController('cost_wholesale_public'),
             icon: Icons.public,
+            type: TextInputType.number,
           ),
           const SizedBox(height: 20),
           Container(
