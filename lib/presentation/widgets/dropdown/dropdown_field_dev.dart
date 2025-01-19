@@ -17,7 +17,7 @@ class DropdownFieldDev extends StatefulWidget {
     required this.items,
     required this.text,
     this.width = 300,
-    this.heigth = 50,
+    this.heigth = 60,
     this.label = "Seleccion",
     this.pV = 12,
     this.pH = 10,

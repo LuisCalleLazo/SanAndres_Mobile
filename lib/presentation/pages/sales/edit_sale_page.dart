@@ -8,7 +8,6 @@ import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.da
 import 'package:san_andres_mobile/presentation/widgets/card/card_edit_sale.dart';
 import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
 import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_field_dev.dart';
-import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_select_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_date_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 import 'package:san_andres_mobile/shared/utils/select_items.dart';
@@ -27,13 +26,6 @@ class _EditSalePageState extends State<EditSalePage> {
   final valueManagerString = ValueNotifierManager<String?>();
   final valueManagerInt = ValueNotifierManager<int>();
 
-  final List<SelectItems> items = [
-    SelectItems(id: 1, label: 'Montaña'),
-    SelectItems(id: 2, label: 'Playa'),
-    SelectItems(id: 3, label: 'Valle'),
-    SelectItems(id: 4, label: 'Desierto'),
-    SelectItems(id: 5, label: 'Cordillera'),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +62,8 @@ class _EditSalePageState extends State<EditSalePage> {
           ),
           const SizedBox(height: 20),
           BtnTextDefault(
+            width: MediaQuery.of(context).size.width - 100,
+            maxWidth: MediaQuery.of(context).size.width - 10,
             text: "Agregar productos",
             onPressed: () {
               _showSelectDialog(context);
@@ -134,11 +128,6 @@ class _EditSalePageState extends State<EditSalePage> {
                 ),
               ],
             ),
-          ),
-          SizedBox(height: 30),
-          DropdownSelectDev(
-            items: items,
-            selectedId: valueManagerInt.getNotifier("name"),
           ),
         ],
       ),

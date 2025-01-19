@@ -8,6 +8,7 @@ import 'package:san_andres_mobile/presentation/widgets/card/card_add_sale.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
 import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
 import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_field_dev.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_select_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_date_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 import 'package:san_andres_mobile/shared/utils/select_items.dart';
@@ -27,6 +28,7 @@ class _AddSalePageState extends State<AddSalePage> {
   final valueManagerString = ValueNotifierManager<String?>();
   final valueManagerInt = ValueNotifierManager<int>();
 
+  List<SelectItems> items = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +64,9 @@ class _AddSalePageState extends State<AddSalePage> {
             icon: CupertinoIcons.person_2_fill,
           ),
           const SizedBox(height: 20),
-          BtnTextDefault(
-            text: "Agregar productos",
-            onPressed: () {
-              _showSelectDialog(context);
-            },
+          DropdownSelectDev(
+            items: items,
+            selectedId: valueManagerInt.getNotifier("name"),
           ),
           const SizedBox(height: 20),
           Divider(color: Colors.red[900], thickness: 2),

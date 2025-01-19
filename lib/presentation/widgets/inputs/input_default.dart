@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:san_andres_mobile/presentation/widgets/text/text_label_input_dev.dart';
+
 class InputDefault extends StatefulWidget {
   final String label;
   final IconData icon;
@@ -8,6 +10,9 @@ class InputDefault extends StatefulWidget {
   final TextEditingController controller;
   final Color color;
   final TextInputType type;
+  final InputDecoration? decoration;
+  final bool readOnly;
+  final Color bg;
 
   const InputDefault({
     super.key,
@@ -15,6 +20,9 @@ class InputDefault extends StatefulWidget {
     required this.controller,
     required this.icon,
     this.value,
+    this.bg = Colors.transparent,
+    this.readOnly = false,
+    this.decoration,
     this.type = TextInputType.text,
     this.color = Colors.red,
   });
@@ -34,67 +42,51 @@ class _InputDefaultState extends State<InputDefault> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          TextLabelInputDev(icon: widget.icon, label: widget.label),
           Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              children: [
-                Icon(widget.icon),
-                const SizedBox(
-                  width: 20,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              color: widget.bg,
+              child: TextField(
+                controller: widget.controller,
+                readOnly: widget.readOnly,
+                style: TextStyle(
+                  color: widget.color,
+                  fontSize: 15,
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.label,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color.fromARGB(255, 135, 22, 5),
-                      fontWeight: FontWeight.bold,
+                keyboardType: widget.type,
+                cursorColor: const Color.fromARGB(255, 135, 22, 5),
+                decoration: widget.decoration ??
+                    InputDecoration(
+                      border: InputBorder.none,
+                      alignLabelWithHint: false,
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 135, 22, 5),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 14),
-            child: TextField(
-              controller: widget.controller,
-              style: TextStyle(
-                color: widget.color,
-                fontSize: 15,
+                onTap: () {
+                  setState(() {
+                    isFocused = true;
+                  });
+                },
+                onEditingComplete: () {
+                  setState(() {
+                    isFocused = false;
+                  });
+                },
+                onSubmitted: (_) {
+                  setState(() {
+                    isFocused = false;
+                  });
+                },
               ),
-              keyboardType: widget.type,
-              cursorColor: const Color.fromARGB(255, 135, 22, 5),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                alignLabelWithHint: false,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade400,
-                  ),
-                ),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(255, 135, 22, 5),
-                  ),
-                ),
-              ),
-              onTap: () {
-                setState(() {
-                  isFocused = true;
-                });
-              },
-              onEditingComplete: () {
-                setState(() {
-                  isFocused = false;
-                });
-              },
-              onSubmitted: (_) {
-                setState(() {
-                  isFocused = false;
-                });
-              },
             ),
           ),
         ],
