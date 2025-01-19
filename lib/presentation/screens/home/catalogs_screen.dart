@@ -12,20 +12,20 @@ class CatalogsScreen extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           elevation: 10,
           child: SizedBox(
-            height: 250,
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BtnImgDev(
                   onPressed: () {},
-                  width: 180,
-                  heigth: 180,
+                  width: MediaQuery.of(context).size.width * 0.45 - 50,
+                  heigth: MediaQuery.of(context).size.height * 0.25 - 50,
                   img: "catalogo1.png",
                 ),
                 BtnImgDev(
                   onPressed: () {},
-                  width: 180,
-                  heigth: 180,
+                  width: MediaQuery.of(context).size.width * 0.45 - 50,
+                  heigth: MediaQuery.of(context).size.height * 0.25 - 50,
                   img: "catalogo2.png",
                 ),
               ],

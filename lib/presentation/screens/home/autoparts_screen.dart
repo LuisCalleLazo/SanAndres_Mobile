@@ -39,6 +39,7 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
   void _showSnackbarFilter(BuildContext context) {
     ScaffoldMessenger.of(context).clearSnackBars();
     final snackbar = SnackBar(
+      padding: const EdgeInsets.all(0),
       backgroundColor: Colors.white,
       content: SnackbarFilter(),
       duration: const Duration(hours: 1),
@@ -141,7 +142,7 @@ class SnackbarFilter extends StatelessWidget {
     double widthInput = MediaQuery.of(context).size.width * 0.85;
     return Container(
       height: MediaQuery.of(context).size.height * 0.65,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: ListView(
         children: [
           DropdownFieldDev(
@@ -194,8 +195,8 @@ class SnackbarFilter extends StatelessWidget {
           BtnTextDefault(
             text: "Aplicar filtro",
             onPressed: () {},
-            width: MediaQuery.of(context).size.width - 100,
-            maxWidth: MediaQuery.of(context).size.width - 100,
+            width: MediaQuery.of(context).size.width * 0.9,
+            maxWidth: MediaQuery.of(context).size.width * 0.9,
           ),
           const SizedBox(height: 30),
         ],

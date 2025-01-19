@@ -32,7 +32,7 @@ class CardAutopart extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         elevation: 10,
         child: Container(
-          height: 140,
+          height: 120,
           color: Colors.white60,
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Row(

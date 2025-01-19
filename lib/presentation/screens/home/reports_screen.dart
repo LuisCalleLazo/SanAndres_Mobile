@@ -6,27 +6,29 @@ class ReportsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthBtn = MediaQuery.of(context).size.width * 0.5 - 50;
+    double heightBtn = MediaQuery.of(context).size.height * 0.25;
     return ListView(
       children: [
         Card(
           clipBehavior: Clip.hardEdge,
           elevation: 10,
           child: SizedBox(
-            height: 250,
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BtnImgDev(
                   onPressed: () {},
-                  width: 180,
-                  heigth: 180,
+                  width: widthBtn,
+                  heigth: heightBtn,
                   img: "cotizacion.png",
                   text: "Generar Cotizaciones",
                 ),
                 BtnImgDev(
                   onPressed: () {},
-                  width: 180,
-                  heigth: 180,
+                  width: widthBtn,
+                  heigth: heightBtn,
                   img: "estadisticas.png",
                   text: "Productos mas Vendidos",
                 ),
@@ -34,26 +36,26 @@ class ReportsScreen extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 20),
         Card(
           clipBehavior: Clip.hardEdge,
           elevation: 10,
           child: SizedBox(
-            height: 250,
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BtnImgDev(
                   onPressed: () {},
-                  width: 180,
-                  heigth: 180,
+                  width: widthBtn,
+                  heigth: heightBtn,
                   img: "estadisticas2.png",
                   text: "Ganancias Netas",
                 ),
                 BtnImgDev(
                   onPressed: () {},
-                  width: 180,
-                  heigth: 180,
+                  width: widthBtn,
+                  heigth: heightBtn,
                   img: "ganancias.png",
                   text: "Ventas por Cliente",
                 ),

@@ -49,14 +49,23 @@ class BtnImgDev extends StatelessWidget {
                 borderRadius: BorderRadius.circular(circular),
               ),
             ),
+            padding: WidgetStateProperty.all(
+              const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 5,
+              ),
+            ),
           ),
           onPressed: onPressed,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Image.asset(
-                'assets/imgs/$img',
-                fit: BoxFit.contain, // Opcional: cómo ajustar la imagen
+              SizedBox(
+                width: width! * 0.5,
+                child: Image.asset(
+                  'assets/imgs/$img',
+                  fit: BoxFit.contain, // Opcional: cómo ajustar la imagen
+                ),
               ),
               if (text != null && text!.isNotEmpty) // Comprueba si hay texto
                 Text(

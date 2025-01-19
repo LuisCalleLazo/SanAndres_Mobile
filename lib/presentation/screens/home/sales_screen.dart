@@ -38,6 +38,7 @@ class _SalesScreenState extends State<SalesScreen> {
   void _showSnackbarFilter(BuildContext context) {
     ScaffoldMessenger.of(context).clearSnackBars();
     final snackbar = SnackBar(
+      padding: const EdgeInsets.all(0),
       backgroundColor: Colors.white,
       content: SnackbarSaleFilter(),
       duration: const Duration(hours: 1),

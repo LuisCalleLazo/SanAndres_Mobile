@@ -106,7 +106,9 @@ class _AddSalePageState extends State<AddSalePage> {
               children: [
                 BtnTextDefault(
                   color: Colors.red[900],
-                  width: 100,
+                  width: MediaQuery.of(context).size.width * 0.5 - 70,
+                  minWidth: 50,
+                  maxWidth: MediaQuery.of(context).size.width * 0.5,
                   heigth: 50,
                   minHeight: 30,
                   text: "Guardar",
@@ -115,8 +117,10 @@ class _AddSalePageState extends State<AddSalePage> {
                   },
                 ),
                 BtnTextDefault(
+                  width: MediaQuery.of(context).size.width * 0.5 - 70,
+                  minWidth: 50,
+                  maxWidth: MediaQuery.of(context).size.width * 0.5,
                   heigth: 50,
-                  width: 100,
                   minHeight: 30,
                   text: "Cancelar",
                   onPressed: () {

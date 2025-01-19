@@ -17,8 +17,8 @@ class InputDateDev extends StatefulWidget {
     required this.dropdownMonth,
     required this.dropdownYear,
     this.widthDay = 100,
-    this.widthMonth = 170,
-    this.widthYear = 120,
+    this.widthMonth = 150,
+    this.widthYear = 110,
   });
 
   @override
@@ -44,7 +44,8 @@ class _InputDateDevState extends State<InputDateDev> {
     selectedDay ??= widget.dropdownDay.value;
     selectedMonth ??= widget.dropdownMonth.value;
     selectedYear ??= widget.dropdownYear.value;
-    const double heigthDropdown = 50;
+    double fontSize = MediaQuery.of(context).size.width * 0.035;
+    const double heigthDropdown = 40;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
@@ -59,9 +60,9 @@ class _InputDateDevState extends State<InputDateDev> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     widget.label,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color.fromARGB(255, 123, 13, 13),
+                    style: TextStyle(
+                      fontSize: fontSize,
+                      color: const Color.fromARGB(255, 123, 13, 13),
                       fontWeight: FontWeight.bold,
                     ),
                   ),

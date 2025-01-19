@@ -16,8 +16,8 @@ class BtnTextDefault extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.width = 300.0,
-    this.heigth = 60,
-    this.fontSize = 23,
+    this.heigth = 30,
+    this.fontSize = 15,
     this.color = Colors.red,
     this.minWidth = 200.0,
     this.maxWidth = 350.0,
@@ -46,12 +46,12 @@ class BtnTextDefault extends StatelessWidget {
           ),
           onPressed: onPressed,
           child: Container(
-            padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
             width: width,
-            height: heigth,
             alignment: Alignment.center,
+            height: heigth,
             child: Text(
               text,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: fontSize,
                 fontFamily: "",
