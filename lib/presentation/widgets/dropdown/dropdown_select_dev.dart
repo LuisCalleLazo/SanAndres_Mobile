@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
-import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/text/text_label_input_dev.dart';
@@ -121,16 +120,11 @@ class _SnackbarSelectItemsState extends State<_SnackbarSelectItems> {
     return Container(
       height: heightSnack,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: ListView(
         children: [
-          InputDefault(
-            label: "Buscar producto",
-            controller: _inputManager.getController("search"),
-            icon: Icons.search,
-          ),
-          SizedBox(
-            height: heightSnack - 200,
+          Container(
+            padding: const EdgeInsets.only(top: 20),
+            height: heightSnack * 0.8,
             child: SingleChildScrollView(
               child: Column(
                 children: List.generate(
@@ -152,6 +146,11 @@ class _SnackbarSelectItemsState extends State<_SnackbarSelectItems> {
                 ),
               ),
             ),
+          ),
+          InputDefault(
+            label: "Buscar producto",
+            controller: _inputManager.getController("search"),
+            icon: Icons.search,
           ),
         ],
       ),

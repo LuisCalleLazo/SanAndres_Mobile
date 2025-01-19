@@ -5,8 +5,6 @@ import 'package:san_andres_mobile/presentation/services/input_controller_manager
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_add_sale.dart';
-import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
-import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
 import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_field_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_select_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_date_dev.dart';
@@ -130,55 +128,6 @@ class _AddSalePageState extends State<AddSalePage> {
           ),
         ],
       ),
-    );
-  }
-
-  _showSelectDialog(BuildContext context) {
-    // Lista para almacenar los índices seleccionados
-    List<int> selectedCardIndices = [];
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(builder: (context, setState) {
-          return FilterDialog(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 680,
-            title: "Editar filtro de busqueda",
-            btnText: "Seleccionar",
-            filters: [
-              Divider(color: Colors.red[900], thickness: 2),
-              SizedBox(
-                height: 380,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(6, (index) {
-                      return CardAutopartMin(
-                        isChecked: selectedCardIndices.contains(index),
-                        onTap: () {
-                          setState(() {
-                            if (selectedCardIndices.contains(index)) {
-                              selectedCardIndices.remove(index);
-                            } else {
-                              selectedCardIndices.add(index);
-                            }
-                          });
-                        },
-                      );
-                    }),
-                  ),
-                ),
-              ),
-              Divider(color: Colors.red[900], thickness: 2),
-              const SizedBox(height: 20),
-              InputDefault(
-                label: "Codigo de autoparte",
-                controller: _inputManager.getController("code"),
-                icon: Icons.keyboard_alt,
-              ),
-            ],
-          );
-        });
-      },
     );
   }
 }

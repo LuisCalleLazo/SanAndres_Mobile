@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
+import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_field_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_pass.dart';
+import 'package:san_andres_mobile/shared/constants/default_value.dart';
 
 class LoginPage extends StatefulWidget {
   static String name = "login";
@@ -13,8 +17,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final InputControllerManager _inputManager = InputControllerManager();
+  final valueManagerInt = ValueNotifierManager<int?>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.30,
+              Container(
+                padding: const EdgeInsets.only(top: 50),
+                height: MediaQuery.of(context).size.height * 0.2,
                 child: Center(
                   child: Text(
                     "A.S.A",
@@ -41,18 +46,26 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.30,
+                height: MediaQuery.of(context).size.height * 0.4,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    DropdownFieldDev(
+                      items: itemsAppSections,
+                      text: "Tipo de servicio",
+                      label: "Tipo de servicio",
+                      icon: Icons.room_service_rounded,
+                      value: valueManagerInt.getNotifier("app_sections"),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                    ),
                     InputDefault(
                       label: "Ingresar su nombre o correo",
-                      controller: emailController,
+                      controller: _inputManager.getController("email_login"),
                       icon: Icons.mail,
-                      value: emailController.text,
+                      value: _inputManager.getController("email_login").text,
                     ),
                     InputPass(
-                      controller: passwordController,
+                      controller: _inputManager.getController("passw_login"),
                     ),
                   ],
                 ),
@@ -83,15 +96,12 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.15,
-                child: Center(
-                  child: Text(
-                    'SanAndres@$dateNow',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Center(
+                child: Text(
+                  'SanAndres@$dateNow',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
