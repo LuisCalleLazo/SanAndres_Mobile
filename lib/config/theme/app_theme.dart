@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:san_andres_mobile/config/theme/dropdown_theme.dart';
 import 'package:san_andres_mobile/config/theme/flt_btn_theme.dart';
 import 'package:san_andres_mobile/config/theme/input_theme.dart';
 
@@ -20,5 +21,6 @@ class AppTheme {
         textTheme: GoogleFonts.sairaStencilOneTextTheme(),
         inputDecorationTheme: InputThemeDefault().getTheme(_colorOutline),
         floatingActionButtonTheme: FloatBtnTheme().getTheme(_colorOutline),
+        dropdownMenuTheme: DropdownTheme(_colorOutline).getTheme(),
       );
 }
