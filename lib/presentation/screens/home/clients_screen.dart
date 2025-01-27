@@ -12,7 +12,7 @@ class ClientsScreen extends StatefulWidget {
 class _ClientsScreenState extends State<ClientsScreen> {
   bool _isExpanded = false;
   late bool stateOptions;
-  _loadData() {}
+  // _loadData() {}
 
   @override
   void initState() {
@@ -44,7 +44,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
           GestureDetector(
             onTap: _toggleExpand,
             child: Container(
-              color: Colors.black.withOpacity(0.5),
+              color: const Color.fromARGB(60, 88, 67, 67),
               width: double.infinity,
               height: double.infinity,
             ),

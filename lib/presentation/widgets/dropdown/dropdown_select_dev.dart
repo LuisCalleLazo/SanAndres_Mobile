@@ -116,14 +116,13 @@ class _SnackbarSelectItemsState extends State<_SnackbarSelectItems> {
   List<int> selectedCardIndices = [];
   @override
   Widget build(BuildContext context) {
-    double heightSnack = MediaQuery.of(context).size.height * 0.65;
+    double heightSnack = MediaQuery.of(context).size.height * 0.75;
     return Container(
       height: heightSnack,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+      padding: const EdgeInsets.only(top: 10),
       child: ListView(
         children: [
-          Container(
-            padding: const EdgeInsets.only(top: 20),
+          SizedBox(
             height: heightSnack * 0.8,
             child: SingleChildScrollView(
               child: Column(

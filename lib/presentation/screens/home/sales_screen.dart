@@ -21,7 +21,7 @@ class _SalesScreenState extends State<SalesScreen> {
   final valueManagerInt = ValueNotifierManager<int?>();
   bool _isExpanded = false;
   late bool stateOptions;
-  _loadData() {}
+  // _loadData() {}
 
   @override
   void initState() {

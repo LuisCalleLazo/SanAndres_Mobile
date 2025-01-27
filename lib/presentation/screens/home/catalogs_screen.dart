@@ -6,6 +6,8 @@ class CatalogsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthBtn = MediaQuery.of(context).size.width * 0.5 - 50;
+    double heightBtn = MediaQuery.of(context).size.height * 0.25;
     return  ListView(
       children: [
         Card(
@@ -18,14 +20,14 @@ class CatalogsScreen extends StatelessWidget {
               children: [
                 BtnImgDev(
                   onPressed: () {},
-                  width: MediaQuery.of(context).size.width * 0.45 - 50,
-                  heigth: MediaQuery.of(context).size.height * 0.25 - 50,
+                  width: widthBtn,
+                  heigth: heightBtn,
                   img: "catalogo1.png",
                 ),
                 BtnImgDev(
                   onPressed: () {},
-                  width: MediaQuery.of(context).size.width * 0.45 - 50,
-                  heigth: MediaQuery.of(context).size.height * 0.25 - 50,
+                  width: widthBtn,
+                  heigth: heightBtn,
                   img: "catalogo2.png",
                 ),
               ],

@@ -86,7 +86,7 @@ class _CardAddSaleState extends State<CardAddSale> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          "Precio por unidad:",
+                          "Precio unitario:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(

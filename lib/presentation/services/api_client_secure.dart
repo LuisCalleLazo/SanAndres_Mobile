@@ -54,9 +54,7 @@ class ApiSecure {
         return dotenv.env['API_USER_URL']!;
       case ServicesASA.chatService:
         return dotenv.env['API_WORK_URL']!;
-      default:
-        return dotenv.env['API_USER_URL']!;
-    }
+      }
   }
 }
 
