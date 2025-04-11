@@ -60,15 +60,19 @@ class _HomePageState extends State<HomePage> {
       children: [
         Scaffold(
           appBar: AppBar(
-            toolbarHeight: 70,
-            backgroundColor: Colors.white,
+            toolbarHeight: 40,
+            // backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
-            leading: BtnIconDev(
-              icon: Icons.menu,
-              width: 50,
-              heigth: 50,
-              color: Colors.white,
-              onPressed: _toggleMenu,
+            leading: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 1),
+              child: BtnIconDev(
+                icon: Icons.menu,
+                width: 50,
+                heigth: 30,
+                color: Colors.white,
+                onPressed: _toggleMenu,
+                borderCircular: const BorderRadius.horizontal(right: Radius.circular(12)),
+              ),
             ),
             actions: [
               Container(
@@ -76,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
                 alignment: Alignment.center,
                 child: Text(
-                  "BIENVENIDO    AL    SISTEMA    A.S.A",
+                  "BIENVENIDO    A    A.S.A",
                   textAlign: TextAlign.justify,
                   style: GoogleFonts.sairaStencilOne(
                       fontSize: 20, color: Colors.red[900]),

@@ -12,6 +12,7 @@ class BtnIconDev extends StatelessWidget {
   final double? maxWidth;
   final double? minHeight;
   final double? maxHeight;
+  final BorderRadius? borderCircular;
   const BtnIconDev({
     super.key,
     required this.onPressed,
@@ -25,6 +26,7 @@ class BtnIconDev extends StatelessWidget {
     this.maxWidth = 150.0,
     this.minHeight = 30.0,
     this.maxHeight = 100.0,
+    this.borderCircular,
   });
 
   @override
@@ -43,7 +45,7 @@ class BtnIconDev extends StatelessWidget {
             backgroundColor: WidgetStatePropertyAll(color),
             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: (borderCircular ?? BorderRadius.circular(12)),
               ),
             ),
           ),
