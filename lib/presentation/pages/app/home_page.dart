@@ -71,7 +71,8 @@ class _HomePageState extends State<HomePage> {
                 heigth: 30,
                 color: Colors.white,
                 onPressed: _toggleMenu,
-                borderCircular: const BorderRadius.horizontal(right: Radius.circular(12)),
+                borderCircular:
+                    const BorderRadius.horizontal(right: Radius.circular(12)),
               ),
             ),
             actions: [
@@ -83,7 +84,9 @@ class _HomePageState extends State<HomePage> {
                   "BIENVENIDO    A    A.S.A",
                   textAlign: TextAlign.justify,
                   style: GoogleFonts.sairaStencilOne(
-                      fontSize: 20, color: Colors.red[900]),
+                    fontSize: 20,
+                    color: Colors.red[900],
+                  ),
                 ),
               ),
             ],

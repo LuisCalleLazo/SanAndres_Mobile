@@ -29,15 +29,18 @@ class _CardClientState extends State<CardClient> {
         child: Container(
           height: 100,
           color: Colors.white60,
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Image.network(
-                'https://picsum.photos/id/1/600/250',
-                height: 80,
-                width: 80,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  'https://picsum.photos/id/4/600/250',
+                  height: 80,
+                  width: 80,
+                  fit: BoxFit.cover,
+                ),
               ),
               const Text(
                 "Jose Luis Lazo Nina",

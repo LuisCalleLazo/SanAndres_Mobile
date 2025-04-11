@@ -38,11 +38,14 @@ class CardAutopart extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Image.network(
-                'https://picsum.photos/id/1/600/250',
-                height: 100,
-                width: 150,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  'https://picsum.photos/id/3/600/250',
+                  height: 100,
+                  width: 150,
+                  fit: BoxFit.cover,
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
