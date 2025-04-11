@@ -34,13 +34,9 @@ class _LoginPageState extends State<LoginPage> {
                     top: MediaQuery.of(context).size.height * 0.02),
                 height: MediaQuery.of(context).size.height * 0.2,
                 child: Center(
-                  child: Text(
-                    "A.S.A",
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.1,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red[900],
-                    ),
+                  child: Image.asset(
+                    'assets/icons/logo_recort.png',
+                    height: MediaQuery.of(context).size.height * 0.15,
                   ),
                 ),
               ),
