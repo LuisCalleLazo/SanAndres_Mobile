@@ -16,7 +16,6 @@ class AutopartsInitDb {
   Future<Database> _initDB(String filePath) async {
     final dbPath = join(await getDatabasesPath(), filePath);
 
-    // Abre la base de datos y crea las tablas si es necesario
     final database = await openDatabase(
       dbPath,
       version: 1,
@@ -52,4 +51,6 @@ class AutopartsInitDb {
       )
     ''');
   }
+
+    
 }
