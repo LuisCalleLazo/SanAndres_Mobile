@@ -8,4 +8,13 @@ class AutopartBrand {
     required this.name,
     required this.logo,
   });
+
+
+  factory AutopartBrand.fromMap(Map<String, dynamic> map) {
+    return AutopartBrand(
+      id: map['id'],
+      name: map['name'],
+      logo: map['logo'],
+    );
+  }
 }

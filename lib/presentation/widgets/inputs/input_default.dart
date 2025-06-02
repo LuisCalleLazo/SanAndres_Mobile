@@ -13,6 +13,7 @@ class InputDefault extends StatefulWidget {
   final InputDecoration? decoration;
   final bool readOnly;
   final Color bg;
+  final ValueChanged<String>? onChanged;
 
   const InputDefault({
     super.key,
@@ -25,6 +26,7 @@ class InputDefault extends StatefulWidget {
     this.decoration,
     this.type = TextInputType.text,
     this.color = Colors.red,
+    this.onChanged,
   });
 
   @override
@@ -48,6 +50,7 @@ class _InputDefaultState extends State<InputDefault> {
             child: Container(
               color: widget.bg,
               child: TextField(
+                onChanged: widget.onChanged,
                 controller: widget.controller,
                 readOnly: widget.readOnly,
                 style: TextStyle(

@@ -10,4 +10,14 @@ class AutopartAsset {
     required this.description,
     required this.autopartId,
   });
+
+
+  factory AutopartAsset.fromMap(Map<String, dynamic> map) {
+    return AutopartAsset(
+      id: map['id'],
+      asset: map['asset'],
+      description: map['description'],
+      autopartId: map['autopartId'],
+    );
+  }
 }

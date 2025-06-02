@@ -7,6 +7,7 @@ class FilterDialog extends StatelessWidget {
   final double height;
   final double width;
   final List<Widget> filters;
+  final VoidCallback? onApply;
 
   const FilterDialog({
     super.key,
@@ -15,6 +16,7 @@ class FilterDialog extends StatelessWidget {
     required this.height,
     required this.width,
     this.btnText = "Aplicar",
+    this.onApply,
   });
 
   @override
@@ -46,7 +48,11 @@ class FilterDialog extends StatelessWidget {
                 heigth: 50,
                 width: MediaQuery.of(context).size.width * 0.7,
                 text: btnText,
-                onPressed: () {},
+                onPressed: () {
+                  if (onApply != null) {
+                    onApply!();
+                  }
+                },
               ),
             ),
           ],

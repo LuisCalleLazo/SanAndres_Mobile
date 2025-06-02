@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
@@ -169,6 +170,7 @@ class _EditSalePageState extends State<EditSalePage> {
                             }
                           });
                         },
+                      autopart: AutopartList(id: 1, info: [], category: ""),
                       );
                     }),
                   ),

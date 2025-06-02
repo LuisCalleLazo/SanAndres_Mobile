@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_info.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
@@ -19,7 +21,7 @@ class AddAutopartsPage extends StatefulWidget {
 class _AddAutopartsPageState extends State<AddAutopartsPage> {
   final InputControllerManager _inputManager = InputControllerManager();
   final valueManagerString = ValueNotifierManager<String?>();
-
+  AutopartList? _selectedAutopart;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +69,14 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
               ],
             ),
           ),
+          if (_selectedAutopart != null) ...[
+            CardAutopartMin(
+              isChecked: true,
+              autopart: _selectedAutopart!,
+              onTap: () {},
+            ),
+            const SizedBox(height: 20),
+          ],
           const SizedBox(height: 20),
           BtnTextDefault(
             width: MediaQuery.of(context).size.width * 0.8,
@@ -91,63 +101,91 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
     );
   }
 
-  _showFilterDialog(BuildContext context) async {
-    int? selectedCardIndex;
-    
+  Future<void> _showFilterDialog(BuildContext context) async {
     final autopartProvider = Provider.of<AutopartProvider>(context, listen: false);
 
-    // Asegurarse de cargar los datos antes de mostrar el diálogo
     await autopartProvider.loadAutopartsGlobal();
 
-    if (autopartProvider.autoparts.isEmpty) {
-      // No hay datos, no abrir diálogo o mostrar mensaje
-      return;
-    }
+    if (autopartProvider.autoparts.isEmpty) return;
 
-    return showDialog(
+    List<AutopartList> filteredAutoparts = List.from(autopartProvider.autoparts);
+
+    final selectedAutopart = await showDialog<AutopartList?>(
       // ignore: use_build_context_synchronously
       context: context,
       builder: (context) {
-        return StatefulBuilder(builder: (context, setState) {
-          final autoparts = autopartProvider.autoparts;
-          return FilterDialog(
-            height: MediaQuery.of(context).size.height * 0.65,
-            width: MediaQuery.of(context).size.width * 0.9,
-            title: "Productos globales",
-            btnText: "Seleccionar",
-            filters: [
-              Divider(color: Colors.red[900], thickness: 2),
-              SizedBox(
-                height: 380,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(autoparts.length, (index) {
-                      // final autopart = autoparts[index];
-                      return CardAutopartMin(
-                        isChecked: selectedCardIndex == index,
-                        onTap: () {
-                          setState(() {
-                            selectedCardIndex =
-                                selectedCardIndex == index ? null : index;
-                          });
-                        },
-                        // autopart: autopart, 
-                      );
-                    }),
-                  ),
-                ),
-              ),
-              Divider(color: Colors.red[900], thickness: 2),
-              const SizedBox(height: 20),
-              InputDefault(
-                label: "Codigo de autoparte",
-                controller: _inputManager.getController("code"),
-                icon: Icons.keyboard_alt,
-              ),
-            ],
-          );
-        });
+        return StatefulBuilder(
+          builder: (context, setState) {
+            void filterByCode(String code) {
+              setState(() {
+                filteredAutoparts = autopartProvider.autoparts.where((autopart) {
+                  final codeValue = autopart.info.firstWhere(
+                    (info) => info.type == 'code',
+                    orElse: () => AutopartInfoList(type: 'code', value: ''),
+                  ).value.toLowerCase();
+                  return codeValue.contains(code.toLowerCase());
+                }).toList();
+              });
+            }
+
+            return Consumer<AutopartProvider>(
+              builder: (context, provider, _) {
+                return FilterDialog(
+                  height: MediaQuery.of(context).size.height * 0.65,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  title: "Productos globales",
+                  btnText: "Seleccionar",
+                  onApply: () {
+                    Navigator.of(context).pop(provider.selectedAutopart);
+                  },
+                  filters: [
+                    Divider(color: Colors.red[900], thickness: 2),
+                    SizedBox(
+                      height: 380,
+                      child: Column(
+                        children: [
+                          InputDefault(
+                            label: "Codigo de autoparte",
+                            controller: _inputManager.getController("code_search"),
+                            icon: Icons.keyboard_alt,
+                            onChanged: filterByCode,
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: List.generate(filteredAutoparts.length, (index) {
+                                  final autopart = filteredAutoparts[index];
+                                  return CardAutopartMin(
+                                    isChecked: provider.selectedAutopart == autopart,
+                                    onTap: () {
+                                      provider.selectAutopart(
+                                        provider.selectedAutopart == autopart ? null : autopart);
+                                    },
+                                    autopart: autopart,
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(color: Colors.red[900], thickness: 2),
+                  ],
+                );
+              },
+            );
+          },
+        );
       },
-    ); 
+    );
+
+    if (selectedAutopart != null) {
+      setState(() {
+        _selectedAutopart = selectedAutopart;
+      });
+    }
   }
+
 }

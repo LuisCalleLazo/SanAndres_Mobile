@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
@@ -140,6 +141,7 @@ class _SnackbarSelectItemsState extends State<_SnackbarSelectItems> {
                           }
                         });
                       },
+                      autopart: AutopartList(id: 1, info: [], category: ""),
                     );
                   },
                 ),

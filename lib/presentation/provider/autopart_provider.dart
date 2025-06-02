@@ -7,15 +7,26 @@ class AutopartProvider extends ChangeNotifier{
   final AutopartRepositoryImpl repo =
   AutopartRepositoryImpl(AutopartDatasourceImpl());
 
-  // Lista privada para guardar los autoparts
-  List<Autopart> _autoparts = [];
+  List<AutopartList> _autoparts = [];
 
-  // Getter público para acceder a la lista
-  List<Autopart> get autoparts => _autoparts;
+  List<AutopartList> get autoparts => _autoparts;
 
-  // Método para cargar los autoparts desde el repositorio
   Future<void> loadAutopartsGlobal() async {
-    _autoparts = await repo.getAutopartsGlobal(); // o el método que tengas en repo
-    notifyListeners();  // Notifica a la UI que los datos cambiaron
+    _autoparts = await repo.getAutopartsGlobal();
+    notifyListeners();
+  }
+
+  AutopartList? _selectedAutopart;
+  
+  AutopartList? get selectedAutopart => _selectedAutopart;
+  
+  void selectAutopart(AutopartList? autopart) {
+    _selectedAutopart = autopart;
+    notifyListeners();
+  }
+  
+  void clearSelection() {
+    _selectedAutopart = null;
+    notifyListeners();
   }
 }

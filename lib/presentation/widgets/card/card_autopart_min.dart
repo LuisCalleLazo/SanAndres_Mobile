@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_info.dart';
+import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_icon_dev.dart';
 
 class CardAutopartMin extends StatefulWidget {
   final bool isChecked;
   final VoidCallback onTap;
+  final AutopartList autopart;
   const CardAutopartMin({
     super.key,
     required this.isChecked,
     required this.onTap,
+    required this.autopart
   });
 
   @override
@@ -18,6 +24,7 @@ class CardAutopartMin extends StatefulWidget {
 class _CardAutopartMinState extends State<CardAutopartMin> {
   @override
   Widget build(BuildContext context) {
+  final autopartProvider = Provider.of<AutopartProvider>(context, listen: false);
     return InkWell(
       onTap: widget.onTap,
       child: Card(
@@ -43,24 +50,28 @@ class _CardAutopartMinState extends State<CardAutopartMin> {
                         ),
                       ),
                       Text(
-                        "8238-yh81",
+                        widget.autopart.info.firstWhere(
+                          (info) => info.type == 'code',
+                          orElse: () => AutopartInfoList(type: 'code', value: 'No disponible'),
+                        ).value,
                         style: TextStyle(color: Colors.grey[900]),
                       ),
                       Text(
-                        "Categiria",
+                        "Categoria",
                         style: TextStyle(
                           color: Colors.red[900],
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "Amortiguador",
+                        widget.autopart.category,
                         style: TextStyle(color: Colors.grey[900]),
                       ),
                     ],
                   ),
                   BtnIconDev(
                     onPressed: () {
+                      autopartProvider.selectAutopart(widget.autopart);
                       context.push('/autoparts/imgs');
                     },
                     width: 25,
