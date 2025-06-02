@@ -59,6 +59,13 @@ class AutopartsInitDb {
     ''');
 
     await db.execute('''
+      CREATE TABLE Customer (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL
+      );
+    ''');
+
+    await db.execute('''
       CREATE TABLE Category (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
@@ -126,27 +133,18 @@ class AutopartsInitDb {
       );
     ''');
 
-    await db.execute('''
-      CREATE TABLE Seller (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        companyId INTEGER NOT NULL,
-        FOREIGN KEY (companyId) REFERENCES Company(id)
-      );
-    ''');
     
     await db.execute('''
       CREATE TABLE AutopartOfSeller (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         autopartId INTEGER NOT NULL,
-        sellerId INTEGER NOT NULL,
         amountUnit INTEGER NOT NULL,
         amountUnitPublic INTEGER NOT NULL,
         unitPrice REAL NOT NULL,
         unitPricePublic REAL NOT NULL,
         wholessalePrice REAL NOT NULL,
         wholessalePricePublic REAL NOT NULL,
-        FOREIGN KEY (autopartId) REFERENCES Autopart(id),
-        FOREIGN KEY (sellerId) REFERENCES Seller(id)
+        FOREIGN KEY (autopartId) REFERENCES Autopart(id)
       );
     ''');
 
@@ -155,11 +153,9 @@ class AutopartsInitDb {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         customerId INTEGER,
         customerNotSubscribed TEXT,
-        sellerId INTEGER NOT NULL,
         saleDate TEXT NOT NULL,  -- SQLite no tiene tipo DateTime, usar TEXT en formato ISO8601
         state TEXT NOT NULL,
-        FOREIGN KEY (customerId) REFERENCES Customer(id),
-        FOREIGN KEY (sellerId) REFERENCES Seller(id)
+        FOREIGN KEY (customerId) REFERENCES Customer(id)
       );
     ''');
     
