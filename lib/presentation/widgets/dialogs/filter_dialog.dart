@@ -10,7 +10,7 @@ class FilterDialog extends StatelessWidget {
 
   const FilterDialog({
     super.key,
-    required this.title,
+    this.title = "Editar filtro de busqueda",
     required this.filters,
     required this.height,
     required this.width,
@@ -31,7 +31,7 @@ class FilterDialog extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                "Editar filtro de busqueda",
+                title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.red[900],

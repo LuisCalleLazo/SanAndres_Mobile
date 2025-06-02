@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
@@ -89,23 +91,38 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
     );
   }
 
-  _showFilterDialog(BuildContext context) {
+  _showFilterDialog(BuildContext context) async {
     int? selectedCardIndex;
+    
+    final autopartProvider = Provider.of<AutopartProvider>(context, listen: false);
+
+    // Asegurarse de cargar los datos antes de mostrar el diálogo
+    await autopartProvider.loadAutopartsGlobal();
+
+    if (autopartProvider.autoparts.isEmpty) {
+      // No hay datos, no abrir diálogo o mostrar mensaje
+      return;
+    }
+
     return showDialog(
+      // ignore: use_build_context_synchronously
       context: context,
-      builder: (context) {       return StatefulBuilder(builder: (context, setState) {
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setState) {
+          final autoparts = autopartProvider.autoparts;
           return FilterDialog(
-            height:MediaQuery.of(context).size.height * 0.65,
+            height: MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width * 0.9,
-            title: "Editar filtro de busqueda",
+            title: "Productos globales",
             btnText: "Seleccionar",
             filters: [
               Divider(color: Colors.red[900], thickness: 2),
               SizedBox(
-                height: 380, // Ajusta la altura según tu diseño.
+                height: 380,
                 child: SingleChildScrollView(
                   child: Column(
-                    children: List.generate(6, (index) {
+                    children: List.generate(autoparts.length, (index) {
+                      // final autopart = autoparts[index];
                       return CardAutopartMin(
                         isChecked: selectedCardIndex == index,
                         onTap: () {
@@ -114,6 +131,7 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
                                 selectedCardIndex == index ? null : index;
                           });
                         },
+                        // autopart: autopart, 
                       );
                     }),
                   ),
@@ -130,6 +148,6 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
           );
         });
       },
-    );
+    ); 
   }
 }
