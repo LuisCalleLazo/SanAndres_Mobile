@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_of_seller.dart';
 import 'package:san_andres_mobile/infraestructure/datasources/autopart_datasource_impl.dart';
 import 'package:san_andres_mobile/infraestructure/repositories/autopart_repository_impl.dart';
 
@@ -28,5 +29,12 @@ class AutopartProvider extends ChangeNotifier{
   void clearSelection() {
     _selectedAutopart = null;
     notifyListeners();
+  }
+
+  
+  Future<AutopartOfSeller> createAutopartSeller(AutopartOfSeller create) async {
+    final createdAutopart = await repo.createAutopartSeller(create);
+    notifyListeners();
+    return createdAutopart;
   }
 }

@@ -3,6 +3,8 @@ import 'package:san_andres_mobile/domain/datasources/autopart_datasource.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_asset.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_info.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_of_seller.dart';
+import 'package:sqflite/sqflite.dart';
 
 class AutopartDatasourceImpl extends AutopartDatasource
 {
@@ -56,11 +58,46 @@ class AutopartDatasourceImpl extends AutopartDatasource
   @override
   Future<List<AutopartAsset>> getAutopartAssets(int autopartId) async {
     final db = await AutopartsInitDb.instance.database;
-      final List<Map<String, dynamic>> maps = await db.query(
+    final List<Map<String, dynamic>> maps = await db.query(
       'AutopartAsset',
       where: 'autopartId = ?',
       whereArgs: [autopartId],
     );
     return maps.map((map) => AutopartAsset.fromMap(map)).toList();
+  }
+
+  @override
+  Future<AutopartOfSeller> createAutopart(AutopartOfSeller create) async {
+    final db = await AutopartsInitDb.instance.database;
+
+    final data = {
+      'autopartId': create.autopartId,
+      'amountUnit': create.amountUnit,
+      'amountUnitPublic': create.amountUnitPublic,
+      'unitPrice': create.unitPrice,
+      'unitPricePublic': create.unitPricePublic,
+    };
+
+    final int id = await db.insert(
+      'AutopartOfSeller',
+      data,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    return AutopartOfSeller(
+      id: id,
+      autopartId: create.autopartId,
+      sellerId: create.sellerId,
+      amountUnit: create.amountUnit,
+      amountUnitPublic: create.amountUnitPublic,
+      unitPrice: create.unitPrice,
+      unitPricePublic: create.unitPricePublic,
+    );
+  }
+
+  @override
+  Future<List<AutopartOfSeller>> getAutoparts() async{
+    // TODO: implement getAutoparts
+    throw UnimplementedError();
   }
 }

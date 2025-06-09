@@ -19,8 +19,8 @@ class ApiErrorHandler {
       if (isLogin) {
         Map<String, dynamic> decodedToken =
             JwtDecoder.decode(response.data["currentToken"]);
-        if (!(decodedToken['customer'] == "true" ||
-            decodedToken['worker'] == "true")) {
+        if (!(decodedToken['seller'] == "True" ||
+            decodedToken['customer'] == "True")) {
           responseLogin = false;
           _showSnackbar("Usuario no valido", Colors.red);
         }

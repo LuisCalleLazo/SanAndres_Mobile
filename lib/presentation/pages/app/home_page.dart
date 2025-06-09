@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/screens/home/autoparts_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/catalogs_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/clients_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/reports_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/sales_screen.dart';
+import 'package:san_andres_mobile/presentation/screens/search_autoparts_screen.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_icon_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/navigation/navigation.dart';
 
@@ -20,14 +23,29 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
+  late AuthProvider authProvider;
   int _selectedIndex = 0;
-  final List<Widget> _screens = [
-    const AutopartsScreen(),
-    const SalesScreen(),
-    const ReportsScreen(),
-    const CatalogsScreen(),
-    const ClientsScreen(),
-  ];
+  late List<Widget> _screens;
+  @override
+  void initState() {
+    super.initState();
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    final isSeller = authProvider.seller ?? false;
+
+    _screens = [
+      const AutopartsScreen(),
+      if (isSeller) ...[
+        const AutopartsScreen(),
+        const SalesScreen(),
+        const ReportsScreen(),
+        const CatalogsScreen(),
+        const ClientsScreen(),
+      ] else ...[
+        const SearchAutopartsScreen(),
+      ],
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {

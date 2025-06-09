@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_info.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_of_seller.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
@@ -89,7 +91,57 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30),
             child: BtnTextDefault(
-              onPressed: () {},
+              onPressed: () async {
+                 final autopartProvider = Provider.of<AutopartProvider>(context, listen: false);
+
+                  if (_selectedAutopart == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Debe seleccionar un autoparte")),
+                    );
+                    return;
+                  }
+
+                  try {
+                    // Parsear valores de los inputs
+                    final unitPrice = double.tryParse(_inputManager.getController('cost_unit').text) ?? 0.0;
+                    final unitPricePublic = double.tryParse(_inputManager.getController('cost_unit_public').text) ?? 0.0;
+                    final amountUnit = int.tryParse(_inputManager.getController('cost_wholesale').text) ?? 0;
+                    final amountUnitPublic = int.tryParse(_inputManager.getController('cost_wholesale_public').text) ?? 0;
+
+                    // Crear instancia para enviar
+                    final newAutopartSeller = AutopartOfSeller(
+                      id: 0, // id no importa, será autogenerado
+                      autopartId: _selectedAutopart!.id,
+                      sellerId: 1,
+                      amountUnit: amountUnit,
+                      amountUnitPublic: amountUnitPublic,
+                      unitPrice: unitPrice,
+                      unitPricePublic: unitPricePublic,
+                    );
+
+                    // Llamar al provider para crear
+                    final created = await autopartProvider.createAutopartSeller(newAutopartSeller);
+
+                    // Mostrar mensaje de éxito
+                    // ignore: use_build_context_synchronously
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Autoparte creada con ID: ${created.id}")),
+                    );
+
+                    // Opcional: limpiar formulario o navegar
+                    setState(() {
+                      _selectedAutopart = null;
+                    });
+
+                    // ignore: use_build_context_synchronously
+                    context.push("/home");
+
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Error al crear autoparte: $e")),
+                    );
+                  }
+              },
               color: Colors.red[900],
               text: "Guardar",
               width: MediaQuery.of(context).size.width * 0.8,

@@ -142,8 +142,6 @@ class AutopartsInitDb {
         amountUnitPublic INTEGER NOT NULL,
         unitPrice REAL NOT NULL,
         unitPricePublic REAL NOT NULL,
-        wholessalePrice REAL NOT NULL,
-        wholessalePricePublic REAL NOT NULL,
         FOREIGN KEY (autopartId) REFERENCES Autopart(id)
       );
     ''');

@@ -20,7 +20,14 @@ class ApiSecure {
         receiveTimeout: const Duration(seconds: 20),
       ),
     );
-
+    _dio.interceptors.add(LogInterceptor(
+      request: true,
+      requestHeader: true,
+      requestBody: true,
+      responseHeader: true,
+      responseBody: true,
+      error: true,
+    ));
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         const storage = FlutterSecureStorage();
@@ -51,7 +58,7 @@ class ApiSecure {
   String _getBaseUrl(ServicesASA service) {
     switch (service) {
       case ServicesASA.autoService:
-        return dotenv.env['API_USER_URL']!;
+        return dotenv.env['API_URL']!;
       case ServicesASA.chatService:
         return dotenv.env['API_WORK_URL']!;
       }

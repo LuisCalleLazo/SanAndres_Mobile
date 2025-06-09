@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/config/db/autoparts/autoparts_init_db.dart';
 import 'package:san_andres_mobile/config/router/app_router.dart';
 import 'package:san_andres_mobile/config/theme/app_theme.dart';
+import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 
 Future main() async {
@@ -18,6 +19,7 @@ Future main() async {
         ChangeNotifierProvider(
           create: (_) => AutopartProvider(),
         ),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: const MyApp(),
     ),
