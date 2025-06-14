@@ -93,24 +93,19 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search Autoparts'),
-      ),
-      body: Column(
-        children: [
-          _buildFilterSection(),
-          Expanded(
-            child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : _hasError
-                    ? Center(child: Text(_errorMessage))
-                    : _autoparts.isEmpty
-                        ? const Center(child: Text('No autoparts found'))
-                        : _buildAutopartsList(),
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        _buildFilterSection(),
+        Expanded(
+          child: _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _hasError
+                  ? Center(child: Text(_errorMessage))
+                  : _autoparts.isEmpty
+                      ? const Center(child: Text('No autoparts found'))
+                      : _buildAutopartsList(),
+        ),
+      ],
     );
   }
 

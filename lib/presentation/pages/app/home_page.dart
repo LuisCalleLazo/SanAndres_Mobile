@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/screens/home/autoparts_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/catalogs_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/clients_screen.dart';
+import 'package:san_andres_mobile/presentation/screens/home/history_sale_screen.dart';
+import 'package:san_andres_mobile/presentation/screens/home/menu_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/reports_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/sales_screen.dart';
-import 'package:san_andres_mobile/presentation/screens/search_autoparts_screen.dart';
+import 'package:san_andres_mobile/presentation/screens/home/search_autoparts_screen.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_icon_dev.dart';
 import 'package:san_andres_mobile/presentation/widgets/navigation/navigation.dart';
 
@@ -34,7 +34,6 @@ class _HomePageState extends State<HomePage> {
     final isSeller = authProvider.seller ?? false;
 
     _screens = [
-      const AutopartsScreen(),
       if (isSeller) ...[
         const AutopartsScreen(),
         const SalesScreen(),
@@ -43,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         const ClientsScreen(),
       ] else ...[
         const SearchAutopartsScreen(),
+        const HistorySaleScreen(),
       ],
     ];
   }
@@ -124,6 +124,7 @@ class _HomePageState extends State<HomePage> {
           GestureDetector(
             onTap: _toggleMenu,
             child: Container(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.5),
               width: double.infinity,
               height: double.infinity,
@@ -136,112 +137,9 @@ class _HomePageState extends State<HomePage> {
             width:
                 MediaQuery.of(context).size.width * 0.8, // 80% de la pantalla
             height: MediaQuery.of(context).size.height, // Toda la altura
-            child: _buildMenu(),
+            child: MenuScreen(toggleMenu: _toggleMenu),
           ),
       ],
-    );
-  }
-
-  Widget _buildMenu() {
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        color: Colors.red[900],
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            ListTile(
-              leading: const Icon(Icons.home, color: Colors.white),
-              title: const Text(
-                "Inicio",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                _toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.edit, color: Colors.white),
-              title: const Text(
-                "Editar informacion de perfil",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                _toggleMenu();
-              },
-            ),
-            ListTile(
-              leading:
-                  const Icon(CupertinoIcons.moon_fill, color: Colors.white),
-              title: const Text(
-                "Modo Oscuto",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                _toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
-              title: const Text(
-                "Configuración",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                _toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.help, color: Colors.white),
-              title: const Text(
-                "Ayuda",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                _toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.refresh, color: Colors.white),
-              title: const Text(
-                "Forzar actualización de datos",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                _toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.info, color: Colors.white),
-              title: const Text(
-                "Información de la aplicación",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                _toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout, color: Colors.white),
-              title: const Text(
-                "Cerrar sesión",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                context.pop();
-                _toggleMenu();
-              },
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
