@@ -107,13 +107,8 @@ class AutopartDatasourceImpl extends AutopartDatasource {
       'search-autopart',
       queryParameters: queryParams,
     );
+   
     final List<dynamic> data = response.data;
-
-    final List<AutopartSearchList> autoparts = data.map((item) {
-      final model = AutopartSearchListModel.fromJson(item);
-      return model;
-    }).toList();
-
-    return autoparts;
+    return data.map((json) => AutopartSearchListModel.fromJson(json)).toList();
   }
 }
