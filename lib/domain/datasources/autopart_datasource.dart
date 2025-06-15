@@ -6,5 +6,5 @@ abstract class AutopartDatasource {
   Future<List<AutopartList>> getAutopartsGlobalSql();
   Future<List<AutopartAssetModel>> getAutopartAssets(int autopartId);
   Future<AutopartOfSeller> createAutopart(AutopartOfSeller create);
-  Future<List<AutopartOfSeller>> getAutoparts();
+  Future<List<AutopartSearchList>> searchAutoparts(Map<String, dynamic> queryParams);
 }

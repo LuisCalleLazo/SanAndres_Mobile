@@ -1,12 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:san_andres_mobile/config/db/autoparts_init_db.dart';
 import 'package:san_andres_mobile/domain/datasources/autopart_datasource.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_of_seller.dart';
 import 'package:san_andres_mobile/infraestructure/model/autopart_model.dart';
+import 'package:san_andres_mobile/presentation/services/api_client_secure.dart';
 import 'package:sqflite/sqflite.dart';
 
-class AutopartDatasourceImpl extends AutopartDatasource
-{
+class AutopartDatasourceImpl extends AutopartDatasource {
+  final Dio _client = apiAuto;
+
   @override
   Future<List<AutopartList>> getAutopartsGlobalSql() async {
     final db = await AutopartsInitDb.instance.database;
@@ -39,12 +42,14 @@ class AutopartDatasourceImpl extends AutopartDatasource
 
       if (infoType != null && infoValue != null) {
         groupedInfo.putIfAbsent(autopartId, () => []);
-        groupedInfo[autopartId]!.add(AutopartInfoList(type: infoType, value: infoValue));
+        groupedInfo[autopartId]!
+            .add(AutopartInfoList(type: infoType, value: infoValue));
       }
     }
 
     // Construir lista de Autopart
-    final List<AutopartList> autoparts = categoryByAutopart.entries.map((entry) {
+    final List<AutopartList> autoparts =
+        categoryByAutopart.entries.map((entry) {
       final id = entry.key;
       final category = entry.value;
       final info = groupedInfo[id] ?? [];
@@ -94,9 +99,21 @@ class AutopartDatasourceImpl extends AutopartDatasource
     );
   }
 
+
   @override
-  Future<List<AutopartOfSeller>> getAutoparts() async{
-    // TODO: implement getAutoparts
-    throw UnimplementedError();
+  Future<List<AutopartSearchList>> searchAutoparts(
+      Map<String, dynamic> queryParams) async {
+    final response = await _client.get(
+      'search-autopart',
+      queryParameters: queryParams,
+    );
+    final List<dynamic> data = response.data;
+
+    final List<AutopartSearchList> autoparts = data.map((item) {
+      final model = AutopartSearchListModel.fromJson(item);
+      return model;
+    }).toList();
+
+    return autoparts;
   }
 }

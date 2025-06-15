@@ -7,6 +7,7 @@ import 'package:san_andres_mobile/config/router/app_router.dart';
 import 'package:san_andres_mobile/config/theme/app_theme.dart';
 import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
+import 'package:san_andres_mobile/presentation/provider/autopart_search_provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ Future main() async {
           create: (_) => AutopartProvider(),
         ),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => AutopartSearchProvider()),
       ],
       child: const MyApp(),
     ),

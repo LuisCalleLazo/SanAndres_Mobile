@@ -85,54 +85,54 @@ class AutopartsSql {
   static List<AutopartInfo> getSeedAutopartInfo() {
     return [
       // Bujía Bosch
-      AutopartInfo(id: 1, value: 'BOSCH-1234', typeId: 1, autopartId: 1),
-      AutopartInfo(id: 2, value: '14mm, 1.1mm gap', typeId: 2, autopartId: 1),
-      AutopartInfo(id: 3, value: 'Incluye 4 bujías', typeId: 3, autopartId: 1),
+      AutopartInfo(id: 1, value: 'BOSCH-1234', typeId: 1, autopartId: 1, type: 1),
+      AutopartInfo(id: 2, value: '14mm, 1.1mm gap', typeId: 2, autopartId: 1, type: 1),
+      AutopartInfo(id: 3, value: 'Incluye 4 bujías', typeId: 3, autopartId: 1, type: 1),
 
       // Bujía NGK
-      AutopartInfo(id: 4, value: 'NGK-5678', typeId: 1, autopartId: 2),
-      AutopartInfo(id: 5, value: '12mm, 0.9mm gap', typeId: 2, autopartId: 2),
-      AutopartInfo(id: 6, value: 'Incluye 4 bujías', typeId: 3, autopartId: 2),
+      AutopartInfo(id: 4, value: 'NGK-5678', typeId: 1, autopartId: 2, type: 1),
+      AutopartInfo(id: 5, value: '12mm, 0.9mm gap', typeId: 2, autopartId: 2, type: 1),
+      AutopartInfo(id: 6, value: 'Incluye 4 bujías', typeId: 3, autopartId: 2, type: 1),
 
       // Pastillas de freno Valeo
-      AutopartInfo(id: 7, value: 'VALEO-9012', typeId: 1, autopartId: 3),
-      AutopartInfo(id: 8, value: '120x60x18mm', typeId: 2, autopartId: 3),
-      AutopartInfo(id: 9, value: 'Incluye 2 pastillas', typeId: 3, autopartId: 3),
+      AutopartInfo(id: 7, value: 'VALEO-9012', typeId: 1, autopartId: 3, type: 1),
+      AutopartInfo(id: 8, value: '120x60x18mm', typeId: 2, autopartId: 3, type: 1),
+      AutopartInfo(id: 9, value: 'Incluye 2 pastillas', typeId: 3, autopartId: 3, type: 1),
 
       // Amortiguador Gates
-      AutopartInfo(id: 10, value: 'GATES-3456', typeId: 1, autopartId: 4),
-      AutopartInfo(id: 11, value: 'Longitud 350mm', typeId: 2, autopartId: 4),
-      AutopartInfo(id: 12, value: 'Unidad individual', typeId: 3, autopartId: 4),
+      AutopartInfo(id: 10, value: 'GATES-3456', typeId: 1, autopartId: 4, type: 1),
+      AutopartInfo(id: 11, value: 'Longitud 350mm', typeId: 2, autopartId: 4, type: 1),
+      AutopartInfo(id: 12, value: 'Unidad individual', typeId: 3, autopartId: 4, type: 1),
 
       // Alternador Denso
-      AutopartInfo(id: 13, value: 'DENSO-7890', typeId: 1, autopartId: 5),
-      AutopartInfo(id: 14, value: '12V, 90A', typeId: 2, autopartId: 5),
-      AutopartInfo(id: 15, value: 'Incluye alternador y polea', typeId: 3, autopartId: 5),
+      AutopartInfo(id: 13, value: 'DENSO-7890', typeId: 1, autopartId: 5, type: 1),
+      AutopartInfo(id: 14, value: '12V, 90A', typeId: 2, autopartId: 5, type: 1),
+      AutopartInfo(id: 15, value: 'Incluye alternador y polea', typeId: 3, autopartId: 5, type: 1),
 
       // Embrague Bosch
-      AutopartInfo(id: 16, value: 'BOSCH-2468', typeId: 1, autopartId: 6),
-      AutopartInfo(id: 17, value: 'Diámetro 200mm', typeId: 2, autopartId: 6),
-      AutopartInfo(id: 18, value: 'Incluye disco y plato', typeId: 3, autopartId: 6),
+      AutopartInfo(id: 16, value: 'BOSCH-2468', typeId: 1, autopartId: 6, type: 1),
+      AutopartInfo(id: 17, value: 'Diámetro 200mm', typeId: 2, autopartId: 6, type: 1),
+      AutopartInfo(id: 18, value: 'Incluye disco y plato', typeId: 3, autopartId: 6, type: 1),
 
       // Disco de freno NGK
-      AutopartInfo(id: 19, value: 'NGK-1357', typeId: 1, autopartId: 7),
-      AutopartInfo(id: 20, value: '280mm diámetro', typeId: 2, autopartId: 7),
-      AutopartInfo(id: 21, value: 'Incluye 1 disco', typeId: 3, autopartId: 7),
+      AutopartInfo(id: 19, value: 'NGK-1357', typeId: 1, autopartId: 7, type: 1),
+      AutopartInfo(id: 20, value: '280mm diámetro', typeId: 2, autopartId: 7, type: 1),
+      AutopartInfo(id: 21, value: 'Incluye 1 disco', typeId: 3, autopartId: 7, type: 1),
 
       // Resorte de suspensión Valeo
-      AutopartInfo(id: 22, value: 'VALEO-2468', typeId: 1, autopartId: 8),
-      AutopartInfo(id: 23, value: 'Longitud 400mm', typeId: 2, autopartId: 8),
-      AutopartInfo(id: 24, value: 'Incluye 1 resorte', typeId: 3, autopartId: 8),
+      AutopartInfo(id: 22, value: 'VALEO-2468', typeId: 1, autopartId: 8, type: 1),
+      AutopartInfo(id: 23, value: 'Longitud 400mm', typeId: 2, autopartId: 8, type: 1),
+      AutopartInfo(id: 24, value: 'Incluye 1 resorte', typeId: 3, autopartId: 8, type: 1),
 
       // Batería Gates
-      AutopartInfo(id: 25, value: 'GATES-9753', typeId: 1, autopartId: 9),
-      AutopartInfo(id: 26, value: '12V, 60Ah', typeId: 2, autopartId: 9),
-      AutopartInfo(id: 27, value: 'Incluye batería y terminales', typeId: 3, autopartId: 9),
+      AutopartInfo(id: 25, value: 'GATES-9753', typeId: 1, autopartId: 9, type: 1),
+      AutopartInfo(id: 26, value: '12V, 60Ah', typeId: 2, autopartId: 9, type: 1),
+      AutopartInfo(id: 27, value: 'Incluye batería y terminales', typeId: 3, autopartId: 9, type: 1),
 
       // Sensor de oxígeno Denso
-      AutopartInfo(id: 28, value: 'DENSO-8642', typeId: 1, autopartId: 10),
-      AutopartInfo(id: 29, value: 'Longitud cable 600mm', typeId: 2, autopartId: 10),
-      AutopartInfo(id: 30, value: 'Incluye sensor y conector', typeId: 3, autopartId: 10),
+      AutopartInfo(id: 28, value: 'DENSO-8642', typeId: 1, autopartId: 10, type: 1),
+      AutopartInfo(id: 29, value: 'Longitud cable 600mm', typeId: 2, autopartId: 10, type: 1),
+      AutopartInfo(id: 30, value: 'Incluye sensor y conector', typeId: 3, autopartId: 10, type: 1),
     ];
   }
 

@@ -6,13 +6,11 @@ import 'package:san_andres_mobile/infraestructure/datasources/autopart_datasourc
 import 'package:san_andres_mobile/infraestructure/model/autopart_model.dart';
 // import 'package:san_andres_mobile/presentation/services/api_error_handle.dart';
 
-class AutopartRepositoryImpl extends AutopartRepository{
-  
+class AutopartRepositoryImpl extends AutopartRepository {
   final AutopartDatasourceImpl dataSource;
 
   AutopartRepositoryImpl(this.dataSource);
 
-  
   @override
   Future<List<AutopartList>> getAutopartsGlobal() async {
     try {
@@ -43,10 +41,21 @@ class AutopartRepositoryImpl extends AutopartRepository{
     }
   }
 
+  // @override
+  // Future<List<AutopartOfSeller>> getAutoparts() async {
+  //   try {
+  //     final response = await dataSource.getAutoparts();
+  //     return response;
+  //   } on DioException catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
+
   @override
-  Future<List<AutopartOfSeller>> getAutoparts() async {
+  Future<List<AutopartSearchList>> searchAutoparts(
+      Map<String, dynamic> queryParams) async {
     try {
-      final response = await dataSource.getAutoparts();
+      final response = await dataSource.searchAutoparts(queryParams);
       return response;
     } on DioException catch (e) {
       throw Exception(e);

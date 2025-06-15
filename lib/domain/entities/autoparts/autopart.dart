@@ -68,16 +68,16 @@ class AutopartInfo {
   final String value;
   final int typeId;
   final String? typeName;
-  final int? autopartId;
-  final int? type;
+  final int autopartId;
+  final int type;
 
   AutopartInfo({
     required this.id,
     required this.value,
     required this.typeId,
     this.typeName,
-    this.type,
-    this.autopartId,
+    required this.type,
+    required this.autopartId,
   });
 }
 
@@ -101,6 +101,8 @@ class AutopartSearchList {
   final String categoryName;
   final int brandId;
   final String brandName;
+  final List<AutopartInfo> infos;
+  final List<AutopartAsset> assets;
 
   AutopartSearchList({
     required this.id,
@@ -108,6 +110,8 @@ class AutopartSearchList {
     required this.categoryId,
     required this.categoryName,
     required this.brandId,
-    required this.brandName
+    required this.brandName,
+    required this.infos,
+    required this.assets
   });
 }

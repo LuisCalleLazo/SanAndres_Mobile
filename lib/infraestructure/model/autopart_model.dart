@@ -1,19 +1,15 @@
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 
 class AutopartSearchListModel extends AutopartSearchList {
-  final List<AutopartInfoModel> infos;
-  final List<AutopartAssetModel> assets;
-
-  AutopartSearchListModel({
-    required super.id,
-    required super.name,
-    required super.categoryId,
-    required super.categoryName,
-    required super.brandId,
-    required super.brandName,
-    required this.infos,
-    required this.assets
-  });
+  AutopartSearchListModel(
+      {required super.id,
+      required super.name,
+      required super.categoryId,
+      required super.categoryName,
+      required super.brandId,
+      required super.brandName,
+      required super.infos,
+      required super.assets});
 
   factory AutopartSearchListModel.fromJson(Map<String, dynamic> json) {
     return AutopartSearchListModel(
@@ -31,17 +27,27 @@ class AutopartSearchListModel extends AutopartSearchList {
           .toList(),
     );
   }
+  AutopartSearchList toEntity() {
+    return AutopartSearchList(
+      id: id,
+      name: name,
+      categoryId: categoryId,
+      categoryName: categoryName,
+      brandId: brandId,
+      brandName: brandName,
+      infos: infos,
+      assets: assets,
+    );
+  }
 }
-class AutopartAssetModel extends AutopartAsset
-{
 
+class AutopartAssetModel extends AutopartAsset {
   AutopartAssetModel({
     required super.id,
     required super.asset,
     required super.description,
     required super.autopartId,
   });
-
 
   factory AutopartAssetModel.fromJson(Map<String, dynamic> map) {
     return AutopartAssetModel(
@@ -51,15 +57,25 @@ class AutopartAssetModel extends AutopartAsset
       autopartId: map['autopartId'],
     );
   }
-}
-class AutopartInfoModel extends AutopartInfo{
 
+  AutopartAsset toEntity() {
+    return AutopartAsset(
+      id: id,
+      asset: asset,
+      description: description,
+      autopartId: autopartId,
+    );
+  }
+}
+
+class AutopartInfoModel extends AutopartInfo {
   AutopartInfoModel({
     required super.id,
     required super.value,
     required super.typeId,
     required super.typeName,
     required super.type,
+    required super.autopartId,
   });
 
   factory AutopartInfoModel.fromJson(Map<String, dynamic> json) {
@@ -69,14 +85,22 @@ class AutopartInfoModel extends AutopartInfo{
       typeId: json['typeId'],
       typeName: json['typeName'],
       type: json['type'],
+      autopartId: json['autopartId'],
     );
   }
-
+  AutopartInfo toEntity() {
+    return AutopartInfo(
+      id: id,
+      value: value,
+      typeId: typeId,
+      typeName: typeName,
+      type: type,
+      autopartId: autopartId
+    );
+  }
 }
 
-
 class AutopartInfoListModel extends AutopartInfoList {
-
   AutopartInfoListModel({
     required super.type,
     required super.value,
