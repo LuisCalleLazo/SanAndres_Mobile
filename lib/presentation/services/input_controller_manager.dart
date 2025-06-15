@@ -24,6 +24,11 @@ class InputControllerManager {
       controller.dispose();
     }
   }
+  void clearAll() {
+    for (var controller in _controllers.values) {
+      controller.clear();
+    }
+  }
 
   // Método para obtener todos los valores de los inputs en un mapa
   Map<String, String> getAllValues() {

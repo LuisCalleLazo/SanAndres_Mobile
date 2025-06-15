@@ -22,6 +22,7 @@ class ValueNotifierManager<T> {
     }
   }
 
+
   Map<String, T?> getAllValues() {
     return _notifiers.map((key, notifier) => MapEntry(key, notifier.value));
   }

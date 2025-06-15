@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_search_provider.dart';
+import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
+import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_search.dart';
+import 'package:san_andres_mobile/presentation/widgets/dropdown/dropdown_dev.dart';
+import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
+import 'package:san_andres_mobile/shared/utils/select_items.dart';
 
 class SearchAutopartsScreen extends StatefulWidget {
   const SearchAutopartsScreen({super.key});
@@ -12,11 +17,8 @@ class SearchAutopartsScreen extends StatefulWidget {
 }
 
 class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
-  final TextEditingController _searchController = TextEditingController();
-  final TextEditingController _minPriceController = TextEditingController();
-  final TextEditingController _maxPriceController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _brandController = TextEditingController();
+  final InputControllerManager _inputManager = InputControllerManager();
+  final ValueNotifierManager<int> _valueManager = ValueNotifierManager<int>();
 
   @override
   void initState() {
@@ -27,20 +29,17 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
   void _searchAutoparts() {
     final provider = context.read<AutopartSearchProvider>();
     provider.searchAutoparts(
-      productName: _searchController.text,
-      categoryId: _categoryController.text,
-      brandId: _brandController.text,
-      minPrice: _minPriceController.text,
-      maxPrice: _maxPriceController.text,
+      productName: _inputManager.getController("name_filter_autopart").text,
+      categoryId: _valueManager.getNotifier("category_filter_autopart").value,
+      brandId: _valueManager.getNotifier("brand_filter_autopart").value,
+      minPrice: _inputManager.getController("price_min_autopart").text,
+      maxPrice: _inputManager.getController("price_max_autopart").text,
     );
   }
 
   void _clearFilters() {
-    _searchController.clear();
-    _minPriceController.clear();
-    _maxPriceController.clear();
-    _categoryController.clear();
-    _brandController.clear();
+    _inputManager.clearAll();
+    _valueManager.dispose();
     _searchAutoparts();
   }
 
@@ -66,95 +65,92 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
   Widget _buildFilterSection() {
     return Card(
       margin: const EdgeInsets.all(8),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                labelText: 'Product Name',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
-              onSubmitted: (_) => _searchAutoparts(),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _categoryController,
-                    decoration: const InputDecoration(
-                      labelText: 'Category ID',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    controller: _brandController,
-                    decoration: const InputDecoration(
-                      labelText: 'Brand ID',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _minPriceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Min Price',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    controller: _maxPriceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Max Price',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _searchAutoparts,
-                    child: const Text('Apply Filters'),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: _clearFilters,
-                    child: const Text('Clear Filters'),
-                  ),
-                ),
-              ],
-            ),
-          ],
+      child: ExpansionTile(
+        title: const Text("Filtros"),
+        leading: Icon(
+          Icons.filter_list,
+          color: Colors.red[900],
         ),
+        tilePadding: const EdgeInsets.all(5),
+        children: [
+          InputDefault(
+            label: "Nombre autoparte",
+            controller: _inputManager.getController("name_filter_autopart"),
+            type: TextInputType.number,
+            icon: Icons.price_change,
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: DropdownDev(
+                  items: [
+                    SelectItems(id: 1, label: "label"),
+                  ],
+                  text: "Categoria",
+                  value: _valueManager.getNotifier("category_filter_autopart"),
+                  icon: Icons.category,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: DropdownDev(
+                  items: [
+                    SelectItems(id: 1, label: "label"),
+                  ],
+                  text: "Marca",
+                  value: _valueManager.getNotifier("brand_filter_autopart"),
+                  icon: Icons.branding_watermark,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: InputDefault(
+                  label: "Minimo",
+                  controller: _inputManager.getController("price_min_autopart"),
+                  type: TextInputType.number,
+                  icon: Icons.price_change,
+                ),
+              ),
+              Expanded(
+                child: InputDefault(
+                  label: "Maximo",
+                  controller: _inputManager.getController("price_max_autopart"),
+                  type: TextInputType.number,
+                  icon: Icons.price_change,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: _searchAutoparts,
+                  child: Text(
+                    'Aplicar',
+                    style: TextStyle(color: Colors.red[700]),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: _clearFilters,
+                  child: Text(
+                    'Limpiar',
+                    style: TextStyle(color: Colors.red[700]),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -172,11 +168,8 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
 
   @override
   void dispose() {
-    _searchController.dispose();
-    _minPriceController.dispose();
-    _maxPriceController.dispose();
-    _categoryController.dispose();
-    _brandController.dispose();
+    _inputManager.dispose();
+    _valueManager.dispose();
     super.dispose();
   }
 }

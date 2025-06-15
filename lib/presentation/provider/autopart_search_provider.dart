@@ -20,8 +20,8 @@ class AutopartSearchProvider extends ChangeNotifier{
 
   Future<void> searchAutoparts({
     String? productName,
-    String? categoryId,
-    String? brandId,
+    int? categoryId,
+    int? brandId,
     String? minPrice,
     String? maxPrice,
   }) async {
@@ -35,10 +35,10 @@ class AutopartSearchProvider extends ChangeNotifier{
       if (productName != null && productName.isNotEmpty) {
         queryParams['ProductName'] = productName;
       }
-      if (categoryId != null && categoryId.isNotEmpty) {
+      if (categoryId != null) {
         queryParams['CategoryId'] = categoryId;
       }
-      if (brandId != null && brandId.isNotEmpty) {
+      if (brandId != null) {
         queryParams['BrandId'] = brandId;
       }
       if (minPrice != null && minPrice.isNotEmpty) {

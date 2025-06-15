@@ -13,7 +13,7 @@ class InputThemeDefault {
         color: colorOutline,
         fontSize: 15,
         fontWeight: FontWeight.bold,
-        decorationColor: Colors.amber,
+        decorationColor: Colors.red[800],
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(

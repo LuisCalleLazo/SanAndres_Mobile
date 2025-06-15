@@ -6,6 +6,7 @@ class DropdownDev extends StatefulWidget {
   final String text;
   final double width;
   final double heigth;
+  final IconData icon;
   final ValueNotifier<int?> value;
   const DropdownDev({
     super.key,
@@ -14,6 +15,7 @@ class DropdownDev extends StatefulWidget {
     this.width = double.infinity,
     this.heigth = 50,
     required this.value,
+    this.icon = Icons.abc
   });
 
   @override
@@ -30,50 +32,61 @@ class _DropdownDevState extends State<DropdownDev> {
       (item) => item.id == widget.value.value,
       orElse: () => widget.items.first,
     );
-    return SizedBox(
-      width: widget.width,
-      height: widget.heigth,
-      child: DropdownButtonFormField<SelectItems>(
-        alignment: Alignment.centerLeft,
-        iconSize: 30,
-        borderRadius: BorderRadius.circular(10),
-        focusColor: Colors.red,
-        value: selectedItem,
-        hint: Padding(
-          padding: const EdgeInsets.only(left: 30),
-          child: Text(
-            widget.text,
-            textAlign: TextAlign.left,
-          ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            Icon(widget.icon),
+            const SizedBox(width: 10),
+            Text(widget.text),
+          ],
         ),
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.only(left: 10),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(255, 139, 22, 13)),
-          ),
-        ),
-        items: sortedItems.map<DropdownMenuItem<SelectItems>>(
-          (SelectItems value) {
-            return DropdownMenuItem<SelectItems>(
-              value: value,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(value.label),
+        SizedBox(
+          width: widget.width,
+          height: widget.heigth,
+          child: DropdownButtonFormField<SelectItems>(
+            alignment: Alignment.centerLeft,
+            iconSize: 30,
+            borderRadius: BorderRadius.circular(10),
+            focusColor: Colors.red,
+            value: selectedItem,
+            hint: Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: Text(
+                widget.text,
+                textAlign: TextAlign.left,
               ),
-            );
-          },
-        ).toList(),
-        onChanged: (SelectItems? newValue) {
-          setState(
-            () {
-              widget.value.value = newValue?.id;
+            ),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.only(left: 10),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(255, 139, 22, 13)),
+              ),
+            ),
+            items: sortedItems.map<DropdownMenuItem<SelectItems>>(
+              (SelectItems value) {
+                return DropdownMenuItem<SelectItems>(
+                  value: value,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(value.label),
+                  ),
+                );
+              },
+            ).toList(),
+            onChanged: (SelectItems? newValue) {
+              setState(
+                () {
+                  widget.value.value = newValue?.id;
+                },
+              );
             },
-          );
-        },
-      ),
+          ),
+        ),
+      ],
     );
   }
 }
