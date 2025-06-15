@@ -31,8 +31,6 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
       productName: _inputManager.getController("name_filter_autopart").text,
       categoryId: _valueManager.getNotifier("category_filter_autopart").value,
       brandId: _valueManager.getNotifier("brand_filter_autopart").value,
-      minPrice: _inputManager.getController("price_min_autopart").text,
-      maxPrice: _inputManager.getController("price_max_autopart").text,
     );
   }
 
@@ -100,27 +98,6 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
                   text: "Marca",
                   value: _valueManager.getNotifier("brand_filter_autopart"),
                   icon: Icons.branding_watermark,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: InputDefault(
-                  label: "Minimo",
-                  controller: _inputManager.getController("price_min_autopart"),
-                  type: TextInputType.number,
-                  icon: Icons.price_change,
-                ),
-              ),
-              Expanded(
-                child: InputDefault(
-                  label: "Maximo",
-                  controller: _inputManager.getController("price_max_autopart"),
-                  type: TextInputType.number,
-                  icon: Icons.price_change,
                 ),
               ),
             ],

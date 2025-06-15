@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/presentation/widgets/carousel/carousel_card.dart';
 
@@ -11,44 +12,71 @@ class CardAutopartSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              autopart.name,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+    return InkWell(
+      onTap: () {
+        context.push('/autoparts/detail-of-search', extra: autopart);
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                autopart.name,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red[900]),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text('Category: ${autopart.categoryName}'),
-            Text('Brand: ${autopart.brandName}'),
-            const SizedBox(height: 8),
-            if (autopart.assets.isNotEmpty)
-              SizedBox(
-                height: 150,
-                child: CarouselCard(assets: autopart.assets),
-              ),
-            const SizedBox(height: 8),
-            if (autopart.infos.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(height: 8),
+              Row(
                 children: [
                   const Text(
-                    'Details:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    "Categoria",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  ...autopart.infos.map<Widget>((info) => Text(
-                        '${info.typeName}: ${info.value}',
-                      )),
+                  const SizedBox(width: 20),
+                  Text(autopart.categoryName)
                 ],
               ),
-          ],
+              Row(
+                children: [
+                  const Text(
+                    "Marca",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Text(autopart.brandName)
+                ],
+              ),
+              const SizedBox(height: 8),
+              if (autopart.assets.isNotEmpty)
+                SizedBox(
+                  height: 150,
+                  child: CarouselCard(assets: autopart.assets),
+                ),
+              const SizedBox(height: 8),
+              if (autopart.infos.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Detalles:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    ...autopart.infos.map<Widget>((info) => Text(
+                          '${info.typeName}: ${info.value}',
+                        )),
+                  ],
+                ),
+            ],
+          ),
         ),
       ),
     );
