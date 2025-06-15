@@ -52,9 +52,9 @@ class AutopartAssetModel extends AutopartAsset {
   factory AutopartAssetModel.fromJson(Map<String, dynamic> map) {
     return AutopartAssetModel(
       id: map['id'],
-      asset: map['asset'],
-      description: map['description'],
-      autopartId: map['autopartId'],
+      asset: map['asset'] ?? '',
+      description: map['description'] ?? '',
+      autopartId: map['autopartId'] ?? 0,
     );
   }
 
@@ -81,11 +81,11 @@ class AutopartInfoModel extends AutopartInfo {
   factory AutopartInfoModel.fromJson(Map<String, dynamic> json) {
     return AutopartInfoModel(
       id: json['id'],
-      value: json['value'],
-      typeId: json['typeId'],
-      typeName: json['typeName'],
-      type: json['type'],
-      autopartId: json['autopartId'],
+      value: json['value'] ?? '',
+      typeId: json['typeId'] ?? 0,
+      typeName: json['typeName'] ?? 0,
+      type: json['type'] ?? 0,
+      autopartId: json['autopartId'] ?? 0,
     );
   }
   AutopartInfo toEntity() {

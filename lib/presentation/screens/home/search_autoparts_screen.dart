@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_search_provider.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
@@ -51,7 +50,7 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
         _buildFilterSection(),
         Expanded(
           child: provider.isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? Center(child: CircularProgressIndicator(color: Colors.red[900],))
               : provider.hasError
                   ? Center(child: Text(provider.errorMessage))
                   : provider.autoparts.isEmpty
