@@ -54,7 +54,7 @@ class _SearchAutopartsScreenState extends State<SearchAutopartsScreen> {
       }
 
       final response = await apiAuto.get(
-        '/api/v1/search-autopart',
+        'search-autopart',
         queryParameters: queryParams,
       );
 

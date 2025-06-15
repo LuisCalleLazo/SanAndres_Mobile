@@ -8,7 +8,7 @@ class AuthDataSourceImpl extends AuthDatasource {
 
   @override
   Future<Response> login(String nameOrGamil, String password) async {
-    final response = await _client.post('/api/v1/auth/login', data: {
+    final response = await _client.post('auth/login', data: {
       'nameOrGmail': nameOrGamil,
       'password': password,
     });

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart_asset.dart';
 import 'package:san_andres_mobile/infraestructure/datasources/autopart_datasource_impl.dart';
+import 'package:san_andres_mobile/infraestructure/model/autopart_model.dart';
 import 'package:san_andres_mobile/infraestructure/repositories/autopart_repository_impl.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_icon_dev.dart';
@@ -18,7 +18,7 @@ class _ImgsAutopartsPageState extends State<ImgsAutopartsPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  late Future<List<AutopartAsset>> _futureAssets;
+  late Future<List<AutopartAssetModel>> _futureAssets;
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _ImgsAutopartsPageState extends State<ImgsAutopartsPage> {
       appBar: AppBar(
         title: const Text("Imágenes de autoparte"),
       ),
-      body: FutureBuilder<List<AutopartAsset>>(
+      body: FutureBuilder<List<AutopartAssetModel>>(
         future: _futureAssets,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

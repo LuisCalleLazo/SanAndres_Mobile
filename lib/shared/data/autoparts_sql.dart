@@ -1,7 +1,5 @@
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart_asset.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_brand.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart_info.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_type_info.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/category.dart';
 import 'package:san_andres_mobile/domain/entities/local/country.dart';

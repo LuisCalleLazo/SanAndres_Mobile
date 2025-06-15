@@ -1,4 +1,4 @@
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart_info.dart';
+import 'package:san_andres_mobile/infraestructure/model/autopart_model.dart';
 
 class Autopart {
   final int id;
@@ -30,15 +30,12 @@ class AutopartList {
     required this.info,
   });
 
-  /// Este fromMap asume que el map contiene:
-  /// - 'id' (int)
-  /// - 'info' (List<Map<String, dynamic>>)
   factory AutopartList.fromMap(Map<String, dynamic> map) {
-    var infoList = <AutopartInfoList>[];
+    var infoList = <AutopartInfoListModel>[];
     if (map['info'] != null) {
       // Se espera que 'info' sea List<Map<String, dynamic>>
       infoList = (map['info'] as List)
-          .map((item) => AutopartInfoList.fromMap(item))
+          .map((item) => AutopartInfoListModel.fromJson(item))
           .toList();
     }
 
@@ -49,11 +46,68 @@ class AutopartList {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'category': category,
-      'info': info.map((e) => e.toMap()).toList(),
-    };
-  }
+}
+
+class AutopartAsset {
+  final int id;
+  final String asset;
+  final String description;
+  final int autopartId;
+
+  AutopartAsset({
+    required this.id,
+    required this.asset,
+    required this.description,
+    required this.autopartId,
+  });
+}
+
+class AutopartInfo {
+
+  final int id;
+  final String value;
+  final int typeId;
+  final String? typeName;
+  final int? autopartId;
+  final int? type;
+
+  AutopartInfo({
+    required this.id,
+    required this.value,
+    required this.typeId,
+    this.typeName,
+    this.type,
+    this.autopartId,
+  });
+}
+
+
+class AutopartInfoList {
+  final String type;
+  final String value;
+
+  AutopartInfoList({
+    required this.type,
+    required this.value,
+  });
+
+}
+
+class AutopartSearchList {
+
+  final int id;
+  final String name;
+  final int categoryId;
+  final String categoryName;
+  final int brandId;
+  final String brandName;
+
+  AutopartSearchList({
+    required this.id,
+    required this.name,
+    required this.categoryId,
+    required this.categoryName,
+    required this.brandId,
+    required this.brandName
+  });
 }

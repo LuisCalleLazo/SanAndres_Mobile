@@ -1,9 +1,8 @@
 import 'package:san_andres_mobile/config/db/autoparts_init_db.dart';
 import 'package:san_andres_mobile/domain/datasources/autopart_datasource.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart_asset.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart_info.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_of_seller.dart';
+import 'package:san_andres_mobile/infraestructure/model/autopart_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AutopartDatasourceImpl extends AutopartDatasource
@@ -56,14 +55,14 @@ class AutopartDatasourceImpl extends AutopartDatasource
   }
 
   @override
-  Future<List<AutopartAsset>> getAutopartAssets(int autopartId) async {
+  Future<List<AutopartAssetModel>> getAutopartAssets(int autopartId) async {
     final db = await AutopartsInitDb.instance.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'AutopartAsset',
       where: 'autopartId = ?',
       whereArgs: [autopartId],
     );
-    return maps.map((map) => AutopartAsset.fromMap(map)).toList();
+    return maps.map((map) => AutopartAssetModel.fromJson(map)).toList();
   }
 
   @override
