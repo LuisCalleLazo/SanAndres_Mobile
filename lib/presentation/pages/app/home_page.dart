@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/screens/home/autoparts_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/catalogs_screen.dart';
-import 'package:san_andres_mobile/presentation/screens/home/clients_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/history_sale_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/menu_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/reports_screen.dart';
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
         const SalesScreen(),
         const ReportsScreen(),
         const CatalogsScreen(),
-        const ClientsScreen(),
       ] else ...[
         const SearchAutopartsScreen(),
         const HistorySaleScreen(),

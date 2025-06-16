@@ -54,12 +54,6 @@ class _NavigationState extends State<Navigation> {
             label: 'Catalogos',
             backgroundColor: Colors.white,
           ),
-        if (isSeller)
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_rounded),
-            label: 'Clientes',
-            backgroundColor: Colors.white,
-          ),
         if (!isSeller)
           const BottomNavigationBarItem(
             icon: Icon(Icons.search),

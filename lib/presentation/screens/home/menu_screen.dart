@@ -38,40 +38,6 @@ class MenuScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading:
-                  const Icon(CupertinoIcons.moon_fill, color: Colors.white),
-              title: const Text(
-                "Modo Oscuto",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
-              title: const Text(
-                "Configuración",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                toggleMenu();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.help, color: Colors.white),
-              title: const Text(
-                "Ayuda",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                // Acción al presionar
-                toggleMenu();
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.refresh, color: Colors.white),
               title: const Text(
                 "Forzar actualización de datos",
