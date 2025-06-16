@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
@@ -82,17 +83,17 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                   ),
-                  // const SizedBox(height: 10),
-                  // BtnTextDefault(
-                  //   text: "Registrarme",
-                  //   color: const Color.fromARGB(255, 181, 28, 28),
-                  //   heigth: (MediaQuery.of(context).size.height) * 0.05,
-                  //   width: (MediaQuery.of(context).size.width) - 80,
-                  //   maxWidth: (MediaQuery.of(context).size.width) - 30,
-                  //   onPressed: () {
-                  //     context.push('/auth/register');
-                  //   },
-                  // ),
+                  const SizedBox(height: 10),
+                  BtnTextDefault(
+                    text: "Registrarme",
+                    color: const Color.fromARGB(255, 181, 28, 28),
+                    heigth: (MediaQuery.of(context).size.height) * 0.05,
+                    width: (MediaQuery.of(context).size.width) - 80,
+                    maxWidth: (MediaQuery.of(context).size.width) - 30,
+                    onPressed: () {
+                      context.push('/auth/register');
+                    },
+                  ),
                 ],
               ),
               Center(

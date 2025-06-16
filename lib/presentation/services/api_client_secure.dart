@@ -66,4 +66,3 @@ class ApiSecure {
 }
 
 final apiAuto = ApiSecure(service: ServicesASA.autoService).client;
-final apiChat = ApiSecure(service: ServicesASA.chatService).client;
