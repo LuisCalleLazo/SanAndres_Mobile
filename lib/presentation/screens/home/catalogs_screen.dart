@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_img_dev.dart';
 
 class CatalogsScreen extends StatelessWidget {
@@ -19,7 +20,9 @@ class CatalogsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BtnImgDev(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push("/reports/catalog");
+                  },
                   width: widthBtn,
                   heigth: heightBtn,
                   img: "catalogo1.png",

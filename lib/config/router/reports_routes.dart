@@ -1,6 +1,7 @@
 
 
 import 'package:go_router/go_router.dart';
+import 'package:san_andres_mobile/presentation/pages/catalogs/catalog_page.dart';
 import 'package:san_andres_mobile/presentation/pages/reports/best_seller_page.dart';
 import 'package:san_andres_mobile/presentation/pages/reports/net_profits_page.dart';
 import 'package:san_andres_mobile/presentation/pages/reports/quotes_page.dart';
@@ -28,6 +29,11 @@ final reportsRoutes = [
     path: '$pathBase/sales-customer',
     name: SalesCustomerPage.name,
     builder: (context, state) => const SalesCustomerPage(),
+  ),
+  GoRoute(
+    path: '$pathBase/catalog',
+    name: CatalogPage.name,
+    builder: (context, state) => const CatalogPage(),
   ),
 ];
 
