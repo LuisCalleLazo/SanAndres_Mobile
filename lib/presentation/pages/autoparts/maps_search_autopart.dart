@@ -45,7 +45,8 @@ class _MapsSearchAutopartState extends State<MapsSearchAutopart> {
       setState(() {
         _errorMessage = e.toString();
         _isLoading = false;
-        _currentPosition = const LatLng(37.7749, -122.4194); // Valor por defecto
+        _currentPosition =
+            const LatLng(37.7749, -122.4194); // Valor por defecto
       });
     }
   }
@@ -73,8 +74,12 @@ class _MapsSearchAutopartState extends State<MapsSearchAutopart> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(
+            color: Colors.red[900],
+          ),
+        ),
       );
     }
 
@@ -87,7 +92,7 @@ class _MapsSearchAutopartState extends State<MapsSearchAutopart> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mapa'),
+        title: const Text('Ir donde TIENDA'),
         actions: [
           IconButton(
             icon: const Icon(Icons.my_location),

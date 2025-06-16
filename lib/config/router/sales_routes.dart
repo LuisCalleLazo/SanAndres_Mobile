@@ -1,9 +1,11 @@
 
 
 import 'package:go_router/go_router.dart';
+import 'package:san_andres_mobile/domain/entities/sales/sale_customer.dart';
 import 'package:san_andres_mobile/presentation/pages/sales/add_sale_page.dart';
 import 'package:san_andres_mobile/presentation/pages/sales/edit_sale_page.dart';
 import 'package:san_andres_mobile/presentation/pages/sales/receipt_sale_page.dart';
+import 'package:san_andres_mobile/presentation/pages/sales/sale_items_page.dart';
 
 const String pathBase = "/sales";
 
@@ -22,6 +24,14 @@ final salesRoutes = [
     path: '$pathBase/receipt',
     name: ReceiptSalePage.name,
     builder: (context, state) => const ReceiptSalePage(),
+  ),
+  GoRoute(
+    path: '$pathBase/items',
+    name: SaleItemsPage.name,
+    builder: (context, state) {
+      final sale = state.extra as SaleCustomer;
+      return SaleItemsPage(sale: sale);
+    },
   ),
 ];
 
