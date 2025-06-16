@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/cupertino.dart';
 
 class MenuScreen extends StatelessWidget {
   final void Function() toggleMenu;
@@ -55,8 +54,7 @@ class MenuScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                // Acción al presionar
-                toggleMenu();
+                context.push("/home/help");
               },
             ),
             ListTile(

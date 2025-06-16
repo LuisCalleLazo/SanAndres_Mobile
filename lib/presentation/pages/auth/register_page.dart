@@ -43,6 +43,17 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: ListView(
         children: [
+          Container(
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Center(
+              child: Image.asset(
+                'assets/icons/logo_recort.png',
+                height: MediaQuery.of(context).size.height * 0.15,
+              ),
+            ),
+          ),
           InputDefault(
             label: "Nombre de usuario",
             controller: _inputManager.getController("name_register"),
@@ -112,7 +123,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 onPressed: () async {
                   if (_selectedDate == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Por favor selecciona una fecha de nacimiento')),
+                      const SnackBar(
+                          content: Text(
+                              'Por favor selecciona una fecha de nacimiento')),
                     );
                     return;
                   }
@@ -121,17 +134,27 @@ class _RegisterPageState extends State<RegisterPage> {
                     await authProvider.registerUser(
                       name: _inputManager.getController("name_register").text,
                       email: _inputManager.getController("email_register").text,
-                      password: _inputManager.getController("pass_register").text,
-                      momFirstName: _inputManager.getController("first_mom_name_register").text,
-                      dadFirstName: _inputManager.getController("first_dad_name_register").text,
-                      momLastName: _inputManager.getController("last_mom_name_register").text,
-                      dadLastName: _inputManager.getController("last_dad_name_register").text,
+                      password:
+                          _inputManager.getController("pass_register").text,
+                      momFirstName: _inputManager
+                          .getController("first_mom_name_register")
+                          .text,
+                      dadFirstName: _inputManager
+                          .getController("first_dad_name_register")
+                          .text,
+                      momLastName: _inputManager
+                          .getController("last_mom_name_register")
+                          .text,
+                      dadLastName: _inputManager
+                          .getController("last_dad_name_register")
+                          .text,
                       birthDate: _selectedDate!,
-                      address: _inputManager.getController("address_register").text,
+                      address:
+                          _inputManager.getController("address_register").text,
                       ci: _inputManager.getController("ci_register").text,
                       context: context,
                     );
-                    
+
                     // Navegar al home después del registro exitoso
                     if (context.mounted) {
                       context.push('/home');
