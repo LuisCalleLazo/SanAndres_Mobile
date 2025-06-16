@@ -32,8 +32,7 @@ class MenuScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                // Acción al presionar
-                toggleMenu();
+                context.push("/home/perfil");
               },
             ),
             ListTile(
