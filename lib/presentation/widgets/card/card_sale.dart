@@ -17,7 +17,7 @@ class _CardSaleState extends State<CardSale> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return const MenuForItemSale(
+        return MenuForItemSale(
           saleId: 1,
         );
       },
@@ -116,7 +116,7 @@ class _CardSaleState extends State<CardSale> {
 // Menu de 3 opciones por cada tarjeta de autoparte
 class MenuForItemSale extends StatelessWidget {
   final int saleId;
-  const MenuForItemSale({
+  MenuForItemSale({
     super.key,
     required this.saleId,
   });
@@ -150,6 +150,7 @@ class MenuForItemSale extends StatelessWidget {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -165,22 +166,22 @@ class MenuForItemSale extends StatelessWidget {
               context.push('/sales/edit');
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
-            title: const Text('Generar recibo PDF',
-                style: TextStyle(color: Colors.red)),
-            onTap: () {
-              context.push('/sales/receipt');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.table_rows_rounded, color: Colors.red),
-            title: const Text('Generar recibo XLSX',
-                style: TextStyle(color: Colors.red)),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
+          //   title: const Text('Generar recibo PDF',
+          //       style: TextStyle(color: Colors.red)),
+          //   onTap: () {
+          //     context.push('/sales/receipt');
+          //   },
+          // ),
+          // ListTile(
+          //   leading: const Icon(Icons.table_rows_rounded, color: Colors.red),
+          //   title: const Text('Generar recibo XLSX',
+          //       style: TextStyle(color: Colors.red)),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //   },
+          // ),
           ListTile(
             leading: const Icon(Icons.delete, color: Colors.red),
             title: const Text('Eliminar', style: TextStyle(color: Colors.red)),

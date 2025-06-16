@@ -57,6 +57,10 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   url_launcher: ^6.3.1
   package_info_plus: ^8.3.0
+  pdf: ^3.11.3
+  printing: ^5.14.2
+  intl: ^0.20.2
+  fl_chart: ^1.0.0
 
 dev_dependencies:
   flutter_test:

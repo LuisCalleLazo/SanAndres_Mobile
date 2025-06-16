@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_img_dev.dart';
 
 class ReportsScreen extends StatelessWidget {
@@ -19,14 +20,18 @@ class ReportsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BtnImgDev(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push("/reports/net-profits");
+                  },
                   width: widthBtn,
                   heigth: heightBtn,
-                  img: "cotizacion.png",
-                  text: "Generar Cotizaciones",
+                  img: "estadisticas2.png",
+                  text: "Ganancias Netas",
                 ),
                 BtnImgDev(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push("/reports/best-seller");
+                  },
                   width: widthBtn,
                   heigth: heightBtn,
                   img: "estadisticas.png",
@@ -37,32 +42,32 @@ class ReportsScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        Card(
-          clipBehavior: Clip.hardEdge,
-          elevation: 10,
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BtnImgDev(
-                  onPressed: () {},
-                  width: widthBtn,
-                  heigth: heightBtn,
-                  img: "estadisticas2.png",
-                  text: "Ganancias Netas",
-                ),
-                BtnImgDev(
-                  onPressed: () {},
-                  width: widthBtn,
-                  heigth: heightBtn,
-                  img: "ganancias.png",
-                  text: "Ventas por Cliente",
-                ),
-              ],
-            ),
-          ),
-        ),
+        // Card(
+        //   clipBehavior: Clip.hardEdge,
+        //   elevation: 10,
+        //   child: SizedBox(
+        //     height: MediaQuery.of(context).size.height * 0.3,
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //       children: [
+        //         BtnImgDev(
+        //           onPressed: () {},
+        //           width: widthBtn,
+        //           heigth: heightBtn,
+        //           img: "estadisticas2.png",
+        //           text: "Ganancias Netas",
+        //         ),
+        //         BtnImgDev(
+        //           onPressed: () {},
+        //           width: widthBtn,
+        //           heigth: heightBtn,
+        //           img: "ganancias.png",
+        //           text: "Ventas por Cliente",
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

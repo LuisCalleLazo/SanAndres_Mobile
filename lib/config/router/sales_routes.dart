@@ -1,5 +1,3 @@
-
-
 import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/domain/entities/sales/sale_customer.dart';
 import 'package:san_andres_mobile/presentation/pages/sales/add_sale_page.dart';
@@ -23,7 +21,7 @@ final salesRoutes = [
   GoRoute(
     path: '$pathBase/receipt',
     name: ReceiptSalePage.name,
-    builder: (context, state) => const ReceiptSalePage(),
+    builder: (context, state) => const ReceiptSalePage()
   ),
   GoRoute(
     path: '$pathBase/items',
@@ -34,4 +32,3 @@ final salesRoutes = [
     },
   ),
 ];
-

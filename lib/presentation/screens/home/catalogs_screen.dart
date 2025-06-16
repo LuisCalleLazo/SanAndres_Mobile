@@ -24,12 +24,12 @@ class CatalogsScreen extends StatelessWidget {
                   heigth: heightBtn,
                   img: "catalogo1.png",
                 ),
-                BtnImgDev(
-                  onPressed: () {},
-                  width: widthBtn,
-                  heigth: heightBtn,
-                  img: "catalogo2.png",
-                ),
+                // BtnImgDev(
+                //   onPressed: () {},
+                //   width: widthBtn,
+                //   heigth: heightBtn,
+                //   img: "catalogo2.png",
+                // ),
               ],
             ),
           ),
