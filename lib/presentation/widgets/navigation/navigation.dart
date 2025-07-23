@@ -51,7 +51,7 @@ class _NavigationState extends State<Navigation> {
         if (isSeller)
           const BottomNavigationBarItem(
             icon: Icon(Icons.edit_document),
-            label: 'Catalogos',
+            label: 'Cotizaciones',
             backgroundColor: Colors.white,
           ),
         if (!isSeller)

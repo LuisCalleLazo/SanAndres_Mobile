@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/screens/home/autoparts_screen.dart';
-import 'package:san_andres_mobile/presentation/screens/home/catalogs_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/history_sale_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/menu_screen.dart';
+import 'package:san_andres_mobile/presentation/screens/home/quotes_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/reports_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/sales_screen.dart';
 import 'package:san_andres_mobile/presentation/screens/home/search_autoparts_screen.dart';
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         const AutopartsScreen(),
         const SalesScreen(),
         const ReportsScreen(),
-        const CatalogsScreen(),
+        const QuotesScreen(),
       ] else ...[
         const SearchAutopartsScreen(),
         const HistorySaleScreen(),
