@@ -4,12 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_of_seller.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
+import 'package:san_andres_mobile/presentation/screens/autoparts/autoparts_global.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_text_default.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
-import 'package:san_andres_mobile/presentation/widgets/dialogs/filter_dialog.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
+import 'package:san_andres_mobile/presentation/widgets/snackbars/custom_snackbar.dart';
 
 class AddAutopartsPage extends StatefulWidget {
   static String name = "add_autoparts_page";
@@ -33,28 +34,28 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
         children: [
           const SizedBox(height: 20),
           InputDefault(
-            label: "Costo unitario oficial",
+            label: "Costo unitario (privado)",
             controller: _inputManager.getController('cost_unit'),
             icon: Icons.money,
             type: TextInputType.number,
           ),
           const SizedBox(height: 20),
           InputDefault(
-            label: "Costo unitario publico",
+            label: "Costo unitario (publico)",
             controller: _inputManager.getController('cost_unit_public'),
             icon: Icons.public,
             type: TextInputType.number,
           ),
           const SizedBox(height: 20),
           InputDefault(
-            label: "Costo por mayor oficial",
+            label: "Costo por mayor (privado)",
             controller: _inputManager.getController('cost_wholesale'),
             icon: Icons.money,
             type: TextInputType.number,
           ),
           const SizedBox(height: 20),
           InputDefault(
-            label: "Costo por mayor publico",
+            label: "Costo por mayor (publico)",
             controller: _inputManager.getController('cost_wholesale_public'),
             icon: Icons.public,
             type: TextInputType.number,
@@ -66,7 +67,10 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Ninguno elegido", style: TextStyle(color: Colors.white),),
+                Text(
+                  "Ninguno elegido",
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
           ),
@@ -91,55 +95,69 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
             padding: const EdgeInsets.symmetric(vertical: 30),
             child: BtnTextDefault(
               onPressed: () async {
-                 final autopartProvider = Provider.of<AutopartProvider>(context, listen: false);
+                final autopartProvider =
+                    Provider.of<AutopartProvider>(context, listen: false);
 
-                  if (_selectedAutopart == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Debe seleccionar un autoparte")),
-                    );
-                    return;
-                  }
+                if (_selectedAutopart == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text("Debe seleccionar un autoparte")),
+                  );
+                  return;
+                }
 
-                  try {
-                    // Parsear valores de los inputs
-                    final unitPrice = double.tryParse(_inputManager.getController('cost_unit').text) ?? 0.0;
-                    final unitPricePublic = double.tryParse(_inputManager.getController('cost_unit_public').text) ?? 0.0;
-                    final amountUnit = int.tryParse(_inputManager.getController('cost_wholesale').text) ?? 0;
-                    final amountUnitPublic = int.tryParse(_inputManager.getController('cost_wholesale_public').text) ?? 0;
+                try {
+                  // Parsear valores de los inputs
+                  final unitPrice = double.tryParse(
+                          _inputManager.getController('cost_unit').text) ??
+                      0.0;
+                  final unitPricePublic = double.tryParse(_inputManager
+                          .getController('cost_unit_public')
+                          .text) ??
+                      0.0;
+                  final amountUnit = int.tryParse(
+                          _inputManager.getController('cost_wholesale').text) ??
+                      0;
+                  final amountUnitPublic = int.tryParse(_inputManager
+                          .getController('cost_wholesale_public')
+                          .text) ??
+                      0;
 
-                    // Crear instancia para enviar
-                    final newAutopartSeller = AutopartOfSeller(
-                      id: 0, // id no importa, será autogenerado
-                      autopartId: _selectedAutopart!.id,
-                      sellerId: 1,
-                      amountUnit: amountUnit,
-                      amountUnitPublic: amountUnitPublic,
-                      unitPrice: unitPrice,
-                      unitPricePublic: unitPricePublic,
-                    );
+                  // Crear instancia para enviar
+                  final newAutopartSeller = AutopartOfSeller(
+                    id: 0, // id no importa, será autogenerado
+                    autopartId: _selectedAutopart!.id,
+                    sellerId: 1,
+                    amountUnit: amountUnit,
+                    amountUnitPublic: amountUnitPublic,
+                    unitPrice: unitPrice,
+                    unitPricePublic: unitPricePublic,
+                  );
 
-                    // Llamar al provider para crear
-                    final created = await autopartProvider.createAutopartSeller(newAutopartSeller);
+                  // Llamar al provider para crear
+                  final created = await autopartProvider
+                      .createAutopartSeller(newAutopartSeller);
 
-                    // Mostrar mensaje de éxito
-                    // ignore: use_build_context_synchronously
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Autoparte creada con ID: ${created.id}")),
-                    );
+                  // Mostrar mensaje de éxito
+                  // ignore: use_build_context_synchronously
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content:
+                            Text("Autoparte creada con ID: ${created.id}")),
+                  );
 
-                    // Opcional: limpiar formulario o navegar
-                    setState(() {
-                      _selectedAutopart = null;
-                    });
+                  // Opcional: limpiar formulario o navegar
+                  setState(() {
+                    _selectedAutopart = null;
+                  });
 
-                    // ignore: use_build_context_synchronously
-                    context.push("/home");
-
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Error al crear autoparte: $e")),
-                    );
-                  }
+                  // ignore: use_build_context_synchronously
+                  context.push("/home");
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Error al crear autoparte: $e")),
+                  );
+                }
               },
               color: Colors.red[900],
               text: "Guardar",
@@ -153,90 +171,20 @@ class _AddAutopartsPageState extends State<AddAutopartsPage> {
   }
 
   Future<void> _showFilterDialog(BuildContext context) async {
-    final autopartProvider = Provider.of<AutopartProvider>(context, listen: false);
+    final autopartProvider =
+        Provider.of<AutopartProvider>(context, listen: false);
 
+    // Cargar autopartes primero
     await autopartProvider.loadAutopartsGlobal();
 
     if (autopartProvider.autoparts.isEmpty) return;
 
-    List<AutopartList> filteredAutoparts = List.from(autopartProvider.autoparts);
-
-    final selectedAutopart = await showDialog<AutopartList?>(
+    CustomSnackbar.show(
       // ignore: use_build_context_synchronously
       context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            void filterByCode(String code) {
-              setState(() {
-                filteredAutoparts = autopartProvider.autoparts.where((autopart) {
-                  final codeValue = autopart.info.firstWhere(
-                    (info) => info.type == 'code',
-                    orElse: () => AutopartInfoList(type: 'code', value: ''),
-                  ).value.toLowerCase();
-                  return codeValue.contains(code.toLowerCase());
-                }).toList();
-              });
-            }
-
-            return Consumer<AutopartProvider>(
-              builder: (context, provider, _) {
-                return FilterDialog(
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  title: "Productos globales",
-                  btnText: "Seleccionar",
-                  onApply: () {
-                    Navigator.of(context).pop(provider.selectedAutopart);
-                  },
-                  filters: [
-                    Divider(color: Colors.red[900], thickness: 2),
-                    SizedBox(
-                      height: 380,
-                      child: Column(
-                        children: [
-                          InputDefault(
-                            label: "Codigo de autoparte",
-                            controller: _inputManager.getController("code_search"),
-                            icon: Icons.keyboard_alt,
-                            onChanged: filterByCode,
-                          ),
-                          const SizedBox(height: 10),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: List.generate(filteredAutoparts.length, (index) {
-                                  final autopart = filteredAutoparts[index];
-                                  return CardAutopartMin(
-                                    isChecked: provider.selectedAutopart == autopart,
-                                    onTap: () {
-                                      provider.selectAutopart(
-                                        provider.selectedAutopart == autopart ? null : autopart);
-                                    },
-                                    autopart: autopart,
-                                  );
-                                }),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(color: Colors.red[900], thickness: 2),
-                  ],
-                );
-              },
-            );
-          },
-        );
-      },
+      // ignore: use_build_context_synchronously
+      height: MediaQuery.of(context).size.height * 0.65,
+      content: const AutopartsGlobal(),
     );
-
-    if (selectedAutopart != null) {
-      setState(() {
-        _selectedAutopart = selectedAutopart;
-      });
-    }
   }
-
 }
