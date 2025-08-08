@@ -1,0 +1,29 @@
+pool:
+  name: Default
+
+steps:
+# 1. Usar un contenedor con Flutter y Android SDK
+- container: cirrusci/flutter:stable
+  displayName: 'Build Flutter en Docker'
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock  # Permite usar Docker dentro del contenedor
+
+# 2. Pasos normales (se ejecutarán dentro del contenedor)
+- script: |
+    flutter pub get
+    flutter build apk --release
+  displayName: 'Build APK'
+
+# 3. Firmar y subir a Play Store (igual que antes)
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: '$(keystoreFile)'
+    apksignerKeystorePassword: '$(KEYSTORE_PASSWORD)'
+
+- task: GooglePlayRelease@4
+  inputs:
+    serviceAccountKey: '$(googlePlayServiceAccount)'
+    packageName: 'com.tu.app'
+    apkFile: 'build/app/outputs/flutter-apk/app-release.apk'
+    track: 'internal'
