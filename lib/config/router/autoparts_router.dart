@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/presentation/pages/autoparts/add_autoparts_page.dart';
+import 'package:san_andres_mobile/presentation/pages/autoparts/data_autoparts_page.dart';
 import 'package:san_andres_mobile/presentation/pages/autoparts/detail_search_autopart.dart';
 import 'package:san_andres_mobile/presentation/pages/autoparts/edit_audtoparts_page.dart';
 import 'package:san_andres_mobile/presentation/pages/autoparts/imgs_autoparts_page.dart';
@@ -36,5 +37,10 @@ final autopartsRoutes = [
     path: '$pathBase/search-map',
     name: MapsSearchAutopart.name,
     builder: (context, state) => const MapsSearchAutopart(),
+  ),
+  GoRoute(
+    path: '$pathBase/manage',
+    name: DataAutopartsPage.name,
+    builder: (context, state) => const DataAutopartsPage(),
   ),
 ];
