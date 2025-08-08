@@ -57,6 +57,16 @@ class MenuScreen extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.precision_manufacturing_rounded, color: Colors.white),
+              title: const Text(
+                "Gestión de autopartes",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                context.push("/autoparts/manage");
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.logout, color: Colors.white),
               title: const Text(
                 "Cerrar sesión",
