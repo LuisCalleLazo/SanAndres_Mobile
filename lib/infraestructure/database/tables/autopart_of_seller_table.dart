@@ -1,8 +1,6 @@
 import 'package:drift/drift.dart';
 
-class AutopartOfSellerTable extends Table
-{
-
+class AutopartOfSellerTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get refId => integer().nullable()();
   IntColumn get amountUnit => integer()();
@@ -12,7 +10,4 @@ class AutopartOfSellerTable extends Table
   RealColumn get wholessalePrice => real()();
   RealColumn get wholessalePricePublic => real()();
   IntColumn get autopartId => integer()();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }

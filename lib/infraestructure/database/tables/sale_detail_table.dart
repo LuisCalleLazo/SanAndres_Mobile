@@ -1,19 +1,14 @@
 import 'package:drift/drift.dart';
 import 'package:san_andres_mobile/infraestructure/model/sale_state_enum.dart';
 
-class SaleDetailTable extends Table
-{
+class SaleDetailTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get refId => integer()();
   TextColumn get cutomerId => text().nullable()();
-  DateTimeColumn get saleDate => dateTime()(); 
-  TextColumn get customerNotSubscribed => text()(); 
-  TextColumn get state => text().map(const SaleStateEnumConverter())(); 
-
-  @override
-  Set<Column> get primaryKey => {id};
+  DateTimeColumn get saleDate => dateTime()();
+  TextColumn get customerNotSubscribed => text()();
+  TextColumn get state => text().map(const SaleStateEnumConverter())();
 }
-
 
 class SaleStateEnumConverter extends TypeConverter<SaleStateEnum, String> {
   const SaleStateEnumConverter();
