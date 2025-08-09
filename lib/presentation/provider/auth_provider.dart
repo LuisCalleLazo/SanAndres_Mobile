@@ -43,7 +43,7 @@ class AuthProvider extends ChangeNotifier {
     }
 
     // ignore: use_build_context_synchronously
-    context.push('/home');
+    context.push('/home/loading');
   }
 
   Future<void> register(String nameOremail, String password) async {

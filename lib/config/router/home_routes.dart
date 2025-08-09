@@ -5,6 +5,7 @@ import 'package:san_andres_mobile/presentation/pages/app/edit_info_people_page.d
 import 'package:san_andres_mobile/presentation/pages/app/edit_photo_perfil_page.dart';
 import 'package:san_andres_mobile/presentation/pages/app/help_page.dart';
 import 'package:san_andres_mobile/presentation/pages/app/home_page.dart';
+import 'package:san_andres_mobile/presentation/pages/app/loading_data_page.dart';
 
 const String pathBase = "/home";
 
@@ -28,6 +29,11 @@ final homeRoutes = [
     path: '$pathBase/help',
     name: HelpPage.name,
     builder: (context, state) => const HelpPage(),
+  ),
+  GoRoute(
+    path: '$pathBase/loading',
+    name: LoadingDataPage.name,
+    builder: (context, state) => const LoadingDataPage(),
   ),
 ];
 
