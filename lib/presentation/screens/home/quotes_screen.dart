@@ -134,8 +134,8 @@ class _QuotesScreenState extends State<QuotesScreen> {
                 child: CircleAvatar(
                   radius: 40,
                   backgroundColor: Colors.grey[200],
-                  child:
-                      Icon(Icons.car_repair, size: 40, color: Colors.blueGrey),
+                  child: const Icon(Icons.car_repair,
+                      size: 40, color: Colors.blueGrey),
                   // En una app real, usarías: Image.asset(part.imagePath)
                 ),
               ),

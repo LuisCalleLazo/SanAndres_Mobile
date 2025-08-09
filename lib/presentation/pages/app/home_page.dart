@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
@@ -70,74 +71,98 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  DateTime? currentBackPressTime;
+  void _handlePopInvoked(bool didPop, Object? result) {
+    if (didPop) return;
+
+    final now = DateTime.now();
+    final shouldExit = currentBackPressTime != null &&
+        now.difference(currentBackPressTime!) <= const Duration(seconds: 2);
+
+    if (shouldExit) {
+      SystemNavigator.pop();
+    } else {
+      currentBackPressTime = now;
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Presiona de nuevo para salir')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 40,
-            // backgroundColor: Colors.white,
-            automaticallyImplyLeading: false,
-            leading: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 1),
-              child: BtnIconDev(
-                icon: Icons.menu,
-                width: 50,
-                heigth: 30,
-                color: Colors.white,
-                onPressed: _toggleMenu,
-                borderCircular:
-                    const BorderRadius.horizontal(right: Radius.circular(12)),
-              ),
-            ),
-            actions: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.85,
-                height: 50,
-                alignment: Alignment.center,
-                child: Text(
-                  "BIENVENIDO    A    A.S.A",
-                  textAlign: TextAlign.justify,
-                  style: GoogleFonts.sairaStencilOne(
-                    fontSize: 20,
-                    color: Colors.red[900],
-                  ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: _handlePopInvoked,
+      child: Stack(
+        children: [
+          Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 40,
+              // backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              leading: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 1),
+                child: BtnIconDev(
+                  icon: Icons.menu,
+                  width: 50,
+                  heigth: 30,
+                  color: Colors.white,
+                  onPressed: _toggleMenu,
+                  borderCircular:
+                      const BorderRadius.horizontal(right: Radius.circular(12)),
                 ),
               ),
-            ],
-          ),
-          backgroundColor: Colors.white,
-          body: PageView(
-            controller: _pageController,
-            onPageChanged: _onPageChanged,
-            children: _screens,
-          ),
-          bottomNavigationBar: Navigation(
-            onItemTapped: _onItemTapped,
-            selectedIndex: _selectedIndex,
-          ),
-        ),
-        if (_isMenuVisible)
-          GestureDetector(
-            onTap: _toggleMenu,
-            child: Container(
-              // ignore: deprecated_member_use
-              color: Colors.black.withOpacity(0.5),
-              width: double.infinity,
-              height: double.infinity,
+              actions: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "BIENVENIDO    A    A.S.A",
+                    textAlign: TextAlign.justify,
+                    style: GoogleFonts.sairaStencilOne(
+                      fontSize: 20,
+                      color: Colors.red[900],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.white,
+            body: PageView(
+              controller: _pageController,
+              onPageChanged: _onPageChanged,
+              children: _screens,
+            ),
+            bottomNavigationBar: Navigation(
+              onItemTapped: _onItemTapped,
+              selectedIndex: _selectedIndex,
             ),
           ),
-        if (_isMenuVisible)
-          Positioned(
-            top: 0,
-            left: 0,
-            width:
-                MediaQuery.of(context).size.width * 0.8, // 80% de la pantalla
-            height: MediaQuery.of(context).size.height, // Toda la altura
-            child: MenuScreen(toggleMenu: _toggleMenu),
-          ),
-      ],
+          if (_isMenuVisible)
+            GestureDetector(
+              onTap: _toggleMenu,
+              child: Container(
+                // ignore: deprecated_member_use
+                color: Colors.black.withOpacity(0.5),
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            ),
+          if (_isMenuVisible)
+            Positioned(
+              top: 0,
+              left: 0,
+              width:
+                  MediaQuery.of(context).size.width * 0.8, // 80% de la pantalla
+              height: MediaQuery.of(context).size.height, // Toda la altura
+              child: MenuScreen(toggleMenu: _toggleMenu),
+            ),
+        ],
+      ),
     );
   }
 }
