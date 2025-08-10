@@ -73,8 +73,10 @@ class _InputPassState extends State<InputPass> {
                 ),
                 suffixIcon: IconButton(
                   onPressed: _togglePasswordVisibility,
-                  icon: const Icon(Icons.remove_red_eye_sharp),
-                  color: Colors.red,
+                  icon: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.red,
+                  ),
                 ),
               ),
               onTap: () {
