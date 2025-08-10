@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="san_andres_mobile"
+        android:label="ASA"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <meta-data
