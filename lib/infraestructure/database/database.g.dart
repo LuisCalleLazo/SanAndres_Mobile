@@ -23,6 +23,11 @@ class $AutopartTableTable extends AutopartTable
   late final GeneratedColumn<int> refId = GeneratedColumn<int>(
       'ref_id', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _brandIdMeta =
       const VerificationMeta('brandId');
   @override
@@ -36,7 +41,7 @@ class $AutopartTableTable extends AutopartTable
       'category_id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, refId, brandId, categoryId];
+  List<GeneratedColumn> get $columns => [id, refId, name, brandId, categoryId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -53,6 +58,10 @@ class $AutopartTableTable extends AutopartTable
     if (data.containsKey('ref_id')) {
       context.handle(
           _refIdMeta, refId.isAcceptableOrUnknown(data['ref_id']!, _refIdMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     }
     if (data.containsKey('brand_id')) {
       context.handle(_brandIdMeta,
@@ -81,6 +90,8 @@ class $AutopartTableTable extends AutopartTable
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       refId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}ref_id']),
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name']),
       brandId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}brand_id'])!,
       categoryId: attachedDatabase.typeMapping
@@ -98,11 +109,13 @@ class AutopartTableData extends DataClass
     implements Insertable<AutopartTableData> {
   final int id;
   final int? refId;
+  final String? name;
   final int brandId;
   final int categoryId;
   const AutopartTableData(
       {required this.id,
       this.refId,
+      this.name,
       required this.brandId,
       required this.categoryId});
   @override
@@ -111,6 +124,9 @@ class AutopartTableData extends DataClass
     map['id'] = Variable<int>(id);
     if (!nullToAbsent || refId != null) {
       map['ref_id'] = Variable<int>(refId);
+    }
+    if (!nullToAbsent || name != null) {
+      map['name'] = Variable<String>(name);
     }
     map['brand_id'] = Variable<int>(brandId);
     map['category_id'] = Variable<int>(categoryId);
@@ -122,6 +138,7 @@ class AutopartTableData extends DataClass
       id: Value(id),
       refId:
           refId == null && nullToAbsent ? const Value.absent() : Value(refId),
+      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
       brandId: Value(brandId),
       categoryId: Value(categoryId),
     );
@@ -133,6 +150,7 @@ class AutopartTableData extends DataClass
     return AutopartTableData(
       id: serializer.fromJson<int>(json['id']),
       refId: serializer.fromJson<int?>(json['refId']),
+      name: serializer.fromJson<String?>(json['name']),
       brandId: serializer.fromJson<int>(json['brandId']),
       categoryId: serializer.fromJson<int>(json['categoryId']),
     );
@@ -143,6 +161,7 @@ class AutopartTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'refId': serializer.toJson<int?>(refId),
+      'name': serializer.toJson<String?>(name),
       'brandId': serializer.toJson<int>(brandId),
       'categoryId': serializer.toJson<int>(categoryId),
     };
@@ -151,11 +170,13 @@ class AutopartTableData extends DataClass
   AutopartTableData copyWith(
           {int? id,
           Value<int?> refId = const Value.absent(),
+          Value<String?> name = const Value.absent(),
           int? brandId,
           int? categoryId}) =>
       AutopartTableData(
         id: id ?? this.id,
         refId: refId.present ? refId.value : this.refId,
+        name: name.present ? name.value : this.name,
         brandId: brandId ?? this.brandId,
         categoryId: categoryId ?? this.categoryId,
       );
@@ -163,6 +184,7 @@ class AutopartTableData extends DataClass
     return AutopartTableData(
       id: data.id.present ? data.id.value : this.id,
       refId: data.refId.present ? data.refId.value : this.refId,
+      name: data.name.present ? data.name.value : this.name,
       brandId: data.brandId.present ? data.brandId.value : this.brandId,
       categoryId:
           data.categoryId.present ? data.categoryId.value : this.categoryId,
@@ -174,6 +196,7 @@ class AutopartTableData extends DataClass
     return (StringBuffer('AutopartTableData(')
           ..write('id: $id, ')
           ..write('refId: $refId, ')
+          ..write('name: $name, ')
           ..write('brandId: $brandId, ')
           ..write('categoryId: $categoryId')
           ..write(')'))
@@ -181,13 +204,14 @@ class AutopartTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, refId, brandId, categoryId);
+  int get hashCode => Object.hash(id, refId, name, brandId, categoryId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AutopartTableData &&
           other.id == this.id &&
           other.refId == this.refId &&
+          other.name == this.name &&
           other.brandId == this.brandId &&
           other.categoryId == this.categoryId);
 }
@@ -195,17 +219,20 @@ class AutopartTableData extends DataClass
 class AutopartTableCompanion extends UpdateCompanion<AutopartTableData> {
   final Value<int> id;
   final Value<int?> refId;
+  final Value<String?> name;
   final Value<int> brandId;
   final Value<int> categoryId;
   const AutopartTableCompanion({
     this.id = const Value.absent(),
     this.refId = const Value.absent(),
+    this.name = const Value.absent(),
     this.brandId = const Value.absent(),
     this.categoryId = const Value.absent(),
   });
   AutopartTableCompanion.insert({
     this.id = const Value.absent(),
     this.refId = const Value.absent(),
+    this.name = const Value.absent(),
     required int brandId,
     required int categoryId,
   })  : brandId = Value(brandId),
@@ -213,12 +240,14 @@ class AutopartTableCompanion extends UpdateCompanion<AutopartTableData> {
   static Insertable<AutopartTableData> custom({
     Expression<int>? id,
     Expression<int>? refId,
+    Expression<String>? name,
     Expression<int>? brandId,
     Expression<int>? categoryId,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (refId != null) 'ref_id': refId,
+      if (name != null) 'name': name,
       if (brandId != null) 'brand_id': brandId,
       if (categoryId != null) 'category_id': categoryId,
     });
@@ -227,11 +256,13 @@ class AutopartTableCompanion extends UpdateCompanion<AutopartTableData> {
   AutopartTableCompanion copyWith(
       {Value<int>? id,
       Value<int?>? refId,
+      Value<String?>? name,
       Value<int>? brandId,
       Value<int>? categoryId}) {
     return AutopartTableCompanion(
       id: id ?? this.id,
       refId: refId ?? this.refId,
+      name: name ?? this.name,
       brandId: brandId ?? this.brandId,
       categoryId: categoryId ?? this.categoryId,
     );
@@ -245,6 +276,9 @@ class AutopartTableCompanion extends UpdateCompanion<AutopartTableData> {
     }
     if (refId.present) {
       map['ref_id'] = Variable<int>(refId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
     }
     if (brandId.present) {
       map['brand_id'] = Variable<int>(brandId.value);
@@ -260,6 +294,7 @@ class AutopartTableCompanion extends UpdateCompanion<AutopartTableData> {
     return (StringBuffer('AutopartTableCompanion(')
           ..write('id: $id, ')
           ..write('refId: $refId, ')
+          ..write('name: $name, ')
           ..write('brandId: $brandId, ')
           ..write('categoryId: $categoryId')
           ..write(')'))
@@ -4238,6 +4273,7 @@ typedef $$AutopartTableTableCreateCompanionBuilder = AutopartTableCompanion
     Function({
   Value<int> id,
   Value<int?> refId,
+  Value<String?> name,
   required int brandId,
   required int categoryId,
 });
@@ -4245,6 +4281,7 @@ typedef $$AutopartTableTableUpdateCompanionBuilder = AutopartTableCompanion
     Function({
   Value<int> id,
   Value<int?> refId,
+  Value<String?> name,
   Value<int> brandId,
   Value<int> categoryId,
 });
@@ -4263,6 +4300,9 @@ class $$AutopartTableTableFilterComposer
 
   ColumnFilters<int> get refId => $composableBuilder(
       column: $table.refId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get brandId => $composableBuilder(
       column: $table.brandId, builder: (column) => ColumnFilters(column));
@@ -4286,6 +4326,9 @@ class $$AutopartTableTableOrderingComposer
   ColumnOrderings<int> get refId => $composableBuilder(
       column: $table.refId, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get brandId => $composableBuilder(
       column: $table.brandId, builder: (column) => ColumnOrderings(column));
 
@@ -4307,6 +4350,9 @@ class $$AutopartTableTableAnnotationComposer
 
   GeneratedColumn<int> get refId =>
       $composableBuilder(column: $table.refId, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
 
   GeneratedColumn<int> get brandId =>
       $composableBuilder(column: $table.brandId, builder: (column) => column);
@@ -4343,24 +4389,28 @@ class $$AutopartTableTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int?> refId = const Value.absent(),
+            Value<String?> name = const Value.absent(),
             Value<int> brandId = const Value.absent(),
             Value<int> categoryId = const Value.absent(),
           }) =>
               AutopartTableCompanion(
             id: id,
             refId: refId,
+            name: name,
             brandId: brandId,
             categoryId: categoryId,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int?> refId = const Value.absent(),
+            Value<String?> name = const Value.absent(),
             required int brandId,
             required int categoryId,
           }) =>
               AutopartTableCompanion.insert(
             id: id,
             refId: refId,
+            name: name,
             brandId: brandId,
             categoryId: categoryId,
           ),
