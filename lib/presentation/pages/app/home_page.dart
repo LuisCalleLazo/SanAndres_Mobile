@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    final isSeller = authProvider.seller ?? false;
+    final isSeller = authProvider.isSeller;
 
     _screens = [
       if (isSeller) ...[

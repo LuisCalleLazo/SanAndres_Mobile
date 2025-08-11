@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:san_andres_mobile/domain/datasources/auth_datasource.dart';
 import 'package:san_andres_mobile/domain/datasources/user_datasource.dart';
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
-import 'package:san_andres_mobile/infraestructure/database/database.dart';
+import 'package:san_andres_mobile/domain/entities/auth/user.dart';
 import 'package:san_andres_mobile/infraestructure/model/auth_response_model.dart';
 import 'package:san_andres_mobile/presentation/services/api_error_handle.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -61,7 +61,32 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserTableData?> getUserAuth() async {
-    return await userDatasource.getLastUser();
+  Future<AuthResponse?> getUserAuth() async {
+    final userTableData = await userDatasource.getLastUser();
+
+    if (userTableData == null) return null;
+
+    return AuthResponse(
+      user: UserResponse(
+        id: userTableData.id,
+        name: userTableData.name,
+        email: '',
+      ),
+      currentToken: userTableData.token ?? '',
+      refreshToken: userTableData.refreshToken ?? '',
+    );
+  }
+
+  @override
+  Future<void> logout() async {
+    try {
+      await userDatasource.deleteUser();
+
+      // 2. Opcional: Hacer logout en el backend si es necesario
+      // await authDatasource.logoutOnServer();
+    } catch (e) {
+      // Puedes registrar el error pero no lanzar excepción para no interrumpir el flujo
+      debugPrint('Error during logout: $e');
+    }
   }
 }

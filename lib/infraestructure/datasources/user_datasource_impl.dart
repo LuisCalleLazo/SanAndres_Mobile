@@ -3,7 +3,6 @@ import 'package:san_andres_mobile/domain/datasources/user_datasource.dart';
 import 'package:san_andres_mobile/infraestructure/database/database.dart';
 
 class UserDatasourceImpl extends UserDatasource {
-  
   late final AppDatabase _database;
 
   UserDatasourceImpl(AppDatabase appDatabase);
@@ -11,7 +10,8 @@ class UserDatasourceImpl extends UserDatasource {
   @override
   Future<UserTableData?> getLastUser() async {
     final query = _database.select(_database.userTable)
-      ..orderBy([(t) => OrderingTerm(expression: t.id, mode: OrderingMode.desc)])
+      ..orderBy(
+          [(t) => OrderingTerm(expression: t.id, mode: OrderingMode.desc)])
       ..limit(1);
 
     return await query.getSingleOrNull();
@@ -23,9 +23,7 @@ class UserDatasourceImpl extends UserDatasource {
   }
 
   @override
-  Future<int> deleteUser(int id) async {
-    return await (_database.delete(_database.userTable)
-      ..where((t) => t.id.equals(id)))
-      .go();
+  Future<void> deleteUser() async {
+    await _database.delete(_database.userTable).go();
   }
 }

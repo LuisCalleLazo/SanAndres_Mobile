@@ -22,7 +22,7 @@ class _NavigationState extends State<Navigation> {
 
   @override
   Widget build(BuildContext context) {
-    final isSeller = authProvider.seller ?? false;
+    final isSeller = authProvider.isSeller;
     return BottomNavigationBar(
       type: BottomNavigationBarType.shifting,
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),

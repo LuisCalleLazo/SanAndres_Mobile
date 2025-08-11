@@ -1,29 +1,28 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
 import 'package:san_andres_mobile/domain/entities/auth/user.dart';
 import 'package:san_andres_mobile/domain/repositories/auth_repository.dart';
-import 'package:san_andres_mobile/presentation/services/api_client.dart';
 
 class AuthProvider extends ChangeNotifier {
   final AuthRepository authRepository;
   AuthProvider(this.authRepository);
 
-  AuthResponse? _current;
-  UserResponse? _user;
-  int? _userId;
-  String? _name;
-  bool? _seller;
-  bool? _customer;
-
-  AuthResponse? get current => _current;
-  UserResponse? get user => _user;
+  AuthResponse? _currentAuth;
+  UserResponse? get user => _currentAuth?.user;
   int? get userId => _userId;
   String? get name => _name;
-  bool? get seller => _seller;
-  bool? get customer => _customer;
+  bool get isSeller => _seller;
+  bool get isCustomer => _customer;
+  bool get isAuthenticated => _isAuthenticated;
+
+  int? _userId;
+  String? _name;
+  bool _seller = false;
+  bool _customer = false;
   bool _isAuthenticated = false;
+
   Future<void> initialize() async {
     _isAuthenticated = await authRepository.verifyUser();
     if (_isAuthenticated) {
@@ -34,46 +33,30 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> _loadUserData() async {
     try {
-      // Obtener el último usuario autenticado
-      final user = await authRepository.getUserAuth();
-      if (user != null && user.token != null) {
-        Map<String, dynamic> decodedToken = JwtDecoder.decode(user.token!);
-
-        _userId = int.parse(decodedToken['id']);
-        _name = decodedToken['name'];
-        _seller = decodedToken['seller'] == "True";
-        _customer = decodedToken['customer'] == "True";
-
-        _isAuthenticated = true;
+      final auth = await authRepository.getUserAuth();
+      if (auth != null) {
+        _setAuthData(auth);
+      } else {
+        _clearAuthData();
       }
     } catch (e) {
-      _isAuthenticated = false;
-      _clearUserData();
+      _clearAuthData();
     }
   }
 
-  Future<void> login(
-      String nameOremail, String password, BuildContext context) async {
-    _current = await authRepository.login(nameOremail, password, context);
-
-    Map<String, dynamic> decodedToken =
-        JwtDecoder.decode(_current!.currentToken);
-
-    if (decodedToken['seller'] == "True" ||
-        decodedToken['customer'] == "True") {
-      _userId = int.parse(decodedToken['id']);
-      _name = decodedToken['name'];
-      _seller = decodedToken['seller'] == "True";
-      _customer = decodedToken['customer'] == "True";
-      _user = current!.user;
-      notifyListeners();
+  Future<bool> login(
+      String nameOrEmail, String password, BuildContext context) async {
+    try {
+      final auth = await authRepository.login(nameOrEmail, password, context);
+      _setAuthData(auth);
+      return true;
+    } catch (e) {
+      _clearAuthData();
+      rethrow;
     }
-
-    // ignore: use_build_context_synchronously
-    context.push('/home/loading');
   }
 
-  Future<void> registerUser({
+  Future<bool> registerUser({
     required String name,
     required String email,
     required String password,
@@ -84,68 +67,48 @@ class AuthProvider extends ChangeNotifier {
     required DateTime birthDate,
     required String address,
     required String ci,
-    required BuildContext context,
+    required BuildContext context
   }) async {
     try {
-      final response = await api.post(
-        'auth/register-user',
-        data: {
-          "name": name,
-          "email": email,
-          "password": password,
-          "momFirstName": momFirstName,
-          "dadFirstName": dadFirstName,
-          "momLastName": momLastName,
-          "dadLastName": dadLastName,
-          "birthDate": birthDate.toUtc().toIso8601String(),
-          "adress": address,
-          "ci": ci,
-          "cityId": 7,
-          "sellerOrCustomer": false,
-        },
-      );
-
-      // Procesar la respuesta
-      _current = AuthResponse(
-        user: UserResponse(
-          id: response.data['user']['id'],
-          name: response.data['user']['name'],
-          email: response.data['user']['email'],
-        ),
-        currentToken: response.data['currentToken'],
-        refreshToken: response.data['refreshToken'],
-      );
-
-      // Decodificar el token para obtener información adicional
-      Map<String, dynamic> decodedToken =
-          JwtDecoder.decode(_current!.currentToken);
-
-      _userId = int.parse(decodedToken['id']);
-      _name = decodedToken['name'];
-      _seller = decodedToken['seller'] == "True";
-      _customer = decodedToken['customer'] == "True";
-      _user = _current!.user;
-
-      notifyListeners();
+      // final auth = await authRepository.registerUser(
+      //   name: name,
+      //   email: email,
+      //   password: password,
+      //   momFirstName: momFirstName,
+      //   dadFirstName: dadFirstName,
+      //   momLastName: momLastName,
+      //   dadLastName: dadLastName,
+      //   birthDate: birthDate,
+      //   address: address,
+      //   ci: ci,
+      // );
+      // _setAuthData(auth);
+      return true;
     } catch (e) {
-      // Manejar errores
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error en el registro: ${e.toString()}')),
-        );
-      }
+      _clearAuthData();
       rethrow;
     }
   }
 
-  void _clearUserData() {
-    _current = null;
-    _user = null;
+  void _setAuthData(AuthResponse auth) {
+    _currentAuth = auth;
+    final decodedToken = JwtDecoder.decode(auth.currentToken);
+    _userId = int.parse(decodedToken['id']);
+    _name = decodedToken['name'];
+    _seller = decodedToken['seller'] == "True";
+    _customer = decodedToken['customer'] == "True";
+    _isAuthenticated = true;
+    notifyListeners();
+  }
+
+  void _clearAuthData() {
+    _currentAuth = null;
     _userId = null;
     _name = null;
-    _seller = null;
-    _customer = null;
+    _seller = false;
+    _customer = false;
     _isAuthenticated = false;
+    notifyListeners();
   }
 
   Future<void> checkAuthentication() async {
@@ -154,7 +117,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   void logout() {
-    _current = null;
-    notifyListeners();
+    _clearAuthData();
+    authRepository.logout();
   }
 }
