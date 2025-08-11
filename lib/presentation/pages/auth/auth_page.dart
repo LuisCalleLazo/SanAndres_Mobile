@@ -1,10 +1,38 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   static String name = "auth_page";
   const AuthPage({super.key});
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  @override
+  void initState() {
+    super.initState();
+    _checkAuthAndRedirect();
+  }
+
+  Future<void> _checkAuthAndRedirect() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    final verifyFuture = authProvider.initialize();
+    final delayFuture = Future.delayed(const Duration(seconds: 3));
+
+    await Future.wait([verifyFuture, delayFuture]);
+
+    if (mounted) {
+      final route = authProvider.isAuthenticated ? '/home' : '/auth/login';
+      context.push(route);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,20 +143,21 @@ class _LogoLoadingAnimationState extends State<LogoLoadingAnimation>
     );
   }
 }
+
 class _CircleSpinnerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2 * 0.85;
-    
+
     final backgroundPaint = Paint()
       ..color = const Color.fromARGB(66, 170, 9, 9)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5
       ..strokeCap = StrokeCap.round;
-    
+
     canvas.drawCircle(center, radius, backgroundPaint);
-    
+
     final progressPaint = Paint()
       ..shader = const SweepGradient(
         colors: [
@@ -143,10 +172,10 @@ class _CircleSpinnerPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5
       ..strokeCap = StrokeCap.round;
-    
+
     const startAngle = -0.5 * 3.1416;
     const sweepAngle = 1.0 * 3.1416;
-    
+
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       startAngle,
@@ -154,14 +183,14 @@ class _CircleSpinnerPainter extends CustomPainter {
       false,
       progressPaint,
     );
-    
+
     final dotPaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
-    
+
     final dotX = center.dx + radius * cos(startAngle + sweepAngle);
     final dotY = center.dy + radius * sin(startAngle + sweepAngle);
-    
+
     canvas.drawCircle(Offset(dotX, dotY), 3, dotPaint);
   }
 

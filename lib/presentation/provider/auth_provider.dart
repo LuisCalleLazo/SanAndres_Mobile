@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
@@ -23,11 +22,15 @@ class AuthProvider extends ChangeNotifier {
   bool _customer = false;
   bool _isAuthenticated = false;
 
+  bool _isInitialized = false;
+  bool get isInitialized => _isInitialized;
+
   Future<void> initialize() async {
     _isAuthenticated = await authRepository.verifyUser();
     if (_isAuthenticated) {
       await _loadUserData();
     }
+    _isInitialized = true;
     notifyListeners();
   }
 
@@ -56,19 +59,18 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> registerUser({
-    required String name,
-    required String email,
-    required String password,
-    required String momFirstName,
-    required String dadFirstName,
-    required String momLastName,
-    required String dadLastName,
-    required DateTime birthDate,
-    required String address,
-    required String ci,
-    required BuildContext context
-  }) async {
+  Future<bool> registerUser(
+      {required String name,
+      required String email,
+      required String password,
+      required String momFirstName,
+      required String dadFirstName,
+      required String momLastName,
+      required String dadLastName,
+      required DateTime birthDate,
+      required String address,
+      required String ci,
+      required BuildContext context}) async {
     try {
       // final auth = await authRepository.registerUser(
       //   name: name,
