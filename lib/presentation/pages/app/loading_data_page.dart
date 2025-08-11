@@ -53,7 +53,7 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
       
       Future.delayed(const Duration(seconds: 1), () {
         if (mounted) {
-          context.push('/home');
+          context.go('/home');
         }
       });
     }

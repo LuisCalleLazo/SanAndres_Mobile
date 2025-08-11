@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 
 class MenuScreen extends StatelessWidget {
   final void Function() toggleMenu;
@@ -57,7 +59,8 @@ class MenuScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.precision_manufacturing_rounded, color: Colors.white),
+              leading: const Icon(Icons.precision_manufacturing_rounded,
+                  color: Colors.white),
               title: const Text(
                 "Gestión de autopartes",
                 style: TextStyle(color: Colors.white),
@@ -73,8 +76,9 @@ class MenuScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                context.pop();
-                toggleMenu();
+                final authProvider =
+                    Provider.of<AuthProvider>(context, listen: false);
+                authProvider.logout(context);
               },
             ),
           ],

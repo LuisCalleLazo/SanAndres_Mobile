@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
 import 'package:san_andres_mobile/domain/entities/auth/user.dart';
@@ -118,8 +119,9 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void logout() {
+  void logout(BuildContext context) {
     _clearAuthData();
     authRepository.logout();
+    context.go('/auth');
   }
 }

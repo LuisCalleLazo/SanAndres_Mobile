@@ -30,7 +30,7 @@ class _AuthPageState extends State<AuthPage> {
 
     if (mounted) {
       final route = authProvider.isAuthenticated ? '/home' : '/auth/login';
-      context.push(route);
+      context.go(route);
     }
   }
 
