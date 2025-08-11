@@ -61,8 +61,9 @@ dependencies:
   printing: ^5.14.2
   intl: ^0.20.2
   fl_chart: ^1.0.0
-  drift: ^2.28.0
   get_it: ^8.2.0
+  drift: ^2.28.0
+  sqlite3_flutter_libs: ^0.5.39
 
 dev_dependencies:
   flutter_test:
