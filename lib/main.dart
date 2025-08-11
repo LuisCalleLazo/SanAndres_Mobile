@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Fiver Bob',
+      title: 'A S A',
       theme: AppTheme().getTheme(),
       routerConfig: appRouter,
     );

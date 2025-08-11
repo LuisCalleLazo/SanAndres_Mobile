@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:san_andres_mobile/domain/datasources/auth_datasource.dart';
 import 'package:san_andres_mobile/domain/datasources/user_datasource.dart';
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
 import 'package:san_andres_mobile/domain/entities/auth/user.dart';
+import 'package:san_andres_mobile/infraestructure/database/database.dart';
 import 'package:san_andres_mobile/infraestructure/model/auth_response_model.dart';
 import 'package:san_andres_mobile/presentation/services/api_error_handle.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -31,7 +34,19 @@ class AuthRepositoryImpl implements AuthRepository {
         isLogin: true,
       );
       final authResponse = AuthResponseModel.fromJson(response.data);
-      // await _saveUserData(authResponse);
+      await userDatasource.deleteUser();
+
+      final expirationDate =
+          JwtDecoder.getExpirationDate(authResponse.currentToken);
+
+      await userDatasource.createUser(
+        UserTableCompanion.insert(
+          name: authResponse.user.name,
+          token: Value(authResponse.currentToken),
+          refreshToken: Value(authResponse.refreshToken),
+          dateExpired: Value(expirationDate)
+        ),
+      );
 
       return authResponse;
     } on DioException catch (e) {

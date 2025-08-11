@@ -5,7 +5,7 @@ import 'package:san_andres_mobile/infraestructure/database/database.dart';
 class UserDatasourceImpl extends UserDatasource {
   late final AppDatabase _database;
 
-  UserDatasourceImpl(AppDatabase appDatabase);
+  UserDatasourceImpl(this._database);
 
   @override
   Future<UserTableData?> getLastUser() async {
