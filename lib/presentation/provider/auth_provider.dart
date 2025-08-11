@@ -3,13 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
 import 'package:san_andres_mobile/domain/entities/auth/user.dart';
-import 'package:san_andres_mobile/infraestructure/datasources/auth_datasource_impl.dart';
-import 'package:san_andres_mobile/infraestructure/repositories/auth_repository_impl.dart';
+import 'package:san_andres_mobile/domain/repositories/auth_repository.dart';
 import 'package:san_andres_mobile/presentation/services/api_client.dart';
 
 class AuthProvider extends ChangeNotifier {
-  final AuthRepositoryImpl authRepository =
-      AuthRepositoryImpl(AuthDataSourceImpl());
+  final AuthRepository authRepository;
+  AuthProvider(this.authRepository);
 
   AuthResponse? _current;
   UserResponse? _user;
@@ -24,6 +23,34 @@ class AuthProvider extends ChangeNotifier {
   String? get name => _name;
   bool? get seller => _seller;
   bool? get customer => _customer;
+  bool _isAuthenticated = false;
+  Future<void> initialize() async {
+    _isAuthenticated = await authRepository.verifyUser();
+    if (_isAuthenticated) {
+      await _loadUserData();
+    }
+    notifyListeners();
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      // Obtener el último usuario autenticado
+      final user = await authRepository.getUserAuth();
+      if (user != null && user.token != null) {
+        Map<String, dynamic> decodedToken = JwtDecoder.decode(user.token!);
+
+        _userId = int.parse(decodedToken['id']);
+        _name = decodedToken['name'];
+        _seller = decodedToken['seller'] == "True";
+        _customer = decodedToken['customer'] == "True";
+
+        _isAuthenticated = true;
+      }
+    } catch (e) {
+      _isAuthenticated = false;
+      _clearUserData();
+    }
+  }
 
   Future<void> login(
       String nameOremail, String password, BuildContext context) async {
@@ -44,11 +71,6 @@ class AuthProvider extends ChangeNotifier {
 
     // ignore: use_build_context_synchronously
     context.push('/home/loading');
-  }
-
-  Future<void> register(String nameOremail, String password) async {
-    _current = await authRepository.register(nameOremail, password);
-    notifyListeners();
   }
 
   Future<void> registerUser({
@@ -75,7 +97,7 @@ class AuthProvider extends ChangeNotifier {
           "dadFirstName": dadFirstName,
           "momLastName": momLastName,
           "dadLastName": dadLastName,
-          "birthDate": birthDate.toUtc().toIso8601String(), 
+          "birthDate": birthDate.toUtc().toIso8601String(),
           "adress": address,
           "ci": ci,
           "cityId": 7,
@@ -114,6 +136,21 @@ class AuthProvider extends ChangeNotifier {
       }
       rethrow;
     }
+  }
+
+  void _clearUserData() {
+    _current = null;
+    _user = null;
+    _userId = null;
+    _name = null;
+    _seller = null;
+    _customer = null;
+    _isAuthenticated = false;
+  }
+
+  Future<void> checkAuthentication() async {
+    _isAuthenticated = await authRepository.verifyUser();
+    notifyListeners();
   }
 
   void logout() {

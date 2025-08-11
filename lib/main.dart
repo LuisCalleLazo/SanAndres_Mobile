@@ -3,7 +3,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/config/router/app_router.dart';
 import 'package:san_andres_mobile/config/theme/app_theme.dart';
+import 'package:san_andres_mobile/domain/repositories/auth_repository.dart';
 import 'package:san_andres_mobile/infraestructure/database/database.dart';
+import 'package:san_andres_mobile/infraestructure/di/inyection_container.dart';
 import 'package:san_andres_mobile/presentation/provider/auth_provider.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_search_provider.dart';
@@ -11,17 +13,17 @@ import 'package:san_andres_mobile/presentation/provider/autopart_search_provider
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  
-  final database = AppDatabase(); 
+  setupDependencies();
+
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => AutopartProvider()),
         ChangeNotifierProvider(
-          create: (_) => AutopartProvider(),
+          create: (_) => AuthProvider(getIt<AuthRepository>()),
         ),
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => AutopartSearchProvider()),
-        Provider<AppDatabase>(create: (_) => database),
+        Provider<AppDatabase>(create: (_) => getIt<AppDatabase>()), 
       ],
       child: const MyApp(),
     ),

@@ -7,7 +7,7 @@ import 'package:san_andres_mobile/config/router/reports_routes.dart';
 import 'package:san_andres_mobile/config/router/sales_routes.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/auth/login',
+  initialLocation: '/auth',
   routes: [
     ...authRoutes,
     ...homeRoutes,

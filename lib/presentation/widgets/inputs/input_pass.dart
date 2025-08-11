@@ -26,7 +26,7 @@ class _InputPassState extends State<InputPass> {
 
   @override
   Widget build(BuildContext context) {
-    double heigth = math.max(MediaQuery.of(context).size.height * 0.08, 100);
+    double heigth = math.max(MediaQuery.of(context).size.height * 0.08, 90);
     return SizedBox(
       height: heigth,
       child: Column(
@@ -42,7 +42,7 @@ class _InputPassState extends State<InputPass> {
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 135, 22, 5),
-                    fontSize: 14,
+                    fontSize: 15,
                   ),
                 ),
               ],
@@ -54,7 +54,7 @@ class _InputPassState extends State<InputPass> {
               controller: widget.controller,
               style: const TextStyle(
                 color: Colors.red,
-                fontSize: 20,
+                fontSize: 15,
               ),
               cursorColor: const Color.fromARGB(255, 123, 17, 3),
               obscureText: _obscureText,

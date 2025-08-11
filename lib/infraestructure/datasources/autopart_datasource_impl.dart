@@ -2,7 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:san_andres_mobile/config/db/autoparts_init_db.dart';
 import 'package:san_andres_mobile/domain/datasources/autopart_datasource.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_brand.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_of_seller.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_type_info.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/category.dart';
 import 'package:san_andres_mobile/infraestructure/model/autopart_model.dart';
 import 'package:san_andres_mobile/presentation/services/api_client_secure.dart';
 import 'package:sqflite/sqflite.dart';
@@ -110,5 +113,29 @@ class AutopartDatasourceImpl extends AutopartDatasource {
    
     final List<dynamic> data = response.data;
     return data.map((json) => AutopartSearchListModel.fromJson(json)).toList();
+  }
+
+  @override
+  Future<List> getAutoparts() {
+    // TODO: implement getAutoparts
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AutopartBrand>> getBrands() {
+    // TODO: implement getBrands
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Category>> getCategories() {
+    // TODO: implement getCategories
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AutopartTypeInfo>> getTypeInfos() {
+    // TODO: implement getTypeInfos
+    throw UnimplementedError();
   }
 }

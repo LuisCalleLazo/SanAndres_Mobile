@@ -3,8 +3,9 @@ import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/infraestructure/datasources/autopart_datasource_impl.dart';
 import 'package:san_andres_mobile/infraestructure/repositories/autopart_repository_impl.dart';
 
-class AutopartSearchProvider extends ChangeNotifier{
-  final AutopartRepositoryImpl repo = AutopartRepositoryImpl(AutopartDatasourceImpl());
+class AutopartSearchProvider extends ChangeNotifier {
+  final AutopartRepositoryImpl repo =
+      AutopartRepositoryImpl(AutopartDatasourceImpl());
 
   List<AutopartSearchList> _autoparts = [];
   List<AutopartSearchList> get autoparts => _autoparts;
