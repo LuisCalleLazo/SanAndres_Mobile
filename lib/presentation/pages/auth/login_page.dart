@@ -76,11 +76,17 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       listen: false,
                     );
-                    await authContext.login(
+                    bool login = await authContext.login(
                       _inputManager.getController("email_login").text,
                       _inputManager.getController("passw_login").text,
                       context,
                     );
+
+                    if(login)
+                    {
+                      // ignore: use_build_context_synchronously
+                      context.push('/home/loading');
+                    }
                   },
                   ),
                   const SizedBox(height: 10),
