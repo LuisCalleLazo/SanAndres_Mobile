@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
 import 'package:san_andres_mobile/domain/entities/seller/seller.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_search_provider.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
@@ -11,7 +11,7 @@ import 'package:san_andres_mobile/shared/data/autopart_seller.dart';
 
 class DetailSearchAutopart extends StatefulWidget {
   static String name = "detail_search_autopart";
-  final AutopartSearchList autopart; // Lista de vendedores
+  final AutopartList autopart; // Lista de vendedores
 
   const DetailSearchAutopart({
     super.key,

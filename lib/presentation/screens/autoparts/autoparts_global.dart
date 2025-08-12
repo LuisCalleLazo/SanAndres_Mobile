@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/card_autopart_min.dart';
 import 'package:san_andres_mobile/presentation/widgets/inputs/input_default.dart';
@@ -28,10 +27,11 @@ class _AutopartsGlobalState extends State<AutopartsGlobal> {
     setState(() {
       final autopartProvider = Provider.of<AutopartProvider>(context, listen: false);
       filteredAutoparts = autopartProvider.autoparts.where((autopart) {
-        final codeValue = autopart.info
+        final codeValue = autopart.infos
             .firstWhere(
+              // ignore: unrelated_type_equality_checks
               (info) => info.type == 'code',
-              orElse: () => AutopartInfoList(type: 'code', value: ''),
+              orElse: () => AutopartInfoList(type: 0, value: '', id: 0, typeId: 0, autopartId: 0),
             )
             .value
             .toLowerCase();

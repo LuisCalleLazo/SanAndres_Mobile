@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
 import 'package:san_andres_mobile/presentation/widgets/carousel/carousel_card.dart';
 
 class CardAutopartSearch extends StatelessWidget {
-  final AutopartSearchList autopart;
+  final AutopartList autopart;
   const CardAutopartSearch({
     super.key,
     required this.autopart,

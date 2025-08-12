@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
 
 class CarouselCard extends StatelessWidget {
-  final List<AutopartAsset> assets;
+  final List<AutopartAssetList> assets;
   const CarouselCard({
     super.key,
     required this.assets,

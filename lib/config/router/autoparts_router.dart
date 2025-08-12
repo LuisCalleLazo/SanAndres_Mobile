@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
-import 'package:san_andres_mobile/presentation/pages/autoparts/add_autoparts_page.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
 import 'package:san_andres_mobile/presentation/pages/autoparts/data_autoparts_page.dart';
 import 'package:san_andres_mobile/presentation/pages/autoparts/detail_search_autopart.dart';
 import 'package:san_andres_mobile/presentation/pages/autoparts/edit_audtoparts_page.dart';
@@ -10,11 +9,6 @@ import 'package:san_andres_mobile/presentation/pages/autoparts/maps_search_autop
 const String pathBase = "/autoparts";
 
 final autopartsRoutes = [
-  GoRoute(
-    path: '$pathBase/add',
-    name: AddAutopartsPage.name,
-    builder: (context, state) => const AddAutopartsPage(),
-  ),
   GoRoute(
     path: '$pathBase/edit',
     name: EditAudtopartsPage.name,
@@ -29,7 +23,7 @@ final autopartsRoutes = [
     path: '$pathBase/detail-of-search',
     name: DetailSearchAutopart.name,
     builder: (context, state) {
-      final autopart = state.extra as AutopartSearchList;
+      final autopart = state.extra as AutopartList;
       return DetailSearchAutopart(autopart: autopart);
     },
   ),

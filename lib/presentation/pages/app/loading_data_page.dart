@@ -16,8 +16,7 @@ class LoadingDataPage extends StatefulWidget {
 class _LoadingDataPageState extends State<LoadingDataPage> {
   final Dio _client = api;
   bool _allCompleted = false;
-  final List<bool> _completedStatus =
-      []; // Lista para rastrear el estado de cada endpoint
+  final List<bool> _completedStatus = [];
 
   final List<Map<String, dynamic>> _endpoints = [
     {
@@ -50,7 +49,7 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
       setState(() {
         _allCompleted = true;
       });
-      
+
       Future.delayed(const Duration(seconds: 1), () {
         if (mounted) {
           context.go('/home');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
 import 'package:san_andres_mobile/infraestructure/datasources/autopart_datasource_impl.dart';
 import 'package:san_andres_mobile/infraestructure/repositories/autopart_repository_impl.dart';
 
@@ -7,8 +7,8 @@ class AutopartSearchProvider extends ChangeNotifier {
   final AutopartRepositoryImpl repo =
       AutopartRepositoryImpl(AutopartDatasourceImpl());
 
-  List<AutopartSearchList> _autoparts = [];
-  List<AutopartSearchList> get autoparts => _autoparts;
+  List<AutopartList> _autoparts = [];
+  List<AutopartList> get autoparts => _autoparts;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;

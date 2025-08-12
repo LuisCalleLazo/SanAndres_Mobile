@@ -7,7 +7,7 @@ import 'package:san_andres_mobile/domain/datasources/user_datasource.dart';
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
 import 'package:san_andres_mobile/domain/entities/auth/user.dart';
 import 'package:san_andres_mobile/infraestructure/database/database.dart';
-import 'package:san_andres_mobile/infraestructure/model/auth_response_model.dart';
+import 'package:san_andres_mobile/infraestructure/model/auth/auth_response_model.dart';
 import 'package:san_andres_mobile/presentation/services/api_error_handle.dart';
 import '../../domain/repositories/auth_repository.dart';
 

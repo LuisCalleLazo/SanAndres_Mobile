@@ -1,7 +1,7 @@
 
 
 import 'package:san_andres_mobile/domain/entities/auth/auth.dart';
-import 'package:san_andres_mobile/infraestructure/model/user_response_model.dart';
+import 'package:san_andres_mobile/infraestructure/model/auth/user_response_model.dart';
 
 class AuthResponseModel extends AuthResponse {
   AuthResponseModel({

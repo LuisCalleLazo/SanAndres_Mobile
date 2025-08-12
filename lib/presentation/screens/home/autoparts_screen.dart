@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/input_controller_manager.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_float_dev.dart';
@@ -94,14 +93,6 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   if (_isExpanded) ...[
-                    BtnFloatDev(
-                      icon: Icons.add,
-                      text: "Agregar",
-                      onPressed: () {
-                        context.push('/autoparts/add');
-                      },
-                    ),
-                    const SizedBox(height: 20),
                     BtnFloatDev(
                       icon: Icons.search_off_sharp,
                       text: "Filtro",
