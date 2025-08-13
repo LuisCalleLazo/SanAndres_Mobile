@@ -3,7 +3,7 @@ import 'package:san_andres_mobile/domain/datasources/user_datasource.dart';
 import 'package:san_andres_mobile/infraestructure/database/database.dart';
 
 class UserDatasourceImpl extends UserDatasource {
-  late final AppDatabase _database;
+  final AppDatabase _database;
 
   UserDatasourceImpl(this._database);
 

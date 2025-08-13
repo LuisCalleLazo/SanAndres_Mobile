@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
-import 'package:san_andres_mobile/infraestructure/datasources/autopart_datasource_impl.dart';
-import 'package:san_andres_mobile/infraestructure/repositories/autopart_repository_impl.dart';
+import 'package:san_andres_mobile/domain/repositories/autopart_repository.dart';
 
 class AutopartSearchProvider extends ChangeNotifier {
-  final AutopartRepositoryImpl repo =
-      AutopartRepositoryImpl(AutopartDatasourceImpl());
+  final AutopartRepository repo;
+  AutopartSearchProvider(this.repo);
 
   List<AutopartList> _autoparts = [];
   List<AutopartList> get autoparts => _autoparts;

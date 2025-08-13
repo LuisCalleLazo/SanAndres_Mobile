@@ -9,4 +9,9 @@ abstract class AutopartDatasource {
   Future<List<AutopartCategory>> getCategories();
   Future<List<AutopartTypeInfo>> getTypeInfos();
   Future<List<AutopartList>> getAutoparts();
+
+  Future<int> createLocalBrand(AutopartBrand brand);
+  Future<List<AutopartBrand>> getLocalBrands();
+  Future<void> updateLocalBrand(AutopartBrand brand);
+  Future<void> deleteLocalBrand(int id);
 }

@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:san_andres_mobile/domain/datasources/auth_datasource.dart';
+import 'package:san_andres_mobile/infraestructure/database/database.dart';
 import '../../presentation/services/api_client.dart';
 
 class AuthDatasourceImpl extends AuthDatasource {
   final Dio _client = api;
+  final AppDatabase _database;
+  AuthDatasourceImpl(this._database);
 
   @override
   Future<Response> login(String nameOrGamil, String password) async {

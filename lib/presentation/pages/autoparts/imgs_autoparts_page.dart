@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:san_andres_mobile/infraestructure/datasources/autopart_datasource_impl.dart';
 import 'package:san_andres_mobile/infraestructure/model/autoparts/autopart_list_model.dart';
-import 'package:san_andres_mobile/infraestructure/repositories/autopart_repository_impl.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_icon_dev.dart';
 
@@ -32,7 +30,7 @@ class _ImgsAutopartsPageState extends State<ImgsAutopartsPage> {
       // Manejo si no hay autopart seleccionado (opcional)
       _futureAssets = Future.value([]);
     } else {
-      final repo = AutopartRepositoryImpl(AutopartDatasourceImpl());
+      // final repo = AutopartRepositoryImpl(AutopartDatasourceImpl());
       // _futureAssets = repo.getAutopartAssets(autopartId);
     }
   }
