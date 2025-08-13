@@ -1,12 +1,13 @@
 
 
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_category.dart';
+import 'package:san_andres_mobile/infraestructure/database/database.dart';
 
 class AutopartCategoryModel extends AutopartCategory{
   AutopartCategoryModel({
     required super.id,
     required super.name,
-    required super.description
+    super.description
   });
 
   factory AutopartCategoryModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +18,13 @@ class AutopartCategoryModel extends AutopartCategory{
     );
   }
 
+  factory AutopartCategoryModel.fromTableData(CategoryTableData data) {
+    return AutopartCategoryModel(
+      id: data.refId,
+      name: data.name,
+      description: data.description,
+    );
+  }
   Map<String, dynamic> toJson() {
     return {
       'id': id,

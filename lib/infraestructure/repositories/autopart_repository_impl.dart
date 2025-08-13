@@ -8,9 +8,13 @@ import 'package:san_andres_mobile/presentation/services/api_error_handle.dart';
 // import 'package:san_andres_mobile/presentation/services/api_error_handle.dart';
 
 class AutopartRepositoryImpl extends AutopartRepository {
-  final AutopartDatasource dataSource;
+  final AutopartDatasource remoteDataSource; // Fuente remota (API)
+  final AutopartDatasource localDataSource;  // Fuente local (SQLite/Hive)
 
-  AutopartRepositoryImpl({required this.dataSource});
+  AutopartRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   // @override
   // Future<List<AutopartOfSeller>> getAutoparts() async {
@@ -26,7 +30,7 @@ class AutopartRepositoryImpl extends AutopartRepository {
   Future<List<AutopartList>> searchAutoparts(
       Map<String, dynamic> queryParams) async {
     try {
-      final response = await dataSource.searchAutoparts(queryParams);
+      final response = await remoteDataSource.searchAutoparts(queryParams);
       return response;
     } on DioException catch (e) {
       throw Exception(e);
@@ -36,8 +40,8 @@ class AutopartRepositoryImpl extends AutopartRepository {
   Future<void> syncAutopartBrands(BuildContext context) async {
     final errorHandler = ApiErrorHandler(context);
     try {
-      final List<AutopartBrand> serverBrands = await dataSource.getBrands();
-      final List<AutopartBrand> localBrands = await dataSource.getLocalBrands();
+      final List<AutopartBrand> serverBrands = await remoteDataSource.getBrands();
+      final List<AutopartBrand> localBrands = await localDataSource.getBrands();
 
       final serverBrandsMap = {for (var b in serverBrands) b.id: b};
       final localBrandsMap = {for (var b in localBrands) b.id: b};
@@ -65,15 +69,15 @@ class AutopartRepositoryImpl extends AutopartRepository {
       }
 
       for (var brand in brandsToCreate) {
-        await dataSource.createLocalBrand(brand);
+        await localDataSource.createBrand(brand);
       }
 
       for (var brand in brandsToUpdate) {
-        await dataSource.updateLocalBrand(brand);
+        await localDataSource.updateBrand(brand);
       }
 
       for (var id in brandIdsToDelete) {
-        await dataSource.deleteLocalBrand(id);
+        await localDataSource.deleteBrand(id);
       }
     } on DioException catch (e) {
       errorHandler.handleError(error: e);
