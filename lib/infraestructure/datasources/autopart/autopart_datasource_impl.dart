@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:san_andres_mobile/domain/datasources/autopart_datasource.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_brand.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_type_info.dart';
@@ -56,73 +57,91 @@ class AutopartDatasourceImpl extends AutopartDatasource {
   
   @override
   Future<int> createBrand(AutopartBrand brand) {
-    // TODO: implement createBrand
     throw UnimplementedError();
   }
   
   @override
   Future<void> deleteBrand(int id) {
-    // TODO: implement deleteBrand
     throw UnimplementedError();
   }
   
   @override
   Future<void> updateBrand(AutopartBrand brand) {
-    // TODO: implement updateBrand
     throw UnimplementedError();
   }
   
   @override
-  Future<int> createAutopart(AutopartList autopart) {
-    // TODO: implement createAutopart
+  Future<int> createAutopart(Autopart autopart) {
     throw UnimplementedError();
   }
   
   @override
   Future<int> createCategory(AutopartCategory category) {
-    // TODO: implement createCategory
     throw UnimplementedError();
   }
   
   @override
   Future<int> createTypeInfo(AutopartTypeInfo typeInfo) {
-    // TODO: implement createTypeInfo
     throw UnimplementedError();
   }
   
   @override
   Future<void> deleteAutopart(int id) {
-    // TODO: implement deleteAutopart
     throw UnimplementedError();
   }
   
   @override
   Future<void> deleteCategory(int id) {
-    // TODO: implement deleteCategory
     throw UnimplementedError();
   }
   
   @override
   Future<void> deleteTypeInfo(int id) {
-    // TODO: implement deleteTypeInfo
     throw UnimplementedError();
   }
   
   @override
-  Future<void> updateAutopart(AutopartList autopart) {
-    // TODO: implement updateAutopart
+  Future<void> updateAutopart(Autopart autopart) {
     throw UnimplementedError();
   }
   
   @override
   Future<void> updateCategory(AutopartCategory category) {
-    // TODO: implement updateCategory
     throw UnimplementedError();
   }
   
   @override
   Future<void> updateTypeInfo(AutopartTypeInfo typeInfo) {
-    // TODO: implement updateTypeInfo
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<int> createAutopartAsset(AutopartAsset asset) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<int> createAutopartInfo(AutopartInfo info) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> deleteAutopartAsset(int id) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> deleteAutopartInfo(int id) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> updateAutopartAsset(AutopartAsset asset) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> updateAutopartInfo(AutopartInfo info) {
     throw UnimplementedError();
   }
 
