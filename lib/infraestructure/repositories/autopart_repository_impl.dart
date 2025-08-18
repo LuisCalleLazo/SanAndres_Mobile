@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:san_andres_mobile/domain/datasources/autopart_datasource.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_brand.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_category.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
@@ -42,7 +43,7 @@ class AutopartRepositoryImpl extends AutopartRepository {
   @override
   Future<void> syncAutopartBrands(BuildContext context) async {
     await syncItems<AutopartBrand>(
-      context: context, 
+      context: context,
       getRemoteItems: () => remoteDataSource.getBrands(),
       getLocalItems: () => localDataSource.getBrands(),
       createLocalItem: (item) => localDataSource.createBrand(item),
@@ -122,5 +123,32 @@ class AutopartRepositoryImpl extends AutopartRepository {
       errorHandler.handleError(error: e);
       throw Exception(e);
     }
+  }
+
+  Autopart autopartFromList(AutopartList listItem) {
+    return Autopart(
+      id: listItem.id,
+      name: listItem.name,
+      brandId: listItem.brandId,
+      categoryId: listItem.categoryId,
+    );
+  }
+
+  AutopartAsset autopartAssetFromList(AutopartAssetList listItem) {
+    return AutopartAsset(
+      id: listItem.id,
+      asset: listItem.asset,
+      description: listItem.description,
+      autopartId: listItem.autopartId,
+    );
+  }
+
+  AutopartInfo autopartInfoFromList(AutopartInfoList listItem) {
+    return AutopartInfo(
+      id: listItem.id,
+      typeId: listItem.typeId,
+      autopartId: listItem.autopartId,
+      value: listItem.value,
+    );
   }
 }

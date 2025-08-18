@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_type_info.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/widgets/buttons/btn_icon_dev.dart';
 
@@ -53,7 +54,7 @@ class _CardAutopartMinState extends State<CardAutopartMin> {
                             .firstWhere(
                               (info) => info.type == 'code',
                               orElse: () => AutopartInfoList(
-                                  type: 0,
+                                  type: AutopartTypeInfoEnum.code,
                                   value: 'No disponible',
                                   id: 0,
                                   typeId: 0,

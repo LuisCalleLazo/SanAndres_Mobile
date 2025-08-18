@@ -5,12 +5,12 @@ class AutopartTypeInfo implements SyncableItem {
   final int id;
   final String name;
   final String description;
-  final AutopartTypeInfoEnum typeValue;
+  final AutopartTypeInfoEnum type;
   AutopartTypeInfo({
     required this.id,
     required this.name,
     required this.description,
-    required this.typeValue,
+    required this.type,
   });
   @override
   bool hasChanges(SyncableItem other) {

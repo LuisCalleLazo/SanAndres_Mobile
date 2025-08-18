@@ -50,31 +50,81 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
 
   @override
   Future<List<AutopartTypeInfo>> getTypeInfos() async {
-    final response = await _client.get('autopart/type-info');
-    final List<dynamic> data = response.data;
-    return data.map((json) => AutopartTypeInfoModel.fromJson(json)).toList();
+    final rows = await _database.select(_database.autopartTypeInfoTable).get();
+
+    return rows.map((row) => AutopartTypeInfoModel.fromTableData(row)).toList();
   }
 
   @override
   Future<List<AutopartList>> getAutopartsList() async {
-    final response = await _client.get('autopart');
-    final List<dynamic> data = response.data;
-    return data.map((json) => AutopartListModel.fromJson(json)).toList();
-  }
+    final query = _database.select(_database.autopartTable).join([
+      innerJoin(
+        _database.autopartBrandTable,
+        _database.autopartBrandTable.id
+            .equalsExp(_database.autopartTable.brandId),
+      ),
+      innerJoin(
+        _database.categoryTable,
+        _database.categoryTable.id
+            .equalsExp(_database.autopartTable.categoryId),
+      ),
+    ]);
 
-  @override
-  Future<List<AutopartAsset>> getAutopartAssets(int id) {
-    throw UnimplementedError();
-  }
+    final results = await query.get();
+    return Future.wait(results.map((row) async {
+      final autopart = row.readTable(_database.autopartTable);
+      final brand = row.readTable(_database.autopartBrandTable);
+      final category = row.readTable(_database.categoryTable);
 
-  @override
-  Future<List<AutopartInfo>> getAutopartInfos(int id) {
-    throw UnimplementedError();
-  }
+      final query = _database.select(_database.autopartInfoTable).join([
+        innerJoin(
+          _database.autopartTypeInfoTable,
+          _database.autopartTypeInfoTable.id
+              .equalsExp(_database.autopartInfoTable.typeId),
+        ),
+      ])
+        ..where(_database.autopartInfoTable.autopartId.equals(autopart.id));
 
-  @override
-  Future<List<Autopart>> getAutoparts() {
-    throw UnimplementedError();
+      final infosRows = await query.get();
+
+      final infos = infosRows.map((row) {
+        final info = row.readTable(_database.autopartInfoTable);
+        final type = row.readTable(_database.autopartTypeInfoTable);
+
+        return AutopartInfoList(
+          id: info.refId ?? 0,
+          value: info.value,
+          typeId: info.typeId,
+          typeName: type.name,
+          type: type.type,
+          autopartId: info.autopartId,
+        );
+      }).toList();
+
+      final assetsRows = await (_database.select(_database.autopartAssetTable)
+            ..where((t) => t.autopartId.equals(autopart.id)))
+          .get();
+
+      final assets = assetsRows
+          .map((assetRow) => AutopartAssetList(
+                id: assetRow.refId ?? 0,
+                asset: assetRow.asset,
+                description: assetRow.description ?? '',
+                autopartId: assetRow.autopartId,
+              ))
+          .toList();
+
+      return AutopartList(
+        id: autopart.refId ?? 0,
+        name: autopart.name ?? '',
+        categoryId: autopart.categoryId,
+        categoryName: category.name,
+        brandId: autopart.brandId,
+        brandName: brand.name,
+        infos: infos,
+        assets: assets,
+      );
+    }));
   }
 
   // CREATES
@@ -120,7 +170,7 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
         refId: Value(typeInfo.id),
         name: typeInfo.name,
         description: Value(typeInfo.description),
-        type: typeInfo.typeValue);
+        type: typeInfo.type);
 
     return await _database
         .into(_database.autopartTypeInfoTable)
@@ -179,7 +229,7 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
       refId: Value(typeInfo.id),
       name: Value(typeInfo.name),
       description: Value(typeInfo.description),
-      type: Value(typeInfo.typeValue),
+      type: Value(typeInfo.type),
     );
 
     await _database.update(_database.autopartTypeInfoTable).replace(companion);

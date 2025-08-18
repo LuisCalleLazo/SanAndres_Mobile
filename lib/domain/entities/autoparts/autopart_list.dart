@@ -1,3 +1,5 @@
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_type_info.dart';
+
 class AutopartList {
 
   final int id;
@@ -42,7 +44,7 @@ class AutopartInfoList {
   final int typeId;
   final String? typeName;
   final int autopartId;
-  final int type;
+  final AutopartTypeInfoEnum type;
 
   AutopartInfoList({
     required this.id,

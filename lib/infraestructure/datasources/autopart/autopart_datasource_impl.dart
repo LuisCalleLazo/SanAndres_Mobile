@@ -56,21 +56,6 @@ class AutopartDatasourceImpl extends AutopartDatasource {
   }
 
   @override
-  Future<List<AutopartAsset>> getAutopartAssets(int id) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<AutopartInfo>> getAutopartInfos(int id) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Autopart>> getAutoparts() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<int> createBrand(AutopartBrand brand) {
     throw UnimplementedError();
   }
