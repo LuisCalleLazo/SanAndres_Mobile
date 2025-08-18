@@ -10,7 +10,10 @@ abstract class AutopartDatasource {
   Future<List<AutopartBrand>> getBrands();
   Future<List<AutopartCategory>> getCategories();
   Future<List<AutopartTypeInfo>> getTypeInfos();
-  Future<List<AutopartList>> getAutoparts();
+  Future<List<AutopartList>> getAutopartsList();
+  Future<List<Autopart>> getAutoparts();
+  Future<List<AutopartInfo>> getAutopartInfos(int id);
+  Future<List<AutopartAsset>> getAutopartAssets(int id);
 
   // CREATE
   Future<int> createBrand(AutopartBrand brand);

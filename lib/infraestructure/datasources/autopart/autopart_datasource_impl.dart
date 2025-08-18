@@ -49,100 +49,114 @@ class AutopartDatasourceImpl extends AutopartDatasource {
   }
 
   @override
-  Future<List<AutopartList>> getAutoparts() async {
+  Future<List<AutopartList>> getAutopartsList() async {
     final response = await _client.get('autopart');
     final List<dynamic> data = response.data;
     return data.map((json) => AutopartListModel.fromJson(json)).toList();
   }
-  
+
+  @override
+  Future<List<AutopartAsset>> getAutopartAssets(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AutopartInfo>> getAutopartInfos(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Autopart>> getAutoparts() {
+    throw UnimplementedError();
+  }
+
   @override
   Future<int> createBrand(AutopartBrand brand) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> deleteBrand(int id) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> updateBrand(AutopartBrand brand) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<int> createAutopart(Autopart autopart) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<int> createCategory(AutopartCategory category) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<int> createTypeInfo(AutopartTypeInfo typeInfo) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> deleteAutopart(int id) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> deleteCategory(int id) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> deleteTypeInfo(int id) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> updateAutopart(Autopart autopart) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> updateCategory(AutopartCategory category) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> updateTypeInfo(AutopartTypeInfo typeInfo) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<int> createAutopartAsset(AutopartAsset asset) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<int> createAutopartInfo(AutopartInfo info) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> deleteAutopartAsset(int id) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> deleteAutopartInfo(int id) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> updateAutopartAsset(AutopartAsset asset) {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> updateAutopartInfo(AutopartInfo info) {
     throw UnimplementedError();
   }
-
 }

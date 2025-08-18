@@ -56,10 +56,25 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
   }
 
   @override
-  Future<List<AutopartList>> getAutoparts() async {
+  Future<List<AutopartList>> getAutopartsList() async {
     final response = await _client.get('autopart');
     final List<dynamic> data = response.data;
     return data.map((json) => AutopartListModel.fromJson(json)).toList();
+  }
+
+  @override
+  Future<List<AutopartAsset>> getAutopartAssets(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AutopartInfo>> getAutopartInfos(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Autopart>> getAutoparts() {
+    throw UnimplementedError();
   }
 
   // CREATES
@@ -85,9 +100,7 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
       brandId: autopart.categoryId,
     );
 
-    return await _database
-        .into(_database.autopartTable)
-        .insert(companion);
+    return await _database.into(_database.autopartTable).insert(companion);
   }
 
   @override
@@ -98,51 +111,42 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
       description: Value(category.description),
     );
 
-    return await _database
-        .into(_database.categoryTable)
-        .insert(companion);
+    return await _database.into(_database.categoryTable).insert(companion);
   }
 
   @override
   Future<int> createTypeInfo(AutopartTypeInfo typeInfo) async {
     final companion = AutopartTypeInfoTableCompanion.insert(
-      refId: Value(typeInfo.id),
-      name: typeInfo.name,
-      description: Value(typeInfo.description),
-      type: typeInfo.typeValue
-    );
+        refId: Value(typeInfo.id),
+        name: typeInfo.name,
+        description: Value(typeInfo.description),
+        type: typeInfo.typeValue);
 
     return await _database
         .into(_database.autopartTypeInfoTable)
         .insert(companion);
   }
-  
+
   @override
   Future<int> createAutopartAsset(AutopartAsset asset) async {
     final companion = AutopartAssetTableCompanion.insert(
-      refId: Value(asset.id),
-      asset: asset.asset,
-      description: Value(asset.description),
-      autopartId: asset.autopartId
-    );
+        refId: Value(asset.id),
+        asset: asset.asset,
+        description: Value(asset.description),
+        autopartId: asset.autopartId);
 
-    return await _database
-        .into(_database.autopartAssetTable)
-        .insert(companion);
+    return await _database.into(_database.autopartAssetTable).insert(companion);
   }
-  
+
   @override
   Future<int> createAutopartInfo(AutopartInfo info) async {
     final companion = AutopartInfoTableCompanion.insert(
-      refId: Value(info.id),
-      typeId: info.typeId,
-      value: info.value,
-      autopartId: info.autopartId
-    );
+        refId: Value(info.id),
+        typeId: info.typeId,
+        value: info.value,
+        autopartId: info.autopartId);
 
-    return await _database
-        .into(_database.autopartInfoTable)
-        .insert(companion);
+    return await _database.into(_database.autopartInfoTable).insert(companion);
   }
 
   // UPDATES
@@ -155,9 +159,7 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
       brandId: Value(autopart.brandId),
     );
 
-    await _database
-        .update(_database.autopartTable)
-        .replace(companion);
+    await _database.update(_database.autopartTable).replace(companion);
   }
 
   @override
@@ -168,9 +170,7 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
       description: Value(category.description),
     );
 
-    await _database
-        .update(_database.categoryTable)
-        .replace(companion);
+    await _database.update(_database.categoryTable).replace(companion);
   }
 
   @override
@@ -182,9 +182,7 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
       type: Value(typeInfo.typeValue),
     );
 
-    await _database
-        .update(_database.autopartTypeInfoTable)
-        .replace(companion);
+    await _database.update(_database.autopartTypeInfoTable).replace(companion);
   }
 
   @override
@@ -213,9 +211,9 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
         .update(_database.autopartAssetTable)
         .replace(brandCompanion);
   }
-  
+
   @override
-  Future<void> updateAutopartInfo(AutopartInfo info) async{
+  Future<void> updateAutopartInfo(AutopartInfo info) async {
     final brandCompanion = AutopartInfoTableCompanion(
       refId: Value(info.id),
       typeId: Value(info.typeId),
@@ -223,9 +221,7 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
       value: Value(info.value),
     );
 
-    await _database
-        .update(_database.autopartInfoTable)
-        .replace(brandCompanion);
+    await _database.update(_database.autopartInfoTable).replace(brandCompanion);
   }
 
   // DELETES
@@ -256,19 +252,18 @@ class AutopartDatasourceLocalImpl extends AutopartDatasource {
         .delete(_database.autopartTypeInfoTable)
         .delete(AutopartTypeInfoTableCompanion(refId: Value(id)));
   }
-  
+
   @override
   Future<void> deleteAutopartAsset(int id) async {
     await _database
         .delete(_database.autopartAssetTable)
         .delete(AutopartAssetTableCompanion(refId: Value(id)));
   }
-  
+
   @override
   Future<void> deleteAutopartInfo(int id) async {
     await _database
         .delete(_database.autopartInfoTable)
         .delete(AutopartInfoTableCompanion(refId: Value(id)));
   }
-  
 }

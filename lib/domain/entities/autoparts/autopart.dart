@@ -1,4 +1,7 @@
-class Autopart {
+import 'package:san_andres_mobile/domain/entities/autoparts/syncable_item.dart';
+
+class Autopart implements SyncableItem {
+  @override
   final int id;
   final int brandId;
   final int categoryId;
@@ -10,9 +13,15 @@ class Autopart {
     required this.categoryId,
     this.name,
   });
+  @override
+  bool hasChanges(SyncableItem other) {
+    if (other is! Autopart) return true;
+    return name != other.name || brandId != other.brandId || categoryId != other.categoryId;
+  }
 }
 
-class AutopartAsset {
+class AutopartAsset implements SyncableItem {
+  @override
   final int id;
   final int autopartId;
   final String asset;
@@ -24,9 +33,15 @@ class AutopartAsset {
     required this.autopartId,
     required this.asset,
   });
+  @override
+  bool hasChanges(SyncableItem other) {
+    if (other is! AutopartAsset) return true;
+    return asset != other.asset || description != other.description || autopartId != other.autopartId;
+  }
 }
 
-class AutopartInfo {
+class AutopartInfo implements SyncableItem {
+  @override
   final int id;
   final int typeId;
   final int autopartId;
@@ -38,4 +53,9 @@ class AutopartInfo {
     required this.autopartId,
     required this.value,
   });
+  @override
+  bool hasChanges(SyncableItem other) {
+    if (other is! AutopartInfo) return true;
+    return typeId!= other.typeId || autopartId != other.autopartId || value != other.value;
+  }
 }
