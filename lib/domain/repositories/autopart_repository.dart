@@ -7,4 +7,5 @@ abstract class AutopartRepository {
   Future<void> syncAutopartBrands(BuildContext context);
   Future<void> syncAutopartCategories(BuildContext context);
   Future<void> syncAutopartTypeInfo(BuildContext context);
+  Future<void> syncAutoparts(BuildContext context);
 }

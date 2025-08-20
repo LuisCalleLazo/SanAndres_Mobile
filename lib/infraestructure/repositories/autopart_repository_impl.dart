@@ -76,6 +76,62 @@ class AutopartRepositoryImpl extends AutopartRepository {
     );
   }
 
+
+  @override
+  Future<void> syncAutoparts(BuildContext context) async {
+    final remoteList = await remoteDataSource.getAutopartsList();
+    final localList = await localDataSource.getAutopartsList();
+
+    // ------------------------
+    // 1. Sincronizar Autoparts
+    // ------------------------
+    await syncItems<Autopart>(
+      // ignore: use_build_context_synchronously
+      context: context,
+      getRemoteItems: () async => remoteList.map(autopartFromList).toList(),
+      getLocalItems: () async => localList.map(autopartFromList).toList(),
+      createLocalItem: (item) => localDataSource.createAutopart(item),
+      updateLocalItem: (item) => localDataSource.updateAutopart(item),
+      deleteLocalItem: (id) => localDataSource.deleteAutopart(id),
+    );
+
+    // -----------------------------------
+    // 2. Sincronizar Assets de Autopartes
+    // -----------------------------------
+    final remoteAssets =
+        remoteList.expand((a) => a.assets).map(autopartAssetFromList).toList();
+    final localAssets =
+        localList.expand((a) => a.assets).map(autopartAssetFromList).toList();
+
+    await syncItems<AutopartAsset>(
+      // ignore: use_build_context_synchronously
+      context: context,
+      getRemoteItems: () async => remoteAssets,
+      getLocalItems: () async => localAssets,
+      createLocalItem: (item) => localDataSource.createAutopartAsset(item),
+      updateLocalItem: (item) => localDataSource.updateAutopartAsset(item),
+      deleteLocalItem: (id) => localDataSource.deleteAutopartAsset(id),
+    );
+
+    // ----------------------------------
+    // 3. Sincronizar Infos de Autopartes
+    // ----------------------------------
+    final remoteInfos =
+        remoteList.expand((a) => a.infos).map(autopartInfoFromList).toList();
+    final localInfos =
+        localList.expand((a) => a.infos).map(autopartInfoFromList).toList();
+
+    await syncItems<AutopartInfo>(
+      // ignore: use_build_context_synchronously
+      context: context,
+      getRemoteItems: () async => remoteInfos,
+      getLocalItems: () async => localInfos,
+      createLocalItem: (item) => localDataSource.createAutopartInfo(item),
+      updateLocalItem: (item) => localDataSource.updateAutopartInfo(item),
+      deleteLocalItem: (id) => localDataSource.deleteAutopartInfo(id),
+    );
+  }
+
   Future<void> syncItems<T extends SyncableItem>({
     required BuildContext context,
     required Future<List<T>> Function() getRemoteItems,
