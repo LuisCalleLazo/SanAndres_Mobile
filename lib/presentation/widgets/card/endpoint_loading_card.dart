@@ -54,11 +54,11 @@ class _EndpointLoadingCardState extends State<EndpointLoadingCard> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Color.fromARGB(54, 0, 0, 0),
             blurRadius: 4,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),
@@ -103,6 +103,7 @@ class _EndpointLoadingCardState extends State<EndpointLoadingCard> {
               const SizedBox(height: 8),
               LinearProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(widget.primaryColor),
+                // ignore: deprecated_member_use
                 backgroundColor: widget.primaryColor.withOpacity(0.2),
               ),
             ],

@@ -198,7 +198,7 @@ class NetProfitsPage extends StatelessWidget {
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceBetween,
-                  barTouchData: BarTouchData(enabled: true),
+                  barTouchData: const BarTouchData(enabled: true),
                   titlesData: FlTitlesData(
                     show: true,
                     bottomTitles: AxisTitles(
@@ -219,14 +219,14 @@ class NetProfitsPage extends StatelessWidget {
                         reservedSize: 30,
                       ),
                     ),
-                    leftTitles: AxisTitles(
+                    leftTitles: const AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 40,
                       ),
                     ),
                   ),
-                  gridData: FlGridData(show: true),
+                  gridData: const FlGridData(show: true),
                   borderData: FlBorderData(show: false),
                   barGroups: products
                       .asMap()
@@ -279,7 +279,7 @@ class NetProfitsPage extends StatelessWidget {
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceBetween,
-                  barTouchData: BarTouchData(enabled: true),
+                  barTouchData: const BarTouchData(enabled: true),
                   titlesData: FlTitlesData(
                     show: true,
                     bottomTitles: AxisTitles(
@@ -300,14 +300,14 @@ class NetProfitsPage extends StatelessWidget {
                         reservedSize: 30,
                       ),
                     ),
-                    leftTitles: AxisTitles(
+                    leftTitles: const AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 40,
                       ),
                     ),
                   ),
-                  gridData: FlGridData(show: true),
+                  gridData: const FlGridData(show: true),
                   borderData: FlBorderData(show: false),
                   barGroups: products
                       .asMap()
@@ -357,7 +357,7 @@ class NetProfitsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            ...products.map((product) => _buildProfitListItem(product)).toList(),
+            ...products.map((product) => _buildProfitListItem(product)),
           ],
         ),
       ),
@@ -375,6 +375,7 @@ class NetProfitsPage extends StatelessWidget {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: product.color.withOpacity(0.2),
                   shape: BoxShape.circle,
                 ),

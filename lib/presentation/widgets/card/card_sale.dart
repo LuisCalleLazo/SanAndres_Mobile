@@ -17,7 +17,7 @@ class _CardSaleState extends State<CardSale> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return MenuForItemSale(
+        return const MenuForItemSale(
           saleId: 1,
         );
       },
@@ -116,7 +116,7 @@ class _CardSaleState extends State<CardSale> {
 // Menu de 3 opciones por cada tarjeta de autoparte
 class MenuForItemSale extends StatelessWidget {
   final int saleId;
-  MenuForItemSale({
+  const MenuForItemSale({
     super.key,
     required this.saleId,
   });

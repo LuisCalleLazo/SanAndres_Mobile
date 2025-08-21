@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:san_andres_mobile/presentation/services/value_notifier_manager.dart';
@@ -61,6 +60,7 @@ class _SalesScreenState extends State<SalesScreen> {
           GestureDetector(
             onTap: _toggleExpand,
             child: Container(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.5),
               width: double.infinity,
               height: double.infinity,

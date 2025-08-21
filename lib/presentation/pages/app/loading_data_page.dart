@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:san_andres_mobile/presentation/services/api_client.dart';
+import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/endpoint_loading_card.dart';
 
 class LoadingDataPage extends StatefulWidget {
@@ -14,33 +14,35 @@ class LoadingDataPage extends StatefulWidget {
 }
 
 class _LoadingDataPageState extends State<LoadingDataPage> {
-  final Dio _client = api;
   bool _allCompleted = false;
   final List<bool> _completedStatus = [];
 
-  final List<Map<String, dynamic>> _endpoints = [
-    {
-      'name': 'Marcas',
-      'method': (Dio client) => client.get('autopart/brand'),
-    },
-    {
-      'name': 'Categorias',
-      'method': (Dio client) => client.get('autopart/category'),
-    },
-    {
-      'name': 'Tipos de informacion',
-      'method': (Dio client) => client.get('autopart/type-info'),
-    },
-    {
-      'name': 'Autopartes',
-      'method': (Dio client) => client.get('autopart'),
-    },
-  ];
-
+  late final List<Map<String, dynamic>> _endpoints;
   @override
   void initState() {
     super.initState();
-    // Inicializar la lista de estados
+    final autopartProvider =
+        Provider.of<AutopartProvider>(context, listen: false);
+
+    _endpoints = [
+      {
+        'name': 'Marcas',
+        'method': () => autopartProvider.repo.syncAutopartBrands(context),
+      },
+      {
+        'name': 'Categorías',
+        'method': () => autopartProvider.repo.syncAutopartCategories(context),
+      },
+      {
+        'name': 'Tipos de información',
+        'method': () => autopartProvider.repo.syncAutopartTypeInfo(context),
+      },
+      {
+        'name': 'Autopartes',
+        'method': () => autopartProvider.repo.syncAutoparts(context),
+      },
+    ];
+
     _completedStatus.addAll(List.filled(_endpoints.length, false));
   }
 
@@ -90,12 +92,14 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
                 final endpoint = entry.value;
                 return EndpointLoadingCard(
                   endpoint: endpoint['name'],
-                  loadFunction: () => endpoint['method'](_client),
+                  loadFunction: () async {
+                    return await endpoint['method']();
+                  },
                   isLastItem: index == _endpoints.length - 1,
                   primaryColor: const Color(0xFF800020),
                   onCompleted: (success) {
                     setState(() {
-                      _completedStatus[index] = true;
+                      _completedStatus[index] = success;
                     });
                     _checkAllCompleted();
                   },

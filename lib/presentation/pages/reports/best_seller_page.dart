@@ -76,7 +76,7 @@ class BestSellerPage extends StatelessWidget {
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
           maxY: data.first.quantitySold * 1.2,
-          barTouchData: BarTouchData(enabled: true),
+          barTouchData: const BarTouchData(enabled: true),
           titlesData: FlTitlesData(
             show: true,
             bottomTitles: AxisTitles(
@@ -215,6 +215,7 @@ class BestSellerPage extends StatelessWidget {
             ),
           ),
           Chip(
+            // ignore: deprecated_member_use
             backgroundColor: part.color.withOpacity(0.2),
             label: Text(
               '${part.quantitySold} units',

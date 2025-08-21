@@ -80,6 +80,7 @@ class _AutopartsScreenState extends State<AutopartsScreen> {
             GestureDetector(
               onTap: _toggleExpand,
               child: Container(
+                // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.5),
                 width: double.infinity,
                 height: double.infinity,

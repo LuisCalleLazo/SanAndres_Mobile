@@ -52,7 +52,7 @@ class _CardAutopartMinState extends State<CardAutopartMin> {
                       Text(
                         widget.autopart.infos
                             .firstWhere(
-                              (info) => info.type == 'code',
+                              (info) => info.type.toString() == "code",
                               orElse: () => AutopartInfoList(
                                   type: AutopartTypeInfoEnum.code,
                                   value: 'No disponible',

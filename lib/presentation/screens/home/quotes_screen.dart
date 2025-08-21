@@ -221,8 +221,11 @@ class _QuotesScreenState extends State<QuotesScreen> {
                 child: CircleAvatar(
                   radius: 50,
                   backgroundColor: Colors.grey[200],
-                  child:
-                      Icon(Icons.car_repair, size: 50, color: Colors.blueGrey),
+                  child: const Icon(
+                    Icons.car_repair,
+                    size: 50,
+                    color: Colors.blueGrey,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

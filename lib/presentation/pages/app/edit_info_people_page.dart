@@ -43,6 +43,7 @@ class _EditInfoPeoplePageState extends State<EditInfoPeoplePage> {
       // Verificar permisos
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Por favor activa el servicio de ubicación'),
@@ -56,6 +57,7 @@ class _EditInfoPeoplePageState extends State<EditInfoPeoplePage> {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Permisos de ubicación son requeridos'),
@@ -67,6 +69,7 @@ class _EditInfoPeoplePageState extends State<EditInfoPeoplePage> {
       }
 
       if (permission == LocationPermission.deniedForever) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
@@ -79,6 +82,7 @@ class _EditInfoPeoplePageState extends State<EditInfoPeoplePage> {
 
       // Obtener ubicación
       Position position = await Geolocator.getCurrentPosition(
+        // ignore: deprecated_member_use
         desiredAccuracy: LocationAccuracy.high,
       );
 
@@ -88,6 +92,7 @@ class _EditInfoPeoplePageState extends State<EditInfoPeoplePage> {
         _locationController.text = _currentLocation;
       });
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error obteniendo ubicación: ${e.toString()}'),
