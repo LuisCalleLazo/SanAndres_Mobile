@@ -15,9 +15,11 @@ class LoadingDataPage extends StatefulWidget {
 
 class _LoadingDataPageState extends State<LoadingDataPage> {
   bool _allCompleted = false;
-  final List<bool> _completedStatus = [];
 
   late final List<Map<String, dynamic>> _endpoints;
+  late final List<LoadingState> _states;
+  late final List<String?> _errors;
+
   @override
   void initState() {
     super.initState();
@@ -43,19 +45,40 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
       },
     ];
 
-    _completedStatus.addAll(List.filled(_endpoints.length, false));
+    _states = List.filled(_endpoints.length, LoadingState.pending);
+    _errors = List.filled(_endpoints.length, null);
+
+    _startNext(0); // 👈 arrancamos la primera
+  }
+
+  void _startNext(int index) async {
+    if (index >= _endpoints.length) {
+      _checkAllCompleted();
+      return;
+    }
+
+    setState(() => _states[index] = LoadingState.loading);
+
+    final endpoint = _endpoints[index];
+    try {
+      await endpoint['method']();
+      setState(() => _states[index] = LoadingState.completed);
+      _startNext(index + 1); // 👈 lanza la siguiente
+    } catch (e) {
+      setState(() {
+        _states[index] = LoadingState.failed;
+        _errors[index] = e.toString();
+      });
+    }
   }
 
   void _checkAllCompleted() {
-    if (!_allCompleted && _completedStatus.every((status) => status)) {
-      setState(() {
-        _allCompleted = true;
-      });
+    if (!_allCompleted &&
+        _states.every((state) => state == LoadingState.completed)) {
+      setState(() => _allCompleted = true);
 
       Future.delayed(const Duration(seconds: 1), () {
-        if (mounted) {
-          context.go('/home');
-        }
+        if (mounted) context.go('/home');
       });
     }
   }
@@ -92,17 +115,8 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
                 final endpoint = entry.value;
                 return EndpointLoadingCard(
                   endpoint: endpoint['name'],
-                  loadFunction: () async {
-                    return await endpoint['method']();
-                  },
-                  isLastItem: index == _endpoints.length - 1,
-                  primaryColor: const Color(0xFF800020),
-                  onCompleted: (success) {
-                    setState(() {
-                      _completedStatus[index] = success;
-                    });
-                    _checkAllCompleted();
-                  },
+                  state: _states[index],
+                  errorMessage: _errors[index],
                 );
               }),
               const SizedBox(height: 24),

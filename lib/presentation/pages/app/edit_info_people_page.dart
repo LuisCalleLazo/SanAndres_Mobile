@@ -82,10 +82,10 @@ class _EditInfoPeoplePageState extends State<EditInfoPeoplePage> {
 
       // Obtener ubicación
       Position position = await Geolocator.getCurrentPosition(
-        // ignore: deprecated_member_use
-        desiredAccuracy: LocationAccuracy.high,
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
       );
-
       // Formatear la ubicación (puedes usar geocoding para obtener dirección si lo prefieres)
       setState(() {
         _currentLocation = '${position.latitude}, ${position.longitude}';
@@ -131,13 +131,14 @@ class _EditInfoPeoplePageState extends State<EditInfoPeoplePage> {
             children: [
               _buildProfilePicture(),
               const SizedBox(height: 30),
-              _buildFormField(_nameController.text, 'Nombre', 'Ingresa tu nombre'),
+              _buildFormField(
+                  _nameController.text, 'Nombre', 'Ingresa tu nombre'),
               const SizedBox(height: 15),
               _buildFormField(
                   _lastNameController.text, 'Apellido', 'Ingresa tu apellido'),
               const SizedBox(height: 15),
-              _buildFormField(
-                  _emailController.text, 'Correo electrónico', 'Ingresa tu correo'),
+              _buildFormField(_emailController.text, 'Correo electrónico',
+                  'Ingresa tu correo'),
               const SizedBox(height: 15),
               _buildFormField(
                   _phoneController.text, 'Teléfono', 'Ingresa tu teléfono'),

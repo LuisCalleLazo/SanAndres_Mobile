@@ -49,7 +49,7 @@ class _DropdownDevState extends State<DropdownDev> {
             iconSize: 30,
             borderRadius: BorderRadius.circular(10),
             focusColor: Colors.red,
-            value: selectedItem,
+            initialValue: selectedItem,
             hint: Padding(
               padding: const EdgeInsets.only(left: 30),
               child: Text(

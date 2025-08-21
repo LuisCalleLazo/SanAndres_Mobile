@@ -1,4 +1,5 @@
 import 'package:san_andres_mobile/domain/entities/autoparts/autopart_list.dart';
+import 'package:san_andres_mobile/domain/entities/autoparts/autopart_type_info.dart';
 
 class AutopartListModel extends AutopartList {
   AutopartListModel(
@@ -41,8 +42,7 @@ class AutopartListModel extends AutopartList {
   }
 }
 
-class AutopartInfoModel extends AutopartInfoList
-{
+class AutopartInfoModel extends AutopartInfoList {
   AutopartInfoModel({
     required super.id,
     required super.value,
@@ -58,7 +58,7 @@ class AutopartInfoModel extends AutopartInfoList
       value: map['value'] ?? '',
       typeId: map['typeId'] ?? 0,
       typeName: map['typeName'] ?? '',
-      type: map['typeName'] ?? 0,
+      type: AutopartTypeInfoEnum.values[map['type']],
       autopartId: map['autopartId'] ?? 0,
     );
   }
@@ -73,7 +73,6 @@ class AutopartInfoModel extends AutopartInfoList
       autopartId: autopartId,
     );
   }
-
 }
 
 class AutopartAssetModel extends AutopartAssetList {

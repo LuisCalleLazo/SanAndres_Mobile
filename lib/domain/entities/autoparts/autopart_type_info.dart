@@ -15,7 +15,7 @@ class AutopartTypeInfo implements SyncableItem {
   @override
   bool hasChanges(SyncableItem other) {
     if (other is! AutopartTypeInfo) return true;
-    return name != other.name || description != other.description;
+    return name != other.name || description != other.description || type != other.type;
   }
 }
 

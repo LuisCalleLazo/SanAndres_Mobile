@@ -27,8 +27,7 @@ class CustomSnackbar extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10.0,
             spreadRadius: 1.0,
           ),

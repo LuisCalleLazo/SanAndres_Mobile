@@ -103,8 +103,10 @@ class BestSellerPage extends StatelessWidget {
                 reservedSize: 40,
               ),
             ),
-            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
           ),
           gridData: const FlGridData(show: true),
           borderData: FlBorderData(show: false),
@@ -142,7 +144,8 @@ class BestSellerPage extends StatelessWidget {
                 (e) => PieChartSectionData(
                   color: e.color,
                   value: e.quantitySold.toDouble(),
-                  title: '${(e.quantitySold / _totalSales(data) * 100).toStringAsFixed(1)}%',
+                  title:
+                      '${(e.quantitySold / _totalSales(data) * 100).toStringAsFixed(1)}%',
                   radius: 80,
                   titleStyle: const TextStyle(
                     fontSize: 12,
@@ -215,8 +218,7 @@ class BestSellerPage extends StatelessWidget {
             ),
           ),
           Chip(
-            // ignore: deprecated_member_use
-            backgroundColor: part.color.withOpacity(0.2),
+            backgroundColor: part.color.withValues(alpha: 0.2),
             label: Text(
               '${part.quantitySold} units',
               style: TextStyle(color: part.color),

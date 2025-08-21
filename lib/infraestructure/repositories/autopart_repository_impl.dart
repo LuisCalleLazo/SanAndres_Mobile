@@ -66,6 +66,7 @@ class AutopartRepositoryImpl extends AutopartRepository {
 
   @override
   Future<void> syncAutopartTypeInfo(BuildContext context) async {
+    print("AQUI SE EJECUTA LA SINCRONIZACION");
     await syncItems<AutopartTypeInfo>(
       context: context,
       getRemoteItems: () => remoteDataSource.getTypeInfos(),

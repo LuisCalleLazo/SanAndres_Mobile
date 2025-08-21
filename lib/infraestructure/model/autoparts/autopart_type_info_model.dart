@@ -12,19 +12,18 @@ class AutopartTypeInfoModel extends AutopartTypeInfo {
   factory AutopartTypeInfoModel.fromJson(Map<String, dynamic> json) {
     return AutopartTypeInfoModel(
       id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      type: json['type']
+      name: json['name'] ?? "",
+      description: json['description'] ?? "",
+      type: AutopartTypeInfoEnum.values[json['typeValue']],
     );
   }
 
   factory AutopartTypeInfoModel.fromTableData(AutopartTypeInfoTableData data) {
     return AutopartTypeInfoModel(
-      id: data.refId ?? 0,
-      name: data.name,
-      description: data.description ?? "",
-      type: data.type
-    );
+        id: data.refId ?? 0,
+        name: data.name,
+        description: data.description ?? "",
+        type: data.type);
   }
   Map<String, dynamic> toJson() {
     return {

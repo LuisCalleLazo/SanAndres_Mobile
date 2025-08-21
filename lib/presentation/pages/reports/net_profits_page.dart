@@ -9,68 +9,30 @@ class NetProfitsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Datos quemados: Costo, Precio de venta y Cantidad vendida
     final products = [
-      ProductProfit(
-        'Pastillas de freno', 
-        cost: 25, 
-        salePrice: 45, 
-        sold: 12, 
-        color: Colors.blue
-      ),
-      ProductProfit(
-        'Filtros de aceite', 
-        cost: 15, 
-        salePrice: 30, 
-        sold: 9, 
-        color: Colors.green
-      ),
-      ProductProfit(
-        'Bujías', 
-        cost: 8, 
-        salePrice: 20, 
-        sold: 2, 
-        color: Colors.orange
-      ),
-      ProductProfit(
-        'Filtros de aire', 
-        cost: 10, 
-        salePrice: 25, 
-        sold: 1, 
-        color: Colors.red
-      ),
-      ProductProfit(
-        'Amortiguadores', 
-        cost: 80, 
-        salePrice: 150, 
-        sold: 6, 
-        color: Colors.purple
-      ),
-      ProductProfit(
-        'Baterias', 
-        cost: 120, 
-        salePrice: 200, 
-        sold: 6, 
-        color: Colors.teal
-      ),
-      ProductProfit(
-        'Juntas', 
-        cost: 5, 
-        salePrice: 15, 
-        sold: 5, 
-        color: Colors.amber
-      ),
-      ProductProfit(
-        'Muñones', 
-        cost: 45, 
-        salePrice: 90, 
-        sold: 4, 
-        color: Colors.indigo
-      ),
+      ProductProfit('Pastillas de freno',
+          cost: 25, salePrice: 45, sold: 12, color: Colors.blue),
+      ProductProfit('Filtros de aceite',
+          cost: 15, salePrice: 30, sold: 9, color: Colors.green),
+      ProductProfit('Bujías',
+          cost: 8, salePrice: 20, sold: 2, color: Colors.orange),
+      ProductProfit('Filtros de aire',
+          cost: 10, salePrice: 25, sold: 1, color: Colors.red),
+      ProductProfit('Amortiguadores',
+          cost: 80, salePrice: 150, sold: 6, color: Colors.purple),
+      ProductProfit('Baterias',
+          cost: 120, salePrice: 200, sold: 6, color: Colors.teal),
+      ProductProfit('Juntas',
+          cost: 5, salePrice: 15, sold: 5, color: Colors.amber),
+      ProductProfit('Muñones',
+          cost: 45, salePrice: 90, sold: 4, color: Colors.indigo),
     ];
 
     // Calcular métricas
     final totalProfit = products.fold<double>(0, (sum, p) => sum + p.netProfit);
-    final totalInvestment = products.fold<double>(0, (sum, p) => sum + p.totalCost);
-    final totalRevenue = products.fold<double>(0, (sum, p) => sum + p.totalRevenue);
+    final totalInvestment =
+        products.fold<double>(0, (sum, p) => sum + p.totalCost);
+    final totalRevenue =
+        products.fold<double>(0, (sum, p) => sum + p.totalRevenue);
     final profitMargin = (totalProfit / totalRevenue * 100);
 
     return Scaffold(
@@ -83,7 +45,8 @@ class NetProfitsPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildSummaryCards(totalInvestment, totalRevenue, totalProfit, profitMargin),
+            _buildSummaryCards(
+                totalInvestment, totalRevenue, totalProfit, profitMargin),
             const SizedBox(height: 20),
             _buildProfitBarChart(products, context),
             const SizedBox(height: 20),
@@ -96,7 +59,8 @@ class NetProfitsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryCards(double investment, double revenue, double profit, double margin) {
+  Widget _buildSummaryCards(
+      double investment, double revenue, double profit, double margin) {
     return Column(
       children: [
         Row(
@@ -133,7 +97,11 @@ class NetProfitsPage extends StatelessWidget {
               child: _buildSummaryCard(
                 'Margen de Ganancia',
                 '${margin.toStringAsFixed(1)}%',
-                margin >= 30 ? Colors.green : margin >= 15 ? Colors.orange : Colors.red,
+                margin >= 30
+                    ? Colors.green
+                    : margin >= 15
+                        ? Colors.orange
+                        : Colors.red,
               ),
             ),
           ],
@@ -175,7 +143,8 @@ class NetProfitsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfitBarChart(List<ProductProfit> products, BuildContext context) {
+  Widget _buildProfitBarChart(
+      List<ProductProfit> products, BuildContext context) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -189,8 +158,8 @@ class NetProfitsPage extends StatelessWidget {
             Text(
               'Ganancia por Producto',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             const SizedBox(height: 10),
             SizedBox(
@@ -237,7 +206,7 @@ class NetProfitsPage extends StatelessWidget {
                           barRods: [
                             BarChartRodData(
                               toY: e.value.netProfit,
-                              color: e.value.netProfit >= 0 
+                              color: e.value.netProfit >= 0
                                   ? Colors.green[300]!
                                   : Colors.red[300]!,
                               width: 16,
@@ -256,7 +225,8 @@ class NetProfitsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfitabilityChart(List<ProductProfit> products, BuildContext context) {
+  Widget _buildProfitabilityChart(
+      List<ProductProfit> products, BuildContext context) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -270,8 +240,8 @@ class NetProfitsPage extends StatelessWidget {
             Text(
               'Margen de Ganancia por Producto',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             const SizedBox(height: 10),
             SizedBox(
@@ -318,9 +288,9 @@ class NetProfitsPage extends StatelessWidget {
                           barRods: [
                             BarChartRodData(
                               toY: e.value.profitMargin,
-                              color: e.value.profitMargin >= 30 
+                              color: e.value.profitMargin >= 30
                                   ? Colors.green[300]!
-                                  : e.value.profitMargin >= 15 
+                                  : e.value.profitMargin >= 15
                                       ? Colors.orange[300]!
                                       : Colors.red[300]!,
                               width: 16,
@@ -339,7 +309,8 @@ class NetProfitsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProductProfitList(List<ProductProfit> products, BuildContext context) {
+  Widget _buildProductProfitList(
+      List<ProductProfit> products, BuildContext context) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -353,8 +324,8 @@ class NetProfitsPage extends StatelessWidget {
             Text(
               'Detalle por Producto',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             const SizedBox(height: 10),
             ...products.map((product) => _buildProfitListItem(product)),
@@ -375,8 +346,7 @@ class NetProfitsPage extends StatelessWidget {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  // ignore: deprecated_member_use
-                  color: product.color.withOpacity(0.2),
+                  color: product.color.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -411,10 +381,10 @@ class NetProfitsPage extends StatelessWidget {
                     '${product.profitMargin.toStringAsFixed(1)}%',
                     style: TextStyle(
                       fontSize: 12,
-                      color: product.profitMargin >= 30 
-                          ? Colors.green 
-                          : product.profitMargin >= 15 
-                              ? Colors.orange 
+                      color: product.profitMargin >= 30
+                          ? Colors.green
+                          : product.profitMargin >= 15
+                              ? Colors.orange
                               : Colors.red,
                     ),
                   ),

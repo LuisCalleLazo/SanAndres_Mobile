@@ -70,7 +70,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -123,8 +122,7 @@ class _HomePageState extends State<HomePage> {
           GestureDetector(
             onTap: _toggleMenu,
             child: Container(
-              // ignore: deprecated_member_use
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               width: double.infinity,
               height: double.infinity,
             ),

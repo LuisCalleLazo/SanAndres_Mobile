@@ -22,7 +22,7 @@ class SaleItemsPage extends StatelessWidget {
         children: [
           // Encabezado con información de la venta
           _buildSaleHeader(context),
-          
+
           // Lista de productos
           Expanded(
             child: ListView.builder(
@@ -33,7 +33,7 @@ class SaleItemsPage extends StatelessWidget {
               },
             ),
           ),
-          
+
           // Total de la venta
           _buildTotalFooter(context),
         ],
@@ -107,7 +107,7 @@ class SaleItemsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            
+
             // Detalles del producto
             Expanded(
               child: Column(
@@ -144,8 +144,7 @@ class SaleItemsPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        // ignore: deprecated_member_use
-        color: Theme.of(context).primaryColor.withOpacity(0.1),
+        color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
       ),
       child: Row(

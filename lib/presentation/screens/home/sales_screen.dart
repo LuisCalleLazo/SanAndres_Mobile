@@ -60,8 +60,7 @@ class _SalesScreenState extends State<SalesScreen> {
           GestureDetector(
             onTap: _toggleExpand,
             child: Container(
-              // ignore: deprecated_member_use
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               width: double.infinity,
               height: double.infinity,
             ),

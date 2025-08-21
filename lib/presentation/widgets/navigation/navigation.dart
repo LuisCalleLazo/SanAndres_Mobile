@@ -26,8 +26,7 @@ class _NavigationState extends State<Navigation> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.shifting,
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-      // ignore: deprecated_member_use
-      unselectedItemColor: Colors.red[900]?.withOpacity(0.3),
+      unselectedItemColor: Colors.red[900]?.withValues(alpha: 0.3),
       selectedItemColor: Colors.red[900],
       items: <BottomNavigationBarItem>[
         if (isSeller)

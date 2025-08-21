@@ -90,9 +90,7 @@ class _ReceiptSalePageState extends State<ReceiptSalePage> {
               pw.SizedBox(height: 20),
 
               // Tabla de productos
-              // ignore: deprecated_member_use
-              pw.Table.fromTextArray(
-                context: context,
+              pw.TableHelper.fromTextArray(
                 border: pw.TableBorder.all(),
                 headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                 headerDecoration:
