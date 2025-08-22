@@ -8,4 +8,8 @@ abstract class AutopartRepository {
   Future<void> syncAutopartCategories(BuildContext context);
   Future<void> syncAutopartTypeInfo(BuildContext context);
   Future<void> syncAutoparts(BuildContext context);
+  Future<void> syncAutopartsOfSeller(BuildContext context);
+  Future<void> syncSales(BuildContext context);
+  Future<void> syncBuys(BuildContext context);
+  Future<void> syncGeneral(BuildContext context);
 }

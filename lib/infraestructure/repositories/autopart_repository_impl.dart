@@ -208,4 +208,24 @@ class AutopartRepositoryImpl extends AutopartRepository {
       value: listItem.value,
     );
   }
+  
+  @override
+  Future<void> syncAutopartsOfSeller(BuildContext context) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> syncSales(BuildContext context) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> syncBuys(BuildContext context) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> syncGeneral(BuildContext context) {
+    throw UnimplementedError();
+  }
 }

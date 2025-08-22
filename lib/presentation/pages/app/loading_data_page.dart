@@ -43,6 +43,22 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
         'name': 'Autopartes',
         'method': () => autopartProvider.repo.syncAutoparts(context),
       },
+      {
+        'name': 'Mercaderia',
+        'method': () => autopartProvider.repo.syncAutopartsOfSeller(context),
+      },
+      {
+        'name': 'Ventas',
+        'method': () => autopartProvider.repo.syncSales(context),
+      },
+      {
+        'name': 'Compras',
+        'method': () => autopartProvider.repo.syncBuys(context),
+      },
+      {
+        'name': 'General',
+        'method': () => autopartProvider.repo.syncGeneral(context),
+      },
     ];
 
     _states = List.filled(_endpoints.length, LoadingState.pending);
