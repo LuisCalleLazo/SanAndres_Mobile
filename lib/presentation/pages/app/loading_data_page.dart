@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:san_andres_mobile/infraestructure/repositories/sync_repository_impl.dart';
 import 'package:san_andres_mobile/presentation/provider/autopart_provider.dart';
 import 'package:san_andres_mobile/presentation/widgets/card/endpoint_loading_card.dart';
 
@@ -19,6 +20,7 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
   late final List<Map<String, dynamic>> _endpoints;
   late final List<LoadingState> _states;
   late final List<String?> _errors;
+  late final SyncRepositoryImpl _syncRepository; 
 
   @override
   void initState() {
@@ -45,19 +47,19 @@ class _LoadingDataPageState extends State<LoadingDataPage> {
       },
       {
         'name': 'Mercaderia',
-        'method': () => autopartProvider.repo.syncAutopartsOfSeller(context),
+        'method': () => _syncRepository.syncAutopartsOfSeller(context),
       },
       {
         'name': 'Ventas',
-        'method': () => autopartProvider.repo.syncSales(context),
+        'method': () => _syncRepository.syncSales(context),
       },
       {
         'name': 'Compras',
-        'method': () => autopartProvider.repo.syncBuys(context),
+        'method': () => _syncRepository.syncBuys(context),
       },
       {
         'name': 'General',
-        'method': () => autopartProvider.repo.syncGeneral(context),
+        'method': () =>_syncRepository.syncGeneral(context),
       },
     ];
 
